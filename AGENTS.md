@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Perintah
 
-- `npm run ci` — gerbang CI yang sebenarnya: `next typegen` → `typecheck` → `test:all`. Pakai ini sebelum push; `npm run lint` dan `npm run format:check` tidak dijalankan CI, jadi panggil sendiri.
+- `npm run ci` — gerbang CI yang sebenarnya: `next typegen` → `typecheck` → `format:check` → `test:all`. Pakai ini sebelum push; `npm run lint` tetap tidak dijalankan CI, jadi panggil sendiri.
 - `npm test` — Vitest untuk `tests/**` dan `worker/**`, serial (`fileParallelism: false`). Butuh PostgreSQL hidup; `tests/helpers/database.ts` membuat database `stealth_hosting_test` sendiri (override lewat `TEST_DATABASE_URL`). Redis hanya dipakai `tests/platform/redis.test.ts`.
 - `npm run test:go` — tes Node Agent; memakai engine Docker sungguhan sehingga `docker version` harus berhasil. Tes build melewati dirinya sendiri bila Docker mati.
 - `npm run contract:generate` setelah mengubah `contracts/agent.openapi.yaml`. Keluarannya `contracts/generated/agent.d.ts` dan `agent/internal/api/generated.gen.go`; jangan diedit tangan, dan commit hasil generate (CI gagal pada drift).
