@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Check, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { Card, CardActions, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { AdminSetupSummary, AdminSetupStepId } from "@/lib/platform/admin-onboarding";
 
@@ -154,24 +154,6 @@ export function AdminWelcome({ name, summary }: { name: string; summary: AdminSe
               />
             ))}
           </ol>
-
-          <div className="mt-1 flex gap-3 rounded-lg border border-[var(--projects-border)] bg-[#0f0f0f] p-3 sm:p-3.5">
-            <ShieldCheck
-              size={17}
-              strokeWidth={1.8}
-              aria-hidden="true"
-              className="mt-0.5 shrink-0 text-[var(--projects-muted)]"
-            />
-            <div className="min-w-0">
-              <p className="m-0 text-[13.5px] font-semibold leading-5 text-[var(--projects-text)]">
-                Admin actions are audited
-              </p>
-              <ul className="m-0 mt-1 list-disc space-y-0.5 pl-4 text-[13px] leading-5 text-[var(--projects-muted)]">
-                <li>Provider secrets are encrypted at rest and never returned by the API.</li>
-                <li>Suspensions, incidents, and provider changes are recorded in the audit log.</li>
-              </ul>
-            </div>
-          </div>
         </CardContent>
       </Card>
     </section>
