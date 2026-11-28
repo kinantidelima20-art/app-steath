@@ -46,9 +46,7 @@ export function DetailDrawer({
         return;
       }
       if (event.key !== "Tab" || !panel) return;
-      const focusable = Array.from(
-        panel.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
-      );
+      const focusable = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
       if (focusable.length === 0) {
         event.preventDefault();
         panel.focus();

@@ -42,9 +42,7 @@ export function StatTile({
         </span>
       )}
       <div className="min-w-0">
-        <p className="m-0 truncate text-[11px] leading-4 text-[var(--projects-muted)]">
-          {label}
-        </p>
+        <p className="m-0 truncate text-[11px] leading-4 text-[var(--projects-muted)]">{label}</p>
         <p
           className={cn(
             "m-0 truncate text-[17px] font-semibold leading-6 tracking-[-0.01em]",

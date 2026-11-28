@@ -29,15 +29,11 @@ export function useUpdateAdminAccountPlan() {
     setPending(true);
     setVariables(input);
     setError(null);
-    adminSend<{ account: AdminAccount }>(
-      `/api/admin/accounts/${input.accountID}/plan`,
-      "PUT",
-      { plan: input.plan },
-    )
+    adminSend<{ account: AdminAccount }>(`/api/admin/accounts/${input.accountID}/plan`, "PUT", {
+      plan: input.plan,
+    })
       .catch((cause: unknown) =>
-        setError(
-          cause instanceof Error ? cause : new Error("The request failed."),
-        ),
+        setError(cause instanceof Error ? cause : new Error("The request failed.")),
       )
       .finally(() => setPending(false));
   };
@@ -53,14 +49,9 @@ export function useCreateAdminIncident() {
     setPending(true);
     setError(null);
     try {
-      return await adminSend<{ incident: unknown }>(
-        "/api/admin/incidents",
-        "POST",
-        input,
-      );
+      return await adminSend<{ incident: unknown }>("/api/admin/incidents", "POST", input);
     } catch (cause: unknown) {
-      const failure =
-        cause instanceof Error ? cause : new Error("The request failed.");
+      const failure = cause instanceof Error ? cause : new Error("The request failed.");
       setError(failure);
       throw failure;
     } finally {
@@ -88,8 +79,7 @@ export function useUpdateAdminErrorStatus() {
         { status: input.status },
       );
     } catch (cause: unknown) {
-      const failure =
-        cause instanceof Error ? cause : new Error("The request failed.");
+      const failure = cause instanceof Error ? cause : new Error("The request failed.");
       setError(failure);
       throw failure;
     } finally {
@@ -117,16 +107,10 @@ export function useUpdateAdminOAuthProvider() {
   ) => {
     setPending(true);
     setError(null);
-    adminSend(
-      `/api/admin/oauth-providers/${input.provider}`,
-      "PUT",
-      input.body,
-    )
+    adminSend(`/api/admin/oauth-providers/${input.provider}`, "PUT", input.body)
       .then(() => options?.onSuccess?.())
       .catch((cause: unknown) =>
-        setError(
-          cause instanceof Error ? cause : new Error("The request failed."),
-        ),
+        setError(cause instanceof Error ? cause : new Error("The request failed.")),
       )
       .finally(() => setPending(false));
   };
@@ -139,18 +123,13 @@ export function useDeleteAdminOAuthProvider() {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const mutate = (
-    provider: OAuthProviderName,
-    options?: { onSuccess?: () => void },
-  ) => {
+  const mutate = (provider: OAuthProviderName, options?: { onSuccess?: () => void }) => {
     setPending(true);
     setError(null);
     adminSend(`/api/admin/oauth-providers/${provider}`, "DELETE", {})
       .then(() => options?.onSuccess?.())
       .catch((cause: unknown) =>
-        setError(
-          cause instanceof Error ? cause : new Error("The request failed."),
-        ),
+        setError(cause instanceof Error ? cause : new Error("The request failed.")),
       )
       .finally(() => setPending(false));
   };

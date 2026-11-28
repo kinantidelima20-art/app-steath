@@ -2,17 +2,14 @@ import type { components } from "@/lib/admin/api-schema";
 import type { Incident } from "../../types/incidents";
 
 export type AdminOperation = components["schemas"]["AdminOperation"];
-export type AdminOperationSummary =
-  components["schemas"]["AdminOperationSummary"];
+export type AdminOperationSummary = components["schemas"]["AdminOperationSummary"];
 export type AdminErrorGroup = components["schemas"]["AdminErrorGroup"];
 export type AdminTraceSpan = components["schemas"]["AdminTraceSpan"];
 export type AdminLog = components["schemas"]["AdminLog"];
-export type AdminHostMetricsSnapshot =
-  components["schemas"]["AdminHostMetricsSnapshot"];
+export type AdminHostMetricsSnapshot = components["schemas"]["AdminHostMetricsSnapshot"];
 export type AdminAgentCatalog = components["schemas"]["AgentCatalogResponse"];
 export type AdminStatusPage = components["schemas"]["AdminStatusPage"];
-export type AdminStatusPageComponent =
-  components["schemas"]["AdminStatusPageComponent"];
+export type AdminStatusPageComponent = components["schemas"]["AdminStatusPageComponent"];
 
 export type AdminReadStatus = "pending" | "error" | "ready";
 

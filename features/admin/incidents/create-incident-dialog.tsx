@@ -8,8 +8,7 @@ import type { IncidentSeverity } from "../types/incidents";
 
 const fieldClass =
   "h-10 w-full rounded-md border border-[var(--projects-border)] bg-[var(--projects-control)] px-3 text-[13px] leading-4 text-[var(--projects-text)] outline-none transition-colors focus:border-[var(--projects-border-hover)]";
-const labelClass =
-  "mb-1.5 block text-[12px] font-medium text-[var(--projects-muted)]";
+const labelClass = "mb-1.5 block text-[12px] font-medium text-[var(--projects-muted)]";
 
 const SEVERITIES: IncidentSeverity[] = ["critical", "warning", "info"];
 const SERVICES = [
@@ -38,9 +37,7 @@ export function CreateIncidentDialog({
   pending: boolean;
   error?: string | null;
   onClose: () => void;
-  onSubmit: (
-    input: components["schemas"]["CreateAdminIncidentRequest"],
-  ) => void | Promise<void>;
+  onSubmit: (input: components["schemas"]["CreateAdminIncidentRequest"]) => void | Promise<void>;
 }) {
   const [title, setTitle] = useState("");
   const [severity, setSeverity] = useState<IncidentSeverity>("warning");
@@ -67,9 +64,7 @@ export function CreateIncidentDialog({
 
   const toggleService = (service: string, checked: boolean) => {
     setServices((prev) =>
-      checked
-        ? [...new Set([...prev, service])]
-        : prev.filter((item) => item !== service),
+      checked ? [...new Set([...prev, service])] : prev.filter((item) => item !== service),
     );
   };
 
@@ -81,23 +76,16 @@ export function CreateIncidentDialog({
     }
     void onSubmit({
       title: title.trim(),
-      severity:
-        severity as components["schemas"]["CreateAdminIncidentRequest"]["severity"],
-      status:
-        "investigating" as components["schemas"]["CreateAdminIncidentRequest"]["status"],
+      severity: severity as components["schemas"]["CreateAdminIncidentRequest"]["severity"],
+      status: "investigating" as components["schemas"]["CreateAdminIncidentRequest"]["status"],
       services: services.length > 0 ? services : ["API"],
-      message:
-        message.trim() || "Incident opened manually from the admin console.",
+      message: message.trim() || "Incident opened manually from the admin console.",
     });
   };
 
   return (
     <div className="fixed inset-0 z-[70] flex items-end justify-center sm:items-center sm:px-4">
-      <div
-        className="absolute inset-0 bg-black/60"
-        onClick={onClose}
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} aria-hidden="true" />
       <div
         role="dialog"
         aria-modal="true"
@@ -138,10 +126,7 @@ export function CreateIncidentDialog({
               autoFocus
               placeholder="e.g. Elevated sandbox provision failures"
               aria-invalid={!!titleError}
-              className={cn(
-                fieldClass,
-                titleError && "border-[var(--projects-danger)]",
-              )}
+              className={cn(fieldClass, titleError && "border-[var(--projects-danger)]")}
             />
             {titleError && (
               <span className="mt-1 block text-[12px] text-[var(--projects-danger)]">
@@ -154,9 +139,7 @@ export function CreateIncidentDialog({
             <span className={labelClass}>Severity</span>
             <select
               value={severity}
-              onChange={(event) =>
-                setSeverity(event.target.value as IncidentSeverity)
-              }
+              onChange={(event) => setSeverity(event.target.value as IncidentSeverity)}
               aria-label="Severity"
               className={cn(fieldClass, "appearance-none")}
             >
@@ -187,9 +170,7 @@ export function CreateIncidentDialog({
                       type="checkbox"
                       className="sr-only"
                       checked={checked}
-                      onChange={(event) =>
-                        toggleService(service, event.target.checked)
-                      }
+                      onChange={(event) => toggleService(service, event.target.checked)}
                     />
                     {checked ? "✓" : "+"} {service}
                   </label>
@@ -210,10 +191,7 @@ export function CreateIncidentDialog({
           </label>
 
           {error ? (
-            <p
-              className="m-0 text-[12px] text-[var(--projects-danger)]"
-              role="alert"
-            >
+            <p className="m-0 text-[12px] text-[var(--projects-danger)]" role="alert">
               {error}
             </p>
           ) : null}

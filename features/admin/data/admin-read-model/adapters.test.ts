@@ -1,11 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { AdminStatusPageComponentStatus } from "@/lib/admin/api-schema";
-import type {
-  AdminHostMetricsSnapshot,
-  AdminLog,
-  AdminOperation,
-  AdminTraceSpan,
-} from "./types";
+import type { AdminHostMetricsSnapshot, AdminLog, AdminOperation, AdminTraceSpan } from "./types";
 import {
   executionQueueFromOperations,
   hostFromMetrics,
@@ -53,11 +48,7 @@ const hostSnapshot: AdminHostMetricsSnapshot = {
   ],
 };
 
-function operation(
-  id: string,
-  status: string,
-  kind = "agent_run",
-): AdminOperation {
+function operation(id: string, status: string, kind = "agent_run"): AdminOperation {
   return {
     id,
     kind: kind as AdminOperation["kind"],
@@ -90,15 +81,8 @@ describe("admin read model adapters", () => {
 
   it("builds four resource series from the same host history", () => {
     const series = resourceSeriesFromMetrics(hostSnapshot);
-    expect(series.map((item) => item.id)).toEqual([
-      "cpu",
-      "memory",
-      "disk",
-      "network",
-    ]);
-    expect(series.find((item) => item.id === "network")?.current).toBe(
-      "3 MB/s",
-    );
+    expect(series.map((item) => item.id)).toEqual(["cpu", "memory", "disk", "network"]);
+    expect(series.find((item) => item.id === "network")?.current).toBe("3 MB/s");
   });
 
   it("groups spans by trace ID and keeps the root span as the trace identity", () => {

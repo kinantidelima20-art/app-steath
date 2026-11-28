@@ -18,17 +18,12 @@ export function SystemStatus({
   components: ComponentStatus[];
   className?: string;
 }) {
-  const degraded = components.filter(
-    (component) => component.status === "degraded",
-  );
+  const degraded = components.filter((component) => component.status === "degraded");
   const down = components.filter(
-    (component) =>
-      component.status === "down" || component.status === "unavailable",
+    (component) => component.status === "down" || component.status === "unavailable",
   );
   const operational = degraded.length === 0 && down.length === 0;
-  const affected = [...down, ...degraded]
-    .map((component) => component.name)
-    .join(", ");
+  const affected = [...down, ...degraded].map((component) => component.name).join(", ");
 
   return (
     <section
@@ -42,19 +37,9 @@ export function SystemStatus({
       }
     >
       {operational ? (
-        <StatusBadge
-          tone="success"
-          label="All systems operational"
-          className="text-[13px]"
-          pulse
-        />
+        <StatusBadge tone="success" label="All systems operational" className="text-[13px]" pulse />
       ) : (
-        <StatusBadge
-          tone="warning"
-          label="Degraded performance"
-          className="text-[13px]"
-          pulse
-        />
+        <StatusBadge tone="warning" label="Degraded performance" className="text-[13px]" pulse />
       )}
       <p className="m-0 min-w-0 flex-1 text-[12.5px] leading-5 text-[var(--projects-muted)]">
         {operational

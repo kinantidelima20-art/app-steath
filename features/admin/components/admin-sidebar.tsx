@@ -29,13 +29,7 @@ export const ADMIN_RAIL_EXPANDED_WIDTH = 228;
 /** The project mark, shown in a bordered tile like the reference rail. When
     the rail is collapsed the mark is the only brand cue, so it carries the
     accessible name; expanded, the adjacent title does. */
-function AdminBrandMark({
-  collapsed,
-  className,
-}: {
-  collapsed: boolean;
-  className?: string;
-}) {
+function AdminBrandMark({ collapsed, className }: { collapsed: boolean; className?: string }) {
   return (
     <span
       className={cn(
@@ -98,10 +92,7 @@ function AdminNavRow({
         <Icon
           size={16}
           strokeWidth={1.8}
-          className={cn(
-            "shrink-0",
-            active ? "text-[var(--projects-accent)]" : "text-[#AAA6AE]",
-          )}
+          className={cn("shrink-0", active ? "text-[var(--projects-accent)]" : "text-[#AAA6AE]")}
         />
         <AnimatePresence initial={false}>
           {!collapsed && (
@@ -196,10 +187,7 @@ function AdminSidebarBody({
             {groupIndex > 0 && (
               <div
                 aria-hidden="true"
-                className={cn(
-                  "my-2 h-px bg-[#26242b]",
-                  collapsed ? "mx-2" : "mx-1",
-                )}
+                className={cn("my-2 h-px bg-[#26242b]", collapsed ? "mx-2" : "mx-1")}
               />
             )}
             {!collapsed && (
@@ -238,9 +226,7 @@ function AdminSidebarBody({
           )}
         >
           <StatusDot />
-          {!collapsed && (
-            <span className="truncate">All systems operational</span>
-          )}
+          {!collapsed && <span className="truncate">All systems operational</span>}
         </Link>
         <motion.button
           type="button"
@@ -256,9 +242,7 @@ function AdminSidebarBody({
         >
           <LogOut size={16} strokeWidth={1.8} aria-hidden="true" />
           {!collapsed && (
-            <span className="truncate">
-              {signingOut ? "Signing out…" : "Sign out"}
-            </span>
+            <span className="truncate">{signingOut ? "Signing out…" : "Sign out"}</span>
           )}
         </motion.button>
       </footer>
@@ -318,10 +302,7 @@ export function AdminSidebar({
   // Mobile sheet effect: scroll lock, focus handoff, Escape, focus trap.
   useEffect(() => {
     if (!open) return;
-    const opener =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const body = document.body;
     const scrollY = window.scrollY;
     const previous = {
@@ -366,13 +347,9 @@ export function AdminSidebar({
         aria-label="Admin navigation"
         initial={false}
         animate={{
-          width: collapsed
-            ? ADMIN_RAIL_COLLAPSED_WIDTH
-            : ADMIN_RAIL_EXPANDED_WIDTH,
+          width: collapsed ? ADMIN_RAIL_COLLAPSED_WIDTH : ADMIN_RAIL_EXPANDED_WIDTH,
         }}
-        transition={
-          collapsed ? SIDEBAR_COLLAPSE_TRANSITION : SIDEBAR_EXPAND_TRANSITION
-        }
+        transition={collapsed ? SIDEBAR_COLLAPSE_TRANSITION : SIDEBAR_EXPAND_TRANSITION}
         className="hidden shrink-0 flex-col overflow-hidden border-r border-[#322F37] bg-[#121014] lg:flex"
       >
         <AdminSidebarBody collapsed={collapsed} />
@@ -417,9 +394,7 @@ export function AdminSidebar({
               }
               if (event.key !== "Tab") return;
               const focusable = panelRef.current
-                ? Array.from(
-                    panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE),
-                  )
+                ? Array.from(panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE))
                 : [];
               if (focusable.length === 0) {
                 event.preventDefault();
@@ -441,10 +416,7 @@ export function AdminSidebar({
               !open && "pointer-events-none",
             )}
           >
-            <AdminSidebarBody
-              onNavigate={() => onClose()}
-              onMobileClose={onClose}
-            />
+            <AdminSidebarBody onNavigate={() => onClose()} onMobileClose={onClose} />
           </motion.div>
         </div>
       )}

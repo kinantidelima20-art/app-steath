@@ -10,8 +10,7 @@ import { cn } from "@/lib/utils";
 
 const fieldClass =
   "h-10 w-full rounded-md border border-[var(--projects-border)] bg-[var(--projects-control)] px-3 text-[13px] leading-4 text-[var(--projects-text)] outline-none transition-colors focus:border-[var(--projects-border-hover)]";
-const labelClass =
-  "mb-1.5 block text-[12px] font-medium text-[var(--projects-muted)]";
+const labelClass = "mb-1.5 block text-[12px] font-medium text-[var(--projects-muted)]";
 
 /** Settings — admin configuration form. Local state only; nothing persists. */
 export function SettingsPage() {

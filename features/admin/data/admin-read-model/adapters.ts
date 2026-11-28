@@ -60,9 +60,7 @@ export function hostFromMetrics(
     ip: "local",
     region: "in-process",
     cpu: round(current.cpu_percent),
-    memory: round(
-      percent(current.memory_used_bytes, current.memory_total_bytes),
-    ),
+    memory: round(percent(current.memory_used_bytes, current.memory_total_bytes)),
     storage: round(percent(current.disk_used_bytes, current.disk_total_bytes)),
     memoryTotalGb: round(current.memory_total_bytes / GIB, 1),
     storageTotalGb: round(current.disk_total_bytes / GIB, 1),
@@ -92,8 +90,7 @@ export function resourceSeriesFromMetrics(
   const network: MetricPoint[] = history.map((sample) => ({
     timestamp: formatChartTime(sample.timestamp),
     value: round(
-      (sample.network_rx_bytes_per_sec + sample.network_tx_bytes_per_sec) /
-        (1024 * 1024),
+      (sample.network_rx_bytes_per_sec + sample.network_tx_bytes_per_sec) / (1024 * 1024),
       2,
     ),
   }));
@@ -128,9 +125,7 @@ function resourceSeries(
   };
 }
 
-export function cpuHistoryFromMetrics(
-  snapshot: AdminHostMetricsSnapshot | undefined,
-): number[] {
+export function cpuHistoryFromMetrics(snapshot: AdminHostMetricsSnapshot | undefined): number[] {
   return snapshot?.history.map((sample) => round(sample.cpu_percent)) ?? [];
 }
 
@@ -163,16 +158,13 @@ export function executionQueueFromOperations(
     items: operations,
     queued:
       summary?.queued_jobs ??
-      operations.filter((item) => normalizeRunStatus(item.status) === "queued")
-        .length,
+      operations.filter((item) => normalizeRunStatus(item.status) === "queued").length,
     running:
       summary?.running_jobs ??
-      operations.filter((item) => normalizeRunStatus(item.status) === "running")
-        .length,
+      operations.filter((item) => normalizeRunStatus(item.status) === "running").length,
     failed:
       summary?.failed_jobs ??
-      operations.filter((item) => normalizeRunStatus(item.status) === "failed")
-        .length,
+      operations.filter((item) => normalizeRunStatus(item.status) === "failed").length,
   };
 }
 
@@ -213,11 +205,7 @@ export function logFromApi(item: AdminLog): LogEntry {
   const attributes = { ...(item.attributes ?? {}) };
   const resource = item.resource_attributes ?? {};
   const requestId =
-    firstAttribute(attributes, [
-      "request_id",
-      "http.request.id",
-      "request.id",
-    ]) ?? "—";
+    firstAttribute(attributes, ["request_id", "http.request.id", "request.id"]) ?? "—";
   const traceId = item.trace_id ?? "—";
   const statusCode = firstAttribute(attributes, [
     "http.response.status_code",
@@ -230,13 +218,9 @@ export function logFromApi(item: AdminLog): LogEntry {
     "latency_ms",
   ]);
   return {
-    id: [
-      item.timestamp,
-      item.service,
-      item.trace_id ?? "",
-      item.span_id ?? "",
-      item.message,
-    ].join("|"),
+    id: [item.timestamp, item.service, item.trace_id ?? "", item.span_id ?? "", item.message].join(
+      "|",
+    ),
     timestampIso: item.timestamp,
     timestamp: logClock(item.timestamp),
     level: normalizeLogLevel(item.level),
@@ -256,10 +240,7 @@ export function logFromApi(item: AdminLog): LogEntry {
     attributes: {
       ...attributes,
       ...Object.fromEntries(
-        Object.entries(resource).map(([key, value]) => [
-          `resource.${key}`,
-          value,
-        ]),
+        Object.entries(resource).map(([key, value]) => [`resource.${key}`, value]),
       ),
     },
   };
@@ -280,16 +261,12 @@ export function tracesFromSpans(spans: AdminTraceSpan[]): Trace[] {
   return [...grouped.entries()]
     .map(([traceId, traceSpans]) => {
       const ordered = [...traceSpans].sort(
-        (a, b) =>
-          new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime(),
+        (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime(),
       );
       const root = ordered.find((span) => !span.parent_span_id) ?? ordered[0];
       const start = new Date(ordered[0].timestamp).getTime();
       const end = Math.max(
-        ...ordered.map(
-          (span) =>
-            new Date(span.timestamp).getTime() + span.duration_ns / 1_000_000,
-        ),
+        ...ordered.map((span) => new Date(span.timestamp).getTime() + span.duration_ns / 1_000_000),
       );
       const spanList: TraceSpan[] = ordered.map((span) => ({
         id: span.span_id,
@@ -348,30 +325,23 @@ export function usageFromOperations(
   return {
     summary,
     totalRecent: operations.length,
-    byKind: countBy(operations, (item) => item.kind).map(
-      ({ value, count }) => ({
-        kind: value,
-        count,
-      }),
-    ),
-    byStatus: countBy(operations, (item) => item.status).map(
-      ({ value, count }) => ({ status: value, count }),
-    ),
+    byKind: countBy(operations, (item) => item.kind).map(({ value, count }) => ({
+      kind: value,
+      count,
+    })),
+    byStatus: countBy(operations, (item) => item.status).map(({ value, count }) => ({
+      status: value,
+      count,
+    })),
     recent: operations.slice(0, 20),
   };
 }
 
-function incidentDuration(
-  startedAt: string,
-  resolvedAt: string | null | undefined,
-): string {
+function incidentDuration(startedAt: string, resolvedAt: string | null | undefined): string {
   const start = new Date(startedAt).getTime();
   const end = resolvedAt ? new Date(resolvedAt).getTime() : Date.now();
   const minutes = Math.max(0, Math.round((end - start) / 60_000));
-  const label =
-    minutes < 60
-      ? `${minutes}m`
-      : `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
+  const label = minutes < 60 ? `${minutes}m` : `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
   return resolvedAt ? label : `Ongoing for ${label}`;
 }
 
@@ -385,9 +355,7 @@ function toIncidentUpdate(
   };
 }
 
-export function toIncident(
-  item: components["schemas"]["AdminIncident"],
-): Incident {
+export function toIncident(item: components["schemas"]["AdminIncident"]): Incident {
   return {
     id: item.id,
     title: item.title,
@@ -408,9 +376,7 @@ export function statusFromApi(
   const degraded =
     incidents.some((incident) => incident.status !== "resolved") ||
     components.some(
-      (component) =>
-        component.status !== "operational" &&
-        component.status !== "maintenance",
+      (component) => component.status !== "operational" && component.status !== "maintenance",
     );
   return {
     name: page?.name ?? "Status page",

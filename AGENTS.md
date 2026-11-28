@@ -41,7 +41,7 @@ sg docker -c "docker compose -f docker-compose.production.yml up -d --build cont
 
 ## Konvensi yang mudah dilanggar
 
-- `features/admin/**` adalah salinan verbatim stealth-forge: **jangan diedit** (ADR-0008). Adaptasi hanya di `app/admin/**` lewat import, `className`, atau komposisi; perbedaan yang tak bisa diselesaikan dari call site adalah keputusan produk baru.
+- `features/admin/**` adalah salinan stealth-forge: jangan ubah perilaku, markup, atau token; satu-satunya perubahan lokal yang diizinkan adalah format Prettier (ADR-0008). Adaptasi hanya di `app/admin/**` lewat import, `className`, atau komposisi; perbedaan yang tak bisa diselesaikan dari call site adalah keputusan produk baru.
 - Override palet halaman auth ada di blok akhir `app/globals.css` dan seluruhnya di-scope `.auth-page`; console user dan panel admin tidak boleh ikut berubah. Token dan komentar di blok itu merujuk design system Cloudflare, bukan nilai acak.
 - `features/admin` dan console memakai token warnanya sendiri; jangan menaikkan selector auth ke level global.
 

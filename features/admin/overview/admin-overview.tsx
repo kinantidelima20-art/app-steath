@@ -12,11 +12,7 @@ import { AdminSelect } from "../components/admin-select";
 import { MetricCard } from "../components/metric-card";
 import { MetricCardsSkeleton } from "../components/admin-skeletons";
 import { StatTile } from "../components/stat-tile";
-import {
-  LiveIndicator,
-  RefreshButton,
-  UpdatedLabel,
-} from "../components/live-indicator";
+import { LiveIndicator, RefreshButton, UpdatedLabel } from "../components/live-indicator";
 import { formatBytes } from "@/lib/format";
 import { toIncident } from "../data/admin-read-model";
 import { SystemStatus } from "./system-status";
@@ -69,29 +65,20 @@ export function AdminOverview() {
 
   const overview = useAdminOverview();
   const host = useAdminHostMetrics(rangeMeta?.minutes);
-  const incidentsQuery = useAdminIncidents(
-    { limit: 20 },
-    { refetchInterval: 30_000 },
-  );
+  const incidentsQuery = useAdminIncidents({ limit: 20 }, { refetchInterval: 30_000 });
 
   // The "Live" badge reflects real connectivity: any failing/again-loading
   // query flips it to amber instead of claiming a live connection.
-  const connected =
-    !overview.isError && !host.isError && !incidentsQuery.isError;
+  const connected = !overview.isError && !host.isError && !incidentsQuery.isError;
 
   const components = overview.data?.components ?? [];
   const operations = overview.data?.operations;
   const recentDeployments = overview.data?.recent_deployments;
   const current = host.data?.current;
   const history = useMemo(() => host.data?.history ?? [], [host.data]);
-  const network = current
-    ? rateParts(current.network_rx_bytes_per_sec)
-    : undefined;
+  const network = current ? rateParts(current.network_rx_bytes_per_sec) : undefined;
 
-  const cpuHistory = useMemo(
-    () => history.map((sample) => sample.cpu_percent),
-    [history],
-  );
+  const cpuHistory = useMemo(() => history.map((sample) => sample.cpu_percent), [history]);
   const memoryHistory = useMemo(
     () => history.map((sample) => sample.memory_used_bytes / GIB),
     [history],
@@ -128,10 +115,7 @@ export function AdminOverview() {
     [incidentsQuery.data],
   );
 
-  const rangeLabel = useMemo(
-    () => rangeMeta?.label ?? range,
-    [rangeMeta, range],
-  );
+  const rangeLabel = useMemo(() => rangeMeta?.label ?? range, [rangeMeta, range]);
 
   // Deltas for the metric-card change indicators, computed from the retained
   // history so the cards read like the redesign ("+4.2% from previous hour").
@@ -161,27 +145,16 @@ export function AdminOverview() {
       : undefined;
   const memoryDelta =
     hasDelta && current && memoryBaseline
-      ? signed(
-          percentDelta(
-            current.memory_used_bytes,
-            memoryBaseline.memory_used_bytes,
-          ),
-          "%",
-        )
+      ? signed(percentDelta(current.memory_used_bytes, memoryBaseline.memory_used_bytes), "%")
       : undefined;
   const diskDelta =
     hasDelta && current && diskBaseline
-      ? signed(
-          percentDelta(current.disk_used_bytes, diskBaseline.disk_used_bytes),
-          "%",
-        )
+      ? signed(percentDelta(current.disk_used_bytes, diskBaseline.disk_used_bytes), "%")
       : undefined;
   const networkDelta =
     hasDelta && current && netBaseline
       ? signed(
-          (current.network_rx_bytes_per_sec -
-            netBaseline.network_rx_bytes_per_sec) /
-            KIB,
+          (current.network_rx_bytes_per_sec - netBaseline.network_rx_bytes_per_sec) / KIB,
           " KB/s",
         )
       : undefined;
@@ -241,11 +214,7 @@ export function AdminOverview() {
               label="Memory"
               value={current ? formatBytes(current.memory_used_bytes) : "—"}
               change={memoryDelta}
-              changeLabel={
-                current
-                  ? `of ${formatBytes(current.memory_total_bytes)}`
-                  : undefined
-              }
+              changeLabel={current ? `of ${formatBytes(current.memory_total_bytes)}` : undefined}
               changeTone="success"
               history={memoryHistory}
               sparkTone="info"
@@ -255,11 +224,7 @@ export function AdminOverview() {
               label="Storage"
               value={current ? formatBytes(current.disk_used_bytes) : "—"}
               change={diskDelta}
-              changeLabel={
-                current
-                  ? `of ${formatBytes(current.disk_total_bytes)}`
-                  : undefined
-              }
+              changeLabel={current ? `of ${formatBytes(current.disk_total_bytes)}` : undefined}
               changeTone="neutral"
               history={diskHistory}
               sparkTone="neutral"
@@ -316,9 +281,7 @@ export function AdminOverview() {
           <StatTile
             label="Failed jobs"
             value={String(operations?.failed_jobs ?? 0)}
-            tone={
-              operations && operations.failed_jobs > 0 ? "danger" : "neutral"
-            }
+            tone={operations && operations.failed_jobs > 0 ? "danger" : "neutral"}
           />
           <StatTile
             label="Queued jobs"

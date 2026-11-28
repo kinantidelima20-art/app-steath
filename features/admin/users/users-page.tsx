@@ -17,12 +17,7 @@ import {
 import { useAdminAccounts } from "@/features/admin/data/admin-read-model";
 import type { components } from "@/lib/admin/api-schema";
 import { formatCount, formatDate, formatRelative } from "@/lib/format";
-import {
-  AdminHeader,
-  AdminPageBody,
-  AdminReveal,
-  Mono,
-} from "../components/admin-panel";
+import { AdminHeader, AdminPageBody, AdminReveal, Mono } from "../components/admin-panel";
 import { AdminSelect } from "../components/admin-select";
 import { StatusBadge } from "../components/status-badge";
 import { useUpdateAdminAccountPlan } from "@/features/admin/data/admin-mutations";
@@ -31,12 +26,7 @@ import { AccountActions } from "./account-actions";
 import { LiveIndicator } from "../components/live-indicator";
 import { StatTile } from "../components/stat-tile";
 import { ToolbarSearch } from "../components/toolbar-search";
-import {
-  GradientAvatar,
-  SignInMethods,
-  VerifiedBadge,
-  maskEmail,
-} from "./user-table-pieces";
+import { GradientAvatar, SignInMethods, VerifiedBadge, maskEmail } from "./user-table-pieces";
 
 type AdminAccount = components["schemas"]["AdminAccount"];
 
@@ -54,8 +44,7 @@ function planTone(plan: string) {
 
 const TH_CLASS =
   "px-3 py-2.5 text-[10.5px] font-medium uppercase tracking-[0.08em] text-[var(--projects-muted)] first:pl-4 last:pr-4 sm:first:pl-5 sm:last:pr-5";
-const TD_CLASS =
-  "px-3 py-3.5 align-middle first:pl-4 last:pr-4 sm:first:pl-5 sm:last:pr-5";
+const TD_CLASS = "px-3 py-3.5 align-middle first:pl-4 last:pr-4 sm:first:pl-5 sm:last:pr-5";
 
 const dayFormat = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -85,8 +74,7 @@ function computeStats(items: AdminAccount[]) {
     if (account.email_verified) verifiedCount += 1;
     if (account.last_sign_in_at) {
       const seen = new Date(account.last_sign_in_at).getTime();
-      if (Number.isFinite(seen) && now - seen >= 0 && now - seen <= week)
-        active += 1;
+      if (Number.isFinite(seen) && now - seen >= 0 && now - seen <= week) active += 1;
     }
   }
   return { total: items.length, verifiedCount, active };
@@ -148,9 +136,7 @@ export function UsersPage() {
         case "oldest":
           return byTime(a.created_at) - byTime(b.created_at);
         case "name":
-          return displayNameOf(a)
-            .toLowerCase()
-            .localeCompare(displayNameOf(b).toLowerCase());
+          return displayNameOf(a).toLowerCase().localeCompare(displayNameOf(b).toLowerCase());
         case "recent":
         default:
           return (
@@ -200,10 +186,7 @@ export function UsersPage() {
 
   return (
     <AdminPageBody>
-      <AdminHeader
-        title="Users"
-        subtitle="People with access to the platform and their activity."
-      >
+      <AdminHeader title="Users" subtitle="People with access to the platform and their activity.">
         <LiveIndicator live={!accounts.isError} />
         <button
           type="button"
@@ -223,11 +206,7 @@ export function UsersPage() {
 
       <AdminReveal>
         <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-3">
-          <StatTile
-            icon={Users}
-            label="Total accounts"
-            value={formatCount(stats.total)}
-          />
+          <StatTile icon={Users} label="Total accounts" value={formatCount(stats.total)} />
           <StatTile
             icon={BadgeCheck}
             label="Verified emails"
@@ -278,8 +257,7 @@ export function UsersPage() {
               className="text-[11.5px] tabular-nums text-[var(--projects-muted)]"
             >
               <Mono className="text-[11.5px] tabular-nums text-[var(--projects-muted)]">
-                {formatCount(sorted.length)} of {formatCount(items.length)}{" "}
-                shown
+                {formatCount(sorted.length)} of {formatCount(items.length)} shown
               </Mono>
             </span>
           </div>
@@ -296,10 +274,9 @@ export function UsersPage() {
           <div className="overflow-x-auto admin-scrollbar">
             <table className="w-full min-w-[820px] table-fixed border-collapse text-left">
               <caption className="sr-only">
-                Console accounts with subscription plan, sign-in method, last
-                activity, and join date. Sort with the User, Last active, and
-                Added column headers. Change a plan with the promote and demote
-                actions.
+                Console accounts with subscription plan, sign-in method, last activity, and join
+                date. Sort with the User, Last active, and Added column headers. Change a plan with
+                the promote and demote actions.
               </caption>
               <colgroup>
                 <col className="w-[30%]" />
@@ -329,11 +306,7 @@ export function UsersPage() {
                   />
                   <SortableHeader
                     label="Added"
-                    sortLabel={
-                      sort === "oldest"
-                        ? "Sort by newest first"
-                        : "Sort by oldest first"
-                    }
+                    sortLabel={sort === "oldest" ? "Sort by newest first" : "Sort by oldest first"}
                     active={addedActive}
                     direction={sort === "oldest" ? "asc" : "desc"}
                     onSort={toggleAddedSort}
@@ -382,18 +355,14 @@ export function UsersPage() {
                     <td colSpan={6} className="px-4 py-14 text-center sm:px-5">
                       <div className="flex flex-col items-center text-center">
                         <span className="flex size-10 items-center justify-center rounded-lg border border-[color-mix(in_srgb,var(--projects-danger)_40%,var(--projects-border))] bg-[color-mix(in_srgb,var(--projects-danger)_10%,transparent)] text-[var(--projects-danger)]">
-                          <TriangleAlert
-                            size={18}
-                            strokeWidth={1.8}
-                            aria-hidden="true"
-                          />
+                          <TriangleAlert size={18} strokeWidth={1.8} aria-hidden="true" />
                         </span>
                         <h2 className="m-0 mt-3 text-[15px] font-semibold tracking-[-0.01em] text-[var(--projects-text)] [text-wrap:balance]">
                           Could not load accounts
                         </h2>
                         <p className="m-0 mt-1 max-w-[38ch] text-[13px] leading-5 text-[var(--projects-muted)] [text-wrap:pretty]">
-                          Check your connection and retry. The directory reloads
-                          automatically every 30 seconds.
+                          Check your connection and retry. The directory reloads automatically every
+                          30 seconds.
                         </p>
                         <button
                           type="button"
@@ -405,9 +374,7 @@ export function UsersPage() {
                             size={14}
                             strokeWidth={1.8}
                             aria-hidden="true"
-                            className={
-                              accounts.isFetching ? "animate-spin" : undefined
-                            }
+                            className={accounts.isFetching ? "animate-spin" : undefined}
                           />
                           Try again
                         </button>
@@ -420,17 +387,9 @@ export function UsersPage() {
                       <div className="flex flex-col items-center text-center">
                         <span className="flex size-10 items-center justify-center rounded-lg border border-[var(--projects-border)] bg-[var(--projects-control)] text-[var(--projects-muted)]">
                           {items.length === 0 ? (
-                            <Users
-                              size={18}
-                              strokeWidth={1.8}
-                              aria-hidden="true"
-                            />
+                            <Users size={18} strokeWidth={1.8} aria-hidden="true" />
                           ) : (
-                            <SearchX
-                              size={18}
-                              strokeWidth={1.8}
-                              aria-hidden="true"
-                            />
+                            <SearchX size={18} strokeWidth={1.8} aria-hidden="true" />
                           )}
                         </span>
                         <h2 className="m-0 mt-3 text-[15px] font-semibold tracking-[-0.01em] text-[var(--projects-text)] [text-wrap:balance]">
@@ -504,10 +463,7 @@ export function UsersPage() {
                           )}
                         </td>
                         <td className={TD_CLASS}>
-                          <span
-                            title={formatDate(account.created_at)}
-                            className="block truncate"
-                          >
+                          <span title={formatDate(account.created_at)} className="block truncate">
                             <Mono className="truncate text-[12.5px] tabular-nums text-[var(--projects-muted)]">
                               {shortDay(account.created_at)}
                             </Mono>
@@ -544,8 +500,7 @@ export function UsersPage() {
             <footer className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-[var(--projects-divider)] bg-[var(--projects-card-bg)] px-4 py-3 sm:px-5">
               <p className="m-0 text-xs tabular-nums text-[var(--projects-muted)]">
                 Showing {formatCount(rangeStart)}–{formatCount(rangeEnd)} of{" "}
-                {formatCount(sorted.length)}{" "}
-                {sorted.length === 1 ? "account" : "accounts"}
+                {formatCount(sorted.length)} {sorted.length === 1 ? "account" : "accounts"}
               </p>
               <div className="ml-auto flex items-center gap-1.5">
                 <button
@@ -615,27 +570,15 @@ function SortableHeader({
         aria-label={sortLabel}
         title={sortLabel}
         className={`inline-flex max-w-full items-center gap-1 text-[10.5px] font-medium uppercase tracking-[0.08em] transition-colors hover:text-[var(--projects-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--projects-accent)] ${
-          active
-            ? "text-[var(--projects-text)]"
-            : "text-[var(--projects-muted)]"
+          active ? "text-[var(--projects-text)]" : "text-[var(--projects-muted)]"
         }`}
       >
         <span className="truncate">{label}</span>
         {active ? (
           direction === "asc" ? (
-            <ArrowUp
-              size={12}
-              strokeWidth={2}
-              aria-hidden="true"
-              className="shrink-0"
-            />
+            <ArrowUp size={12} strokeWidth={2} aria-hidden="true" className="shrink-0" />
           ) : (
-            <ArrowDown
-              size={12}
-              strokeWidth={2}
-              aria-hidden="true"
-              className="shrink-0"
-            />
+            <ArrowDown size={12} strokeWidth={2} aria-hidden="true" className="shrink-0" />
           )
         ) : (
           <ChevronsUpDown

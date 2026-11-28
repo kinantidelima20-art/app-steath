@@ -23,8 +23,7 @@ import { PanelRowsSkeleton } from "../components/admin-skeletons";
 import { formatCount, formatRelative } from "@/lib/format";
 
 type ErrorFilter = "all" | "open" | "acknowledged" | "resolved" | "ignored";
-type ErrorLifecycleStatus =
-  components["schemas"]["UpdateAdminErrorGroupStatusRequest"]["status"];
+type ErrorLifecycleStatus = components["schemas"]["UpdateAdminErrorGroupStatusRequest"]["status"];
 
 function statusTone(status: ErrorLifecycleStatus) {
   if (status === "resolved") return "success" as const;
@@ -66,18 +65,10 @@ export function ErrorsPage() {
   const open = read.data.filter(
     (group) => group.status === "open" || group.status === "acknowledged",
   ).length;
-  const resolved = read.data.filter(
-    (group) => group.status === "resolved",
-  ).length;
-  const occurrences = read.data.reduce(
-    (sum, group) => sum + group.occurrence_count,
-    0,
-  );
+  const resolved = read.data.filter((group) => group.status === "resolved").length;
+  const occurrences = read.data.reduce((sum, group) => sum + group.occurrence_count, 0);
 
-  const setGroupStatus = async (
-    group: AdminErrorGroup,
-    status: ErrorLifecycleStatus,
-  ) => {
+  const setGroupStatus = async (group: AdminErrorGroup, status: ErrorLifecycleStatus) => {
     try {
       const updated = await updateStatus.mutateAsync({
         fingerprint: group.fingerprint,
@@ -101,25 +92,14 @@ export function ErrorsPage() {
 
   return (
     <AdminPageBody>
-      <AdminHeader
-        title="Errors"
-        subtitle="Grouped error signatures across platform services."
-      >
+      <AdminHeader title="Errors" subtitle="Grouped error signatures across platform services.">
         <TimeRangeSelect value={range} onChange={setRange} />
       </AdminHeader>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatTile label="Groups" value={formatCount(read.data.length)} />
-        <StatTile
-          label="Open"
-          value={formatCount(open)}
-          tone={open > 0 ? "danger" : "success"}
-        />
-        <StatTile
-          label="Resolved"
-          value={formatCount(resolved)}
-          tone="success"
-        />
+        <StatTile label="Open" value={formatCount(open)} tone={open > 0 ? "danger" : "success"} />
+        <StatTile label="Resolved" value={formatCount(resolved)} tone="success" />
         <StatTile
           label="Occurrences"
           value={formatCount(occurrences)}
@@ -179,12 +159,8 @@ export function ErrorsPage() {
                       {group.error_type}
                     </Mono>
                     <StatusBadge
-                      tone={statusTone(
-                        group.status as unknown as ErrorLifecycleStatus,
-                      )}
-                      label={statusLabel(
-                        group.status as unknown as ErrorLifecycleStatus,
-                      )}
+                      tone={statusTone(group.status as unknown as ErrorLifecycleStatus)}
+                      label={statusLabel(group.status as unknown as ErrorLifecycleStatus)}
                       pulse={group.status === "open"}
                     />
                     <span className="ml-auto text-[12px] text-[var(--projects-muted)]">
@@ -200,9 +176,7 @@ export function ErrorsPage() {
                     </span>
                     <span>last seen {formatRelative(group.last_seen)}</span>
                     <span>first seen {formatRelative(group.first_seen)}</span>
-                    {group.trace_id && (
-                      <Mono className="truncate">{group.trace_id}</Mono>
-                    )}
+                    {group.trace_id && <Mono className="truncate">{group.trace_id}</Mono>}
                   </div>
                   <p className="m-0 mt-1.5 truncate text-[12px] leading-4 text-[var(--projects-muted)]/85">
                     {group.message}
@@ -240,10 +214,7 @@ function ErrorDetail({
   group: AdminErrorGroup | null;
   pending: boolean;
   error: string | null;
-  onStatusChange: (
-    group: AdminErrorGroup,
-    status: ErrorLifecycleStatus,
-  ) => Promise<void>;
+  onStatusChange: (group: AdminErrorGroup, status: ErrorLifecycleStatus) => Promise<void>;
   onClose: () => void;
 }) {
   return (
@@ -252,9 +223,7 @@ function ErrorDetail({
       onClose={onClose}
       title={<Mono className="truncate">{group?.error_type}</Mono>}
       subtitle={
-        group
-          ? `${group.service} · first seen ${formatRelative(group.first_seen)}`
-          : undefined
+        group ? `${group.service} · first seen ${formatRelative(group.first_seen)}` : undefined
       }
     >
       {group && (
@@ -262,20 +231,12 @@ function ErrorDetail({
           <div className="grid grid-cols-2 gap-x-4">
             <DetailField label="Status">
               <StatusBadge
-                tone={statusTone(
-                  group.status as unknown as ErrorLifecycleStatus,
-                )}
-                label={statusLabel(
-                  group.status as unknown as ErrorLifecycleStatus,
-                )}
+                tone={statusTone(group.status as unknown as ErrorLifecycleStatus)}
+                label={statusLabel(group.status as unknown as ErrorLifecycleStatus)}
               />
             </DetailField>
-            <DetailField label="Last seen">
-              {formatRelative(group.last_seen)}
-            </DetailField>
-            <DetailField label="Occurrences">
-              {formatCount(group.occurrence_count)}
-            </DetailField>
+            <DetailField label="Last seen">{formatRelative(group.last_seen)}</DetailField>
+            <DetailField label="Occurrences">{formatCount(group.occurrence_count)}</DetailField>
             <DetailField label="Service">{group.service}</DetailField>
             <DetailField label="Fingerprint" wide>
               <Mono className="flex items-center gap-1">
@@ -308,10 +269,7 @@ function ErrorDetail({
                 type="button"
                 disabled={pending}
                 onClick={() =>
-                  void onStatusChange(
-                    group,
-                    UpdateAdminErrorGroupStatusRequestStatus.acknowledged,
-                  )
+                  void onStatusChange(group, UpdateAdminErrorGroupStatusRequestStatus.acknowledged)
                 }
                 className="inline-flex h-8 items-center rounded-md border border-[var(--projects-border)] px-3 text-[12px] font-medium text-[var(--projects-text)] transition-colors hover:bg-white/[0.04] disabled:opacity-60"
               >
@@ -323,10 +281,7 @@ function ErrorDetail({
                 type="button"
                 disabled={pending}
                 onClick={() =>
-                  void onStatusChange(
-                    group,
-                    UpdateAdminErrorGroupStatusRequestStatus.resolved,
-                  )
+                  void onStatusChange(group, UpdateAdminErrorGroupStatusRequestStatus.resolved)
                 }
                 className="inline-flex h-8 items-center rounded-md border border-[var(--projects-accent-border)] bg-[var(--projects-accent-strong)] px-3 text-[12px] font-semibold text-white transition-colors hover:bg-[var(--projects-accent-hover)] disabled:opacity-60"
               >
@@ -338,10 +293,7 @@ function ErrorDetail({
                 type="button"
                 disabled={pending}
                 onClick={() =>
-                  void onStatusChange(
-                    group,
-                    UpdateAdminErrorGroupStatusRequestStatus.open,
-                  )
+                  void onStatusChange(group, UpdateAdminErrorGroupStatusRequestStatus.open)
                 }
                 className="inline-flex h-8 items-center rounded-md border border-[var(--projects-border)] px-3 text-[12px] font-medium text-[var(--projects-text)] transition-colors hover:bg-white/[0.04] disabled:opacity-60"
               >
@@ -349,11 +301,7 @@ function ErrorDetail({
               </button>
             )}
           </div>
-          {error && (
-            <p className="m-0 text-[12px] text-[var(--projects-danger)]">
-              {error}
-            </p>
-          )}
+          {error && <p className="m-0 text-[12px] text-[var(--projects-danger)]">{error}</p>}
         </div>
       )}
     </DetailDrawer>

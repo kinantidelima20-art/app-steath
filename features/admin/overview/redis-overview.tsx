@@ -40,8 +40,7 @@ export function RedisOverview({ windowMinutes }: { windowMinutes: number }) {
     const timer = setTimeout(() => setMinSkeletonWindow(false), 900);
     return () => clearTimeout(timer);
   }, []);
-  const showSkeleton =
-    !query.isError && !snapshot && (query.isPending || minSkeletonWindow);
+  const showSkeleton = !query.isError && !snapshot && (query.isPending || minSkeletonWindow);
 
   const reachable = Boolean(snapshot?.reachable) && Boolean(current);
   const health = reachable
@@ -51,27 +50,18 @@ export function RedisOverview({ windowMinutes }: { windowMinutes: number }) {
       : ({ tone: "danger" as const, label: "Unavailable" } as const);
 
   const clientPercent =
-    current && current.max_clients > 0
-      ? (current.connections / current.max_clients) * 100
-      : 0;
+    current && current.max_clients > 0 ? (current.connections / current.max_clients) * 100 : 0;
   const memoryPercent =
     current && current.memory_max_bytes > 0
       ? (current.memory_used_bytes / current.memory_max_bytes) * 100
       : 0;
 
-  const opsHistory = useMemo(
-    () => history.map((sample) => sample.ops_per_sec),
-    [history],
-  );
+  const opsHistory = useMemo(() => history.map((sample) => sample.ops_per_sec), [history]);
   const suffix = windowSuffix(windowMinutes);
   const shortSuffix = windowSuffixShort(windowMinutes);
   const opsDelta = useMemo(() => {
     if (history.length < 2) return undefined;
-    return deltaParts(
-      history[history.length - 1].ops_per_sec,
-      history[0].ops_per_sec,
-      true,
-    );
+    return deltaParts(history[history.length - 1].ops_per_sec, history[0].ops_per_sec, true);
   }, [history]);
 
   return (
@@ -113,24 +103,17 @@ export function RedisOverview({ windowMinutes }: { windowMinutes: number }) {
         <InfraPanelSkeleton count={4} />
       ) : !reachable ? (
         <p className="m-0 pb-2 text-[13px] leading-5 text-[var(--projects-muted)]">
-          Redis metrics are unavailable right now. The sampler could not reach
-          the server; the panel recovers automatically once commands succeed
-          again.
+          Redis metrics are unavailable right now. The sampler could not reach the server; the panel
+          recovers automatically once commands succeed again.
         </p>
       ) : (
         <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
           <InfraTile icon={Users} label="Clients">
             <TileValue
               value={String(current?.connections ?? 0)}
-              unit={
-                current && current.max_clients > 0
-                  ? `/ ${current.max_clients}`
-                  : undefined
-              }
+              unit={current && current.max_clients > 0 ? `/ ${current.max_clients}` : undefined}
             />
-            {current && current.max_clients > 0 ? (
-              <TileBar percent={clientPercent} />
-            ) : null}
+            {current && current.max_clients > 0 ? <TileBar percent={clientPercent} /> : null}
             <p className="m-0 truncate text-[12px] leading-4 text-[var(--projects-muted)]">
               Connected clients
             </p>
@@ -143,11 +126,7 @@ export function RedisOverview({ windowMinutes }: { windowMinutes: number }) {
 
           <InfraTile icon={Gauge} label="Hit Rate">
             <TileValue
-              value={
-                current?.hit_rate_known
-                  ? current.hit_rate_percent.toFixed(1)
-                  : "—"
-              }
+              value={current?.hit_rate_known ? current.hit_rate_percent.toFixed(1) : "—"}
               unit={current?.hit_rate_known ? "%" : undefined}
             />
             {current?.hit_rate_known ? (
@@ -167,11 +146,7 @@ export function RedisOverview({ windowMinutes }: { windowMinutes: number }) {
           </InfraTile>
 
           {/* Wide memory card, full row on desktop. */}
-          <InfraTile
-            icon={Database}
-            label="Memory"
-            className="col-span-2 lg:col-span-4"
-          >
+          <InfraTile icon={Database} label="Memory" className="col-span-2 lg:col-span-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
               <div className="flex min-w-0 flex-col gap-1.5">
                 <TileValue

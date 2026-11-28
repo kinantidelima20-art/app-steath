@@ -42,8 +42,7 @@ export function Sparkline({
   const span = flat ? 1 : max - min;
   const step = 100 / (data.length - 1);
   const points = data.map(
-    (value, index) =>
-      [index * step, flat ? 50 : 100 - ((value - min) / span) * 100] as const,
+    (value, index) => [index * step, flat ? 50 : 100 - ((value - min) / span) * 100] as const,
   );
   const line = points
     .map(([x, y], index) => `${index === 0 ? "M" : "L"}${round(x)},${round(y)}`)

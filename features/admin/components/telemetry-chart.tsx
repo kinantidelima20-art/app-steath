@@ -52,9 +52,7 @@ function ChartTooltip({
   if (!active || !payload || payload.length === 0) return null;
   return (
     <div className="rounded-lg border border-[var(--projects-border)] bg-[#1b1b1e]/95 px-3 py-2 shadow-xl shadow-black/40 backdrop-blur">
-      <p className="admin-mono m-0 text-[11px] leading-4 text-[var(--projects-muted)]">
-        {label}
-      </p>
+      <p className="admin-mono m-0 text-[11px] leading-4 text-[var(--projects-muted)]">{label}</p>
       {payload.map((entry) => {
         const meta = series.find((item) => item.key === entry.dataKey);
         const raw = Array.isArray(entry.value) ? entry.value[0] : entry.value;
@@ -85,9 +83,7 @@ function ChartTooltip({
 }
 
 function formatValue(value: number): string {
-  return Math.abs(value) >= 100
-    ? String(Math.round(value))
-    : String(Math.round(value * 10) / 10);
+  return Math.abs(value) >= 100 ? String(Math.round(value)) : String(Math.round(value * 10) / 10);
 }
 
 // X-axis labels are ISO timestamps from the API. Render them as a compact
@@ -133,10 +129,7 @@ export function TelemetryChart({
   if (type === "bar") {
     return (
       <ResponsiveContainer width="100%" height={height} className={className}>
-        <BarChart
-          data={data}
-          margin={{ top: 6, right: 4, bottom: 0, left: -18 }}
-        >
+        <BarChart data={data} margin={{ top: 6, right: 4, bottom: 0, left: -18 }}>
           <CartesianGrid
             stroke="var(--projects-border)"
             strokeOpacity={0.4}
@@ -182,10 +175,7 @@ export function TelemetryChart({
 
   return (
     <ResponsiveContainer width="100%" height={height} className={className}>
-      <AreaChart
-        data={data}
-        margin={{ top: 6, right: 4, bottom: 0, left: -18 }}
-      >
+      <AreaChart data={data} margin={{ top: 6, right: 4, bottom: 0, left: -18 }}>
         <defs>
           {series.map((item) => (
             <linearGradient
@@ -196,16 +186,8 @@ export function TelemetryChart({
               x2="0"
               y2="1"
             >
-              <stop
-                offset="0%"
-                stopColor={STROKE[item.tone]}
-                stopOpacity={0.2}
-              />
-              <stop
-                offset="100%"
-                stopColor={STROKE[item.tone]}
-                stopOpacity={0.01}
-              />
+              <stop offset="0%" stopColor={STROKE[item.tone]} stopOpacity={0.2} />
+              <stop offset="100%" stopColor={STROKE[item.tone]} stopOpacity={0.01} />
             </linearGradient>
           ))}
         </defs>

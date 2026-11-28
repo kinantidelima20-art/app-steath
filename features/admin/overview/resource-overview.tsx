@@ -59,10 +59,7 @@ export function ResourceOverview({
   const meta = TAB_META[tab];
   const data = series[tab];
 
-  const subtitle = useMemo(
-    () => `${meta.hint} · ${rangeLabel}`,
-    [meta.hint, rangeLabel],
-  );
+  const subtitle = useMemo(() => `${meta.hint} · ${rangeLabel}`, [meta.hint, rangeLabel]);
 
   return (
     <AdminPanel className={className}>

@@ -37,11 +37,7 @@ export function WorkersSection({
       <AdminPanelHeader
         title="Execution Queue"
         subtitle="Durable control-plane work waiting for, or held by, trusted workers."
-        right={
-          <Mono className="text-[11.5px] text-[var(--projects-muted)]">
-            live snapshot
-          </Mono>
-        }
+        right={<Mono className="text-[11.5px] text-[var(--projects-muted)]">live snapshot</Mono>}
       />
       <div className="grid gap-3 sm:grid-cols-3">
         {counts.map((item) => (

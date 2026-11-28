@@ -2,10 +2,7 @@
 
 import { useState } from "react";
 import { Server } from "lucide-react";
-import {
-  useInfrastructureReadModel,
-  type HostTimeRange,
-} from "../data/admin-read-model";
+import { useInfrastructureReadModel, type HostTimeRange } from "../data/admin-read-model";
 import { AdminHeader, AdminPageBody } from "../components/admin-panel";
 import { StatTile } from "../components/stat-tile";
 import { LiveIndicator } from "../components/live-indicator";
@@ -34,11 +31,7 @@ export function InfrastructurePage() {
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
         <StatTile icon={Server} label="Hosts" value={host ? "1" : "—"} />
-        <StatTile
-          label="Online"
-          value={host?.status === "online" ? "1" : "0"}
-          tone="success"
-        />
+        <StatTile label="Online" value={host?.status === "online" ? "1" : "0"} tone="success" />
         <StatTile label="CPU now" value={host ? `${host.cpu}%` : "—"} />
         <StatTile
           label="Memory"
@@ -47,11 +40,7 @@ export function InfrastructurePage() {
         />
         <StatTile
           label="Storage"
-          value={
-            host
-              ? `${Math.round((host.storage / 100) * host.storageTotalGb)} GB`
-              : "—"
-          }
+          value={host ? `${Math.round((host.storage / 100) * host.storageTotalGb)} GB` : "—"}
           hint={host ? `/ ${host.storageTotalGb} GB` : undefined}
         />
       </div>

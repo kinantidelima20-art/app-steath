@@ -7,13 +7,7 @@ import { useElapsedSeconds } from "../hooks/use-live-updates";
 /** Pulsing "Live" marker — pure CSS pulse so it never re-renders the page.
  * `live` reflects real query connectivity: green while data is flowing, amber
  * while a query is failing, so the badge never lies about the connection. */
-export function LiveIndicator({
-  label,
-  live = true,
-}: {
-  label?: string;
-  live?: boolean;
-}) {
+export function LiveIndicator({ label, live = true }: { label?: string; live?: boolean }) {
   const text = label ?? (live ? "Live" : "Reconnecting");
   return (
     <AnimatedBadge
@@ -33,13 +27,7 @@ export function LiveIndicator({
  * "Last updated Xs ago" — owns its 1s ticker internally so the parent page
  * (and its charts) do not re-render every second. Reset alongside refreshes.
  */
-export function UpdatedLabel({
-  resetKey,
-  className,
-}: {
-  resetKey?: unknown;
-  className?: string;
-}) {
+export function UpdatedLabel({ resetKey, className }: { resetKey?: unknown; className?: string }) {
   const { seconds } = useElapsedSeconds(resetKey);
   const label = seconds < 3 ? "just now" : `${seconds}s ago`;
   return (

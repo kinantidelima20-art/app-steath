@@ -2,15 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import {
-  Activity,
-  Clock,
-  Database,
-  Gauge,
-  Terminal,
-  Users,
-  Zap,
-} from "lucide-react";
+import { Activity, Clock, Database, Gauge, Terminal, Users, Zap } from "lucide-react";
 import { useAdminDBMetrics } from "@/features/admin/data/admin-read-model";
 import { formatBytes } from "@/lib/format";
 import { AdminPanel } from "../components/admin-panel";
@@ -50,8 +42,7 @@ export function DatabaseOverview({ windowMinutes }: { windowMinutes: number }) {
     const timer = setTimeout(() => setMinSkeletonWindow(false), 900);
     return () => clearTimeout(timer);
   }, []);
-  const showSkeleton =
-    !query.isError && !snapshot && (query.isPending || minSkeletonWindow);
+  const showSkeleton = !query.isError && !snapshot && (query.isPending || minSkeletonWindow);
 
   const reachable = Boolean(snapshot?.reachable) && Boolean(current);
   const health = reachable
@@ -138,9 +129,8 @@ export function DatabaseOverview({ windowMinutes }: { windowMinutes: number }) {
         <InfraPanelSkeleton count={6} />
       ) : !reachable ? (
         <p className="m-0 pb-2 text-[13px] leading-5 text-[var(--projects-muted)]">
-          Database metrics are unavailable right now. The sampler could not
-          reach PostgreSQL; the panel recovers automatically once queries
-          succeed again.
+          Database metrics are unavailable right now. The sampler could not reach PostgreSQL; the
+          panel recovers automatically once queries succeed again.
         </p>
       ) : (
         <div className="flex flex-col gap-2 sm:gap-3">
@@ -172,31 +162,20 @@ export function DatabaseOverview({ windowMinutes }: { windowMinutes: number }) {
                     ? String(Math.round(current.query_latency_ms))
                     : "—"
                 }
-                unit={
-                  current && current.query_latency_ms > 0 ? "ms" : undefined
-                }
+                unit={current && current.query_latency_ms > 0 ? "ms" : undefined}
               />
-              <Delta
-                parts={latencyDelta}
-                suffix={suffix}
-                shortSuffix={shortSuffix}
-              />
+              <Delta parts={latencyDelta} suffix={suffix} shortSuffix={shortSuffix} />
             </InfraTile>
 
             <InfraTile icon={Gauge} label="Cache Hit Ratio">
               <TileValue
                 value={
-                  current?.cache_hit_ratio_known
-                    ? current.cache_hit_ratio_percent.toFixed(1)
-                    : "—"
+                  current?.cache_hit_ratio_known ? current.cache_hit_ratio_percent.toFixed(1) : "—"
                 }
                 unit={current?.cache_hit_ratio_known ? "%" : undefined}
               />
               {current?.cache_hit_ratio_known ? (
-                <TileBar
-                  percent={current.cache_hit_ratio_percent}
-                  higherIsBetter
-                />
+                <TileBar percent={current.cache_hit_ratio_percent} higherIsBetter />
               ) : (
                 <p className="m-0 truncate text-[12px] leading-4 text-[var(--projects-muted)]">
                   Not enough reads yet
@@ -205,14 +184,8 @@ export function DatabaseOverview({ windowMinutes }: { windowMinutes: number }) {
             </InfraTile>
 
             <InfraTile icon={Activity} label="Transactions/sec">
-              <TileValue
-                value={String(Math.round(current?.transactions_per_sec ?? 0))}
-              />
-              <Delta
-                parts={transactionsDelta}
-                suffix={suffix}
-                shortSuffix={shortSuffix}
-              />
+              <TileValue value={String(Math.round(current?.transactions_per_sec ?? 0))} />
+              <Delta parts={transactionsDelta} suffix={suffix} shortSuffix={shortSuffix} />
             </InfraTile>
 
             <InfraTile icon={Zap} label="Replication">
@@ -234,22 +207,14 @@ export function DatabaseOverview({ windowMinutes }: { windowMinutes: number }) {
 
             {/* Wide size card: number + delta on the first row, sparkline
                 directly under it on phones, side-by-side on sm+. */}
-            <InfraTile
-              icon={Database}
-              label="Database Size"
-              className="col-span-2 lg:col-span-2"
-            >
+            <InfraTile icon={Database} label="Database Size" className="col-span-2 lg:col-span-2">
               <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between sm:gap-4">
                 <div className="flex min-w-0 flex-col gap-1">
                   <p className="admin-tnum m-0 flex flex-wrap items-baseline gap-2">
                     <span className="truncate text-[21px] font-bold leading-none tracking-[-0.02em] text-[var(--projects-text)] sm:text-[26px]">
                       {current ? formatBytes(current.database_size_bytes) : "—"}
                     </span>
-                    <Delta
-                      parts={sizeDelta}
-                      suffix={suffix}
-                      shortSuffix={shortSuffix}
-                    />
+                    <Delta parts={sizeDelta} suffix={suffix} shortSuffix={shortSuffix} />
                   </p>
                   <p className="m-0 truncate text-[12px] leading-4 text-[var(--projects-muted)]">
                     Primary database

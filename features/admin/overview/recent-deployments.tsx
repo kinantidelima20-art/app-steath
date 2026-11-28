@@ -19,17 +19,12 @@ function relativeTime(iso: string): string {
  * projects. Statuses mirror the Apps page vocabulary; an empty list means the
  * platform genuinely has no deployments, so the panel says that plainly.
  */
-export function RecentDeployments({
-  deployments,
-}: {
-  deployments: AdminRecentDeployment[];
-}) {
+export function RecentDeployments({ deployments }: { deployments: AdminRecentDeployment[] }) {
   return (
     <div className="flex flex-col gap-1.5">
       {deployments.length === 0 ? (
         <p className="m-0 px-1 py-2 text-[12.5px] leading-5 text-[var(--projects-muted)]">
-          No App deployments yet. Deployments appear here as soon as an App
-          build is queued.
+          No App deployments yet. Deployments appear here as soon as an App build is queued.
         </p>
       ) : (
         deployments.map((deployment) => (
@@ -56,19 +51,16 @@ export function RecentDeployments({
             </div>
             <StatusBadge
               tone={
-                deployment.status === "ready" &&
-                deployment.build_status === "succeeded"
+                deployment.status === "ready" && deployment.build_status === "succeeded"
                   ? "success"
-                  : deployment.build_status === "failed" ||
-                      deployment.status === "failed"
+                  : deployment.build_status === "failed" || deployment.status === "failed"
                     ? "danger"
                     : "info"
               }
               label={
                 deployment.build_status === "failed"
                   ? "Build failed"
-                  : deployment.build_status === "building" ||
-                      deployment.build_status === "queued"
+                  : deployment.build_status === "building" || deployment.build_status === "queued"
                     ? "Building"
                     : deployment.status === "ready"
                       ? "Deployed"

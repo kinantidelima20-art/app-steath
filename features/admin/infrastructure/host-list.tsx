@@ -12,13 +12,7 @@ import type { Host } from "../types/infrastructure";
  * Host inventory rows with per-resource bars. Selecting a host expands a
  * detail strip (ip/region/uptime/jobs + CPU history) beneath the list.
  */
-export function HostList({
-  host,
-  cpuHistory,
-}: {
-  host: Host | null;
-  cpuHistory: number[];
-}) {
+export function HostList({ host, cpuHistory }: { host: Host | null; cpuHistory: number[] }) {
   const [selected, setSelected] = useState(true);
 
   return (
@@ -115,25 +109,13 @@ function HostRow({
   );
 }
 
-function HostDetail({
-  host,
-  cpuHistory,
-}: {
-  host: Host;
-  cpuHistory: number[];
-}) {
+function HostDetail({ host, cpuHistory }: { host: Host; cpuHistory: number[] }) {
   return (
     <div className="border-t border-[var(--projects-divider)] bg-white/[0.02] px-3 py-3">
       <div className="flex flex-wrap items-center gap-2">
-        <Mono className="text-[12px] font-medium text-[var(--projects-text)]">
-          {host.name}
-        </Mono>
-        <Mono className="text-[11.5px] text-[var(--projects-muted)]">
-          {host.ip}
-        </Mono>
-        <Mono className="text-[11.5px] text-[var(--projects-muted)]">
-          {host.region}
-        </Mono>
+        <Mono className="text-[12px] font-medium text-[var(--projects-text)]">{host.name}</Mono>
+        <Mono className="text-[11.5px] text-[var(--projects-muted)]">{host.ip}</Mono>
+        <Mono className="text-[11.5px] text-[var(--projects-muted)]">{host.region}</Mono>
       </div>
       <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-4">
         <Detail icon={Cpu} label="CPU now" value={`${host.cpu}%`} />
@@ -161,15 +143,7 @@ function HostDetail({
   );
 }
 
-function Detail({
-  icon: Icon,
-  label,
-  value,
-}: {
-  icon?: typeof Cpu;
-  label: string;
-  value: string;
-}) {
+function Detail({ icon: Icon, label, value }: { icon?: typeof Cpu; label: string; value: string }) {
   return (
     <div className="flex items-center gap-2.5">
       {Icon && (

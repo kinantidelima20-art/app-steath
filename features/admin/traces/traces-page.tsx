@@ -1,11 +1,7 @@
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
-import {
-  useTraceMetrics,
-  useTracesReadModel,
-  type AdminTimeRange,
-} from "../data/admin-read-model";
+import { useTraceMetrics, useTracesReadModel, type AdminTimeRange } from "../data/admin-read-model";
 import { AdminHeader, AdminPageBody, Mono } from "../components/admin-panel";
 import { StatTile } from "../components/stat-tile";
 import { DetailDrawer, DetailField } from "../components/detail-drawer";
@@ -61,10 +57,7 @@ export function TracesPage() {
     {
       id: "requests",
       label: "Request rate",
-      value:
-        metrics.http === undefined
-          ? "—"
-          : `${metrics.http.request_rate.toFixed(1)}/s`,
+      value: metrics.http === undefined ? "—" : `${metrics.http.request_rate.toFixed(1)}/s`,
     },
     {
       id: "p50",
@@ -84,34 +77,20 @@ export function TracesPage() {
     {
       id: "error-rate",
       label: "Error rate",
-      value:
-        metrics.http === undefined
-          ? "—"
-          : `${(metrics.http.error_rate * 100).toFixed(2)}%`,
-      tone:
-        (metrics.http?.error_rate ?? 0) > 0.01
-          ? ("warning" as const)
-          : undefined,
+      value: metrics.http === undefined ? "—" : `${(metrics.http.error_rate * 100).toFixed(2)}%`,
+      tone: (metrics.http?.error_rate ?? 0) > 0.01 ? ("warning" as const) : undefined,
     },
   ];
 
   return (
     <AdminPageBody>
-      <AdminHeader
-        title="Traces"
-        subtitle="Distributed request spans across platform services."
-      >
+      <AdminHeader title="Traces" subtitle="Distributed request spans across platform services.">
         <TimeRangeSelect value={range} onChange={setRange} />
       </AdminHeader>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
         {stats.map((stat) => (
-          <StatTile
-            key={stat.id}
-            label={stat.label}
-            value={stat.value}
-            tone={stat.tone}
-          />
+          <StatTile key={stat.id} label={stat.label} value={stat.value} tone={stat.tone} />
         ))}
       </div>
 
@@ -184,9 +163,7 @@ export function TracesPage() {
                       <Mono className="truncate text-[12px] font-medium text-[var(--projects-text)]">
                         {trace.id.slice(0, 8)}
                       </Mono>
-                      <Mono className="truncate text-[11.5px] text-[#b3b0ba]">
-                        {trace.service}
-                      </Mono>
+                      <Mono className="truncate text-[11.5px] text-[#b3b0ba]">{trace.service}</Mono>
                       <Mono className="truncate text-[12px] text-[var(--projects-text)]">
                         {trace.operation}
                       </Mono>
@@ -231,8 +208,8 @@ export function TracesPage() {
                         </span>
                       </span>
                       <Mono className="mt-1 block text-[11px] text-[var(--projects-muted)]">
-                        {trace.service} · {formatDuration(trace.duration)} ·{" "}
-                        {trace.spanList.length} spans · {trace.timestamp}
+                        {trace.service} · {formatDuration(trace.duration)} · {trace.spanList.length}{" "}
+                        spans · {trace.timestamp}
                       </Mono>
                     </span>
                   </button>
@@ -248,13 +225,7 @@ export function TracesPage() {
   );
 }
 
-function TraceDetail({
-  trace,
-  onClose,
-}: {
-  trace: Trace | null;
-  onClose: () => void;
-}) {
+function TraceDetail({ trace, onClose }: { trace: Trace | null; onClose: () => void }) {
   return (
     <DetailDrawer
       open={trace !== null}
@@ -273,18 +244,12 @@ function TraceDetail({
           )}
         </>
       }
-      subtitle={
-        trace
-          ? `${trace.service} · ${trace.operation} · ${trace.timestamp}`
-          : undefined
-      }
+      subtitle={trace ? `${trace.service} · ${trace.operation} · ${trace.timestamp}` : undefined}
     >
       {trace && (
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-x-4">
-            <DetailField label="Duration">
-              {formatDuration(trace.duration)}
-            </DetailField>
+            <DetailField label="Duration">{formatDuration(trace.duration)}</DetailField>
             <DetailField label="Spans">{trace.spanList.length}</DetailField>
             <DetailField label="Root service">{trace.service}</DetailField>
             <DetailField label="Trace ID">
@@ -298,10 +263,7 @@ function TraceDetail({
             <p className="m-0 mb-2 text-[11px] font-medium uppercase tracking-[0.06em] text-[var(--projects-muted)]">
               Span waterfall
             </p>
-            <TraceWaterfall
-              spans={trace.spanList}
-              totalDuration={trace.duration}
-            />
+            <TraceWaterfall spans={trace.spanList} totalDuration={trace.duration} />
           </div>
         </div>
       )}

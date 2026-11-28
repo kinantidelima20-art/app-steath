@@ -38,11 +38,7 @@ export function APIHealthOverview() {
         </div>
         <dl className="flex flex-wrap items-center gap-x-5 gap-y-1.5">
           <div className="flex min-w-0 items-center gap-1.5">
-            <Cpu
-              size={13}
-              className="shrink-0 text-[var(--projects-muted)]"
-              aria-hidden="true"
-            />
+            <Cpu size={13} className="shrink-0 text-[var(--projects-muted)]" aria-hidden="true" />
             <dt className="sr-only">Goroutines</dt>
             <dd className="admin-tnum m-0 text-[13px] font-semibold text-[var(--projects-text)]">
               {current ? current.goroutines.toLocaleString() : "—"}
@@ -52,11 +48,7 @@ export function APIHealthOverview() {
             </dd>
           </div>
           <div className="flex min-w-0 items-center gap-1.5">
-            <Timer
-              size={13}
-              className="shrink-0 text-[var(--projects-muted)]"
-              aria-hidden="true"
-            />
+            <Timer size={13} className="shrink-0 text-[var(--projects-muted)]" aria-hidden="true" />
             <dt className="sr-only">Heap and GC</dt>
             <dd className="admin-tnum m-0 text-[13px] font-semibold text-[var(--projects-text)]">
               {current ? formatBytes(current.heap_alloc_bytes) : "—"}

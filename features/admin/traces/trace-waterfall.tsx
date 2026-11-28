@@ -51,10 +51,7 @@ export function TraceWaterfall({
       </div>
       <ul className="m-0 list-none p-0">
         {spans.map((span) => {
-          const tone =
-            span.status === "error"
-              ? "danger"
-              : (SERVICE_TONE[span.service] ?? "muted");
+          const tone = span.status === "error" ? "danger" : (SERVICE_TONE[span.service] ?? "muted");
           const left = Math.min(100, (span.start / totalDuration) * 100);
           const width = Math.max(1.2, (span.duration / totalDuration) * 100);
           const label =

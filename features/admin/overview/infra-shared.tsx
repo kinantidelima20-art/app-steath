@@ -108,13 +108,7 @@ export function deltaParts(
   const percent = ((now - before) / before) * 100;
   if (Math.abs(percent) < 0.05) return undefined;
   const rising = percent >= 0;
-  const tone: DeltaTone = rising
-    ? goodWhenUp
-      ? "good"
-      : "bad"
-    : goodWhenUp
-      ? "bad"
-      : "good";
+  const tone: DeltaTone = rising ? (goodWhenUp ? "good" : "bad") : goodWhenUp ? "bad" : "good";
   return { text: `${Math.abs(Math.round(percent * 10) / 10)}%`, tone, rising };
 }
 
@@ -250,10 +244,7 @@ export function windowSuffixShort(windowMinutes: number): string {
  */
 export function InfraPanelSkeleton({ count }: { count: number }) {
   return (
-    <div
-      className="grid grid-cols-2 gap-2 pb-1 sm:gap-3 lg:grid-cols-4"
-      aria-busy="true"
-    >
+    <div className="grid grid-cols-2 gap-2 pb-1 sm:gap-3 lg:grid-cols-4" aria-busy="true">
       {Array.from({ length: count }, (_, index) => (
         <div
           key={index}

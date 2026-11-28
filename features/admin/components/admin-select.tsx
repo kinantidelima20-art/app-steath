@@ -75,9 +75,7 @@ export function AdminSelect<T extends string>({
   const current = options.find((option) => option.value === value);
   const normalizedQuery = query.trim().toLowerCase();
   const visible = normalizedQuery
-    ? options.filter((option) =>
-        option.label.toLowerCase().includes(normalizedQuery),
-      )
+    ? options.filter((option) => option.label.toLowerCase().includes(normalizedQuery))
     : options;
 
   return (
@@ -95,12 +93,8 @@ export function AdminSelect<T extends string>({
           open && "border-[var(--projects-border-hover)]",
         )}
       >
-        {icon && (
-          <span className="shrink-0 text-[var(--projects-muted)]">{icon}</span>
-        )}
-        <span className="max-w-[170px] truncate">
-          {current?.label ?? value}
-        </span>
+        {icon && <span className="shrink-0 text-[var(--projects-muted)]">{icon}</span>}
+        <span className="max-w-[170px] truncate">{current?.label ?? value}</span>
         <ChevronDown
           size={13}
           strokeWidth={1.8}

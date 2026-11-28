@@ -6,20 +6,13 @@ import { useCreateAdminIncident } from "@/features/admin/data/admin-mutations";
 import type { components } from "@/lib/admin/api-schema";
 import { AdminHeader, AdminPageBody, Mono } from "../components/admin-panel";
 import { DetailDrawer, DetailField } from "../components/detail-drawer";
-import {
-  IncidentStatusBadge,
-  SeverityBadge,
-} from "../components/domain-badges";
+import { IncidentStatusBadge, SeverityBadge } from "../components/domain-badges";
 import { StatusBadge } from "../components/status-badge";
 import { IncidentListSkeleton } from "../components/admin-skeletons";
 import { AdminSelect } from "../components/admin-select";
 import { CreateIncidentDialog } from "./create-incident-dialog";
 import { toIncident } from "../data/admin-read-model";
-import type {
-  Incident,
-  IncidentSeverity,
-  IncidentStatus,
-} from "../types/incidents";
+import type { Incident, IncidentSeverity, IncidentStatus } from "../types/incidents";
 
 type SeverityFilter = "all" | IncidentSeverity;
 type StatusFilter = "all" | IncidentStatus;
@@ -54,9 +47,7 @@ export function IncidentsPage() {
     [incidents, severity, status],
   );
 
-  const active = incidents.filter(
-    (incident) => incident.status !== "resolved",
-  ).length;
+  const active = incidents.filter((incident) => incident.status !== "resolved").length;
 
   const createIncident = async (input: CreateIncidentInput) => {
     setCreateError(null);
@@ -64,20 +55,13 @@ export function IncidentsPage() {
       await create.mutateAsync(input);
       setCreateOpen(false);
     } catch (error) {
-      setCreateError(
-        error instanceof Error
-          ? error.message
-          : "Could not create the incident.",
-      );
+      setCreateError(error instanceof Error ? error.message : "Could not create the incident.");
     }
   };
 
   return (
     <AdminPageBody>
-      <AdminHeader
-        title="Incidents"
-        subtitle="Track, triage, and resolve platform incidents."
-      >
+      <AdminHeader title="Incidents" subtitle="Track, triage, and resolve platform incidents.">
         <Mono className="hidden h-9 items-center rounded-lg border border-[var(--projects-border)] bg-[#141416] px-3 text-[12px] text-[var(--projects-muted)] sm:inline-flex">
           {active} active
         </Mono>
@@ -161,8 +145,7 @@ export function IncidentsPage() {
                       <Mono>{incident.id}</Mono>
                       <span>
                         {incident.services.length} service
-                        {incident.services.length === 1 ? "" : "s"}:{" "}
-                        {incident.services.join(", ")}
+                        {incident.services.length === 1 ? "" : "s"}: {incident.services.join(", ")}
                       </span>
                       <span>started {incident.startedAt}</span>
                       <span>{incident.duration}</span>
@@ -188,13 +171,7 @@ export function IncidentsPage() {
   );
 }
 
-function IncidentDetail({
-  incident,
-  onClose,
-}: {
-  incident: Incident | null;
-  onClose: () => void;
-}) {
+function IncidentDetail({ incident, onClose }: { incident: Incident | null; onClose: () => void }) {
   return (
     <DetailDrawer
       open={incident !== null}
@@ -238,10 +215,7 @@ function IncidentDetail({
             </p>
             <ol className="m-0 list-none p-0">
               {incident.updates.map((update, index) => (
-                <li
-                  key={`${update.time}-${index}`}
-                  className="relative flex gap-3 pb-4 last:pb-0"
-                >
+                <li key={`${update.time}-${index}`} className="relative flex gap-3 pb-4 last:pb-0">
                   {!(incident.updates.length - 1 === index) && (
                     <span
                       aria-hidden="true"

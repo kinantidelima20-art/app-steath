@@ -71,12 +71,7 @@ export function MetricCard({
           )}
         </p>
         {change && (
-          <p
-            className={cn(
-              "metric-change m-0 text-right leading-4",
-              changeClass,
-            )}
-          >
+          <p className={cn("metric-change m-0 text-right leading-4", changeClass)}>
             {change}
             {changeLabel && (
               <span className="hidden text-[10.5px] text-[var(--projects-muted)]/70 sm:block">

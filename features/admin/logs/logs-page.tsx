@@ -1,10 +1,7 @@
 "use client";
 
 import { useDeferredValue, useMemo, useState } from "react";
-import {
-  useLogsReadModel,
-  type AdminTimeRange,
-} from "../data/admin-read-model";
+import { useLogsReadModel, type AdminTimeRange } from "../data/admin-read-model";
 import { AdminHeader, AdminPageBody, Mono } from "../components/admin-panel";
 import { AdminSelect } from "../components/admin-select";
 import { TimeRangeSelect } from "../components/time-range-select";
@@ -120,10 +117,7 @@ export function LogsPage() {
             Meta
           </span>
         </div>
-        <div
-          className="admin-scrollbar max-h-[640px] overflow-y-auto"
-          aria-label="Log stream"
-        >
+        <div className="admin-scrollbar max-h-[640px] overflow-y-auto" aria-label="Log stream">
           {read.status === "pending" ? (
             <PanelRowsSkeleton rows={8} />
           ) : read.status === "error" ? (
@@ -136,11 +130,7 @@ export function LogsPage() {
             </p>
           ) : (
             read.data.map((entry) => (
-              <LogRow
-                key={entry.id}
-                entry={entry}
-                onOpen={() => setSelected(entry)}
-              />
+              <LogRow key={entry.id} entry={entry} onOpen={() => setSelected(entry)} />
             ))
           )}
         </div>
@@ -169,42 +159,24 @@ function LogRow({ entry, onOpen }: { entry: LogEntry; onOpen: () => void }) {
       className="stealth-log-line block w-full border-b border-[var(--projects-divider)] px-3.5 py-1.5 text-left transition-colors last:border-b-0 hover:bg-white/[0.03] aria-selected:bg-white/[0.04]"
     >
       <span className="hidden items-baseline gap-3 md:grid md:grid-cols-[92px_58px_84px_minmax(0,1fr)_auto]">
-        <Mono className="text-[11.5px] leading-5 text-[#8a8791]">
-          {entry.timestamp}
-        </Mono>
-        <span
-          className={cn(
-            "text-[11px] font-semibold leading-5 tracking-wide",
-            tone.text,
-          )}
-        >
+        <Mono className="text-[11.5px] leading-5 text-[#8a8791]">{entry.timestamp}</Mono>
+        <span className={cn("text-[11px] font-semibold leading-5 tracking-wide", tone.text)}>
           {entry.level}
         </span>
-        <Mono className="truncate text-[11.5px] leading-5 text-[#b3b0ba]">
-          {entry.service}
-        </Mono>
+        <Mono className="truncate text-[11.5px] leading-5 text-[#b3b0ba]">{entry.service}</Mono>
         <span className="min-w-0">
           <Mono className="block truncate text-[12px] leading-5 text-[var(--projects-text)]">
             {entry.message}
           </Mono>
         </span>
-        <Mono className="text-[11.5px] leading-5 text-[#8a8791]">
-          {entry.meta}
-        </Mono>
+        <Mono className="text-[11.5px] leading-5 text-[#8a8791]">{entry.meta}</Mono>
       </span>
       <span className="block md:hidden">
         <span className="flex items-baseline gap-2">
-          <span
-            className={cn(
-              "text-[10.5px] font-semibold tracking-wide",
-              tone.text,
-            )}
-          >
+          <span className={cn("text-[10.5px] font-semibold tracking-wide", tone.text)}>
             {entry.level}
           </span>
-          <Mono className="truncate text-[11.5px] leading-5 text-[#b3b0ba]">
-            {entry.service}
-          </Mono>
+          <Mono className="truncate text-[11.5px] leading-5 text-[#b3b0ba]">{entry.service}</Mono>
           <Mono className="ml-auto shrink-0 text-[10.5px] leading-5 text-[#8a8791]">
             {entry.timestamp}
           </Mono>
@@ -217,13 +189,7 @@ function LogRow({ entry, onOpen }: { entry: LogEntry; onOpen: () => void }) {
   );
 }
 
-function LogDetail({
-  entry,
-  onClose,
-}: {
-  entry: LogEntry | null;
-  onClose: () => void;
-}) {
+function LogDetail({ entry, onClose }: { entry: LogEntry | null; onClose: () => void }) {
   return (
     <DetailDrawer
       open={entry !== null}
@@ -231,13 +197,7 @@ function LogDetail({
       title={
         <>
           <span className="truncate">Log detail</span>
-          {entry && (
-            <StatusBadge
-              tone="neutral"
-              label={entry.service}
-              className="ml-2"
-            />
-          )}
+          {entry && <StatusBadge tone="neutral" label={entry.service} className="ml-2" />}
         </>
       }
       subtitle={entry?.message}
@@ -252,12 +212,7 @@ function LogDetail({
               </span>
             </DetailField>
             <DetailField label="Level">
-              <span
-                className={cn(
-                  "text-[12px] font-semibold",
-                  LEVEL_TONE[entry.level].label,
-                )}
-              >
+              <span className={cn("text-[12px] font-semibold", LEVEL_TONE[entry.level].label)}>
                 {entry.level}
               </span>
             </DetailField>

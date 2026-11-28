@@ -56,10 +56,7 @@ export function ProviderCardsSkeleton({ cards = 2 }: { cards?: number }) {
 /** Metric card row: icon, label, big value, sparkline. */
 export function MetricCardsSkeleton({ cards = 4 }: { cards?: number }) {
   return (
-    <div
-      className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4"
-      aria-hidden="true"
-    >
+    <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4" aria-hidden="true">
       {Array.from({ length: cards }, (_, index) => (
         <div
           key={index}
@@ -78,13 +75,7 @@ export function MetricCardsSkeleton({ cards = 4 }: { cards?: number }) {
 }
 
 /** Generic panel list: used by tables and log lists awaiting their first page. */
-export function PanelRowsSkeleton({
-  rows = 6,
-  className,
-}: {
-  rows?: number;
-  className?: string;
-}) {
+export function PanelRowsSkeleton({ rows = 6, className }: { rows?: number; className?: string }) {
   return (
     <div className={className} aria-hidden="true">
       {Array.from({ length: rows }, (_, index) => (

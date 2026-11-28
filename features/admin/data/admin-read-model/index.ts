@@ -135,11 +135,7 @@ function useSecondaryReadState<T>(
 ): AdminReadState<T> {
   const queries = [required, ...optional];
   return {
-    status: required.isError
-      ? "error"
-      : required.isPending
-        ? "pending"
-        : "ready",
+    status: required.isError ? "error" : required.isPending ? "pending" : "ready",
     data,
     error: required.isError ? errorMessage(required.error) : null,
     isFetching: queries.some((query) => query.isFetching),
@@ -148,11 +144,7 @@ function useSecondaryReadState<T>(
 }
 
 function useAdminOverviewQuery() {
-  return usePolledQuery<AdminOverviewResponse>(
-    "/api/admin/overview",
-    POLL_SLOW_MS,
-    true,
-  );
+  return usePolledQuery<AdminOverviewResponse>("/api/admin/overview", POLL_SLOW_MS, true);
 }
 
 function useOperationsQuery(range: AdminTimeRange, limit: number) {
@@ -167,9 +159,7 @@ function useOperationsQuery(range: AdminTimeRange, limit: number) {
   );
 }
 
-export function useAdminOverview(options?: {
-  refetchInterval?: number | false;
-}) {
+export function useAdminOverview(options?: { refetchInterval?: number | false }) {
   return usePolledQuery<AdminOverviewResponse>(
     "/api/admin/overview",
     options?.refetchInterval ?? POLL_SLOW_MS,
@@ -208,9 +198,7 @@ export function useAdminRedisMetrics(windowMinutes?: number) {
   );
 }
 
-export function useAdminAPIMetrics(options?: {
-  refetchInterval?: number | false;
-}) {
+export function useAdminAPIMetrics(options?: { refetchInterval?: number | false }) {
   return usePolledQuery<AdminAPIMetrics>(
     "/api/admin/api-metrics",
     options?.refetchInterval ?? POLL_MEDIUM_MS,
@@ -218,9 +206,7 @@ export function useAdminAPIMetrics(options?: {
   );
 }
 
-export function useAdminAccounts(options?: {
-  refetchInterval?: number | false;
-}) {
+export function useAdminAccounts(options?: { refetchInterval?: number | false }) {
   return usePolledQuery<AdminAccountsResponse>(
     "/api/admin/accounts",
     options?.refetchInterval ?? POLL_SLOW_MS,
@@ -316,24 +302,14 @@ function useErrorsQuery(range: AdminTimeRange) {
 }
 
 function useStatusPageQuery() {
-  return usePolledQuery<AdminStatusPage>(
-    "/api/admin/status-page",
-    POLL_SLOW_MS,
-    true,
-  );
+  return usePolledQuery<AdminStatusPage>("/api/admin/status-page", POLL_SLOW_MS, true);
 }
 
 function useAgentCatalogQuery() {
-  return usePolledQuery<AdminAgentCatalog>(
-    "/api/admin/agent-catalog",
-    false,
-    true,
-  );
+  return usePolledQuery<AdminAgentCatalog>("/api/admin/agent-catalog", false, true);
 }
 
-export function useInfrastructureReadModel(
-  range: HostTimeRange = "1h",
-): AdminReadState<{
+export function useInfrastructureReadModel(range: HostTimeRange = "1h"): AdminReadState<{
   host: ReturnType<typeof hostFromMetrics>;
   series: ReturnType<typeof resourceSeriesFromMetrics>;
   cpuHistory: number[];
@@ -368,9 +344,7 @@ export function useExecutionQueueReadModel(): AdminReadState<ExecutionQueueProje
   return useSecondaryReadState(operations, [overview], data);
 }
 
-export function useRunsReadModel(
-  range: AdminTimeRange = "7d",
-): AdminReadState<RunProjection[]> {
+export function useRunsReadModel(range: AdminTimeRange = "7d"): AdminReadState<RunProjection[]> {
   const operations = useOperationsQuery(range, 100);
   const data = useMemo(
     () =>
@@ -418,37 +392,22 @@ export function useLogsReadModel(options: {
       const entry = logFromApi(item);
       merged.set(entry.id, entry);
     }
-    return [...merged.values()].sort((a, b) =>
-      b.timestampIso.localeCompare(a.timestampIso),
-    );
+    return [...merged.values()].sort((a, b) => b.timestampIso.localeCompare(a.timestampIso));
   }, [base.data, tail.items]);
   const tailError = tail.error ? new Error(tail.error) : null;
   return {
-    status: tailError
-      ? "error"
-      : base.isPending && !live
-        ? "pending"
-        : "ready",
+    status: tailError ? "error" : base.isPending && !live ? "pending" : "ready",
     data,
-    error: tailError
-      ? errorMessage(tailError)
-      : base.error
-        ? errorMessage(base.error)
-        : null,
+    error: tailError ? errorMessage(tailError) : base.error ? errorMessage(base.error) : null,
     isFetching: base.isFetching,
     refetch: () => void base.refetch(),
   };
 }
 
-export function useTracesReadModel(
-  range: AdminTimeRange = "1h",
-): AdminReadState<Trace[]> {
+export function useTracesReadModel(range: AdminTimeRange = "1h"): AdminReadState<Trace[]> {
   const traces = useTracesQuery(range);
   const overview = useAdminOverviewQuery();
-  const data = useMemo(
-    () => tracesFromSpans(traces.data?.items ?? []),
-    [traces.data],
-  );
+  const data = useMemo(() => tracesFromSpans(traces.data?.items ?? []), [traces.data]);
   return useSecondaryReadState(traces, [overview], data);
 }
 
@@ -481,44 +440,26 @@ export function useProvidersReadModel(): AdminReadState<ProviderReadModel> {
   return readState([catalog], data, refetchAll([catalog]));
 }
 
-export function useUsageReadModel(
-  range: AdminTimeRange = "7d",
-): AdminReadState<UsageProjection> {
+export function useUsageReadModel(range: AdminTimeRange = "7d"): AdminReadState<UsageProjection> {
   const operations = useOperationsQuery(range, 100);
   const overview = useAdminOverviewQuery();
-  const data = usageFromOperations(
-    operations.data?.items ?? [],
-    overview.data?.operations ?? null,
-  );
+  const data = usageFromOperations(operations.data?.items ?? [], overview.data?.operations ?? null);
   return useSecondaryReadState(operations, [overview], data);
 }
 
 export function useStatusReadModel(): AdminReadState<StatusProjection> {
   const status = useStatusPageQuery();
-  const incidents = useAdminIncidents(
-    { limit: 20 },
-    { refetchInterval: 30_000 },
-  );
+  const incidents = useAdminIncidents({ limit: 20 }, { refetchInterval: 30_000 });
   const data = useMemo(
-    () =>
-      statusFromApi(
-        status.data,
-        (incidents.data?.items ?? []).map(toIncident),
-      ),
+    () => statusFromApi(status.data, (incidents.data?.items ?? []).map(toIncident)),
     [incidents.data, status.data],
   );
   return readState([status, incidents], data, refetchAll([status, incidents]));
 }
 
 export function useIncidentsReadModel(): AdminReadState<Incident[]> {
-  const incidents = useAdminIncidents(
-    { limit: 100 },
-    { refetchInterval: 30_000 },
-  );
-  const data = useMemo(
-    () => (incidents.data?.items ?? []).map(toIncident),
-    [incidents.data],
-  );
+  const incidents = useAdminIncidents({ limit: 100 }, { refetchInterval: 30_000 });
+  const data = useMemo(() => (incidents.data?.items ?? []).map(toIncident), [incidents.data]);
   return readState([incidents], data, refetchAll([incidents]));
 }
 

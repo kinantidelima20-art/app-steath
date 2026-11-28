@@ -16,8 +16,7 @@ import { StatusBadge } from "../components/status-badge";
 
 const fieldClass =
   "h-10 w-full rounded-md border border-[var(--projects-border)] bg-[var(--projects-control)] px-3 text-[13px] leading-4 text-[var(--projects-text)] outline-none transition-colors focus:border-[var(--projects-border-hover)]";
-const labelClass =
-  "mb-1.5 block text-[12px] font-medium text-[var(--projects-muted)]";
+const labelClass = "mb-1.5 block text-[12px] font-medium text-[var(--projects-muted)]";
 
 const PROVIDER_LABELS: Record<string, string> = {
   github: "GitHub",
@@ -134,9 +133,7 @@ function ProviderCard({
   return (
     <div className="rounded-lg border border-[var(--projects-border)] bg-[var(--projects-control)] p-3.5">
       <div className="mb-3 flex items-center justify-between gap-2">
-        <span className="text-[13px] font-medium text-[var(--projects-text)]">
-          {label}
-        </span>
+        <span className="text-[13px] font-medium text-[var(--projects-text)]">{label}</span>
         <StatusBadge
           tone={configured ? "success" : "neutral"}
           label={configured ? "Configured" : "Not configured"}
@@ -145,8 +142,8 @@ function ProviderCard({
 
       {fromEnvironment ? (
         <p className="mb-3 rounded-md border border-[var(--admin-info)]/25 bg-[var(--admin-info)]/10 px-2.5 py-2 text-[11.5px] leading-4 text-[var(--projects-muted)]">
-          Active credentials come from the deployment environment. Saving here
-          replaces them for this instance.
+          Active credentials come from the deployment environment. Saving here replaces them for
+          this instance.
         </p>
       ) : null}
 
@@ -162,9 +159,7 @@ function ProviderCard({
       </label>
 
       <label className="mb-3 block">
-        <span className={labelClass}>
-          Client secret{configured ? " (re-enter to change)" : ""}
-        </span>
+        <span className={labelClass}>Client secret{configured ? " (re-enter to change)" : ""}</span>
         <input
           type="password"
           value={secret}

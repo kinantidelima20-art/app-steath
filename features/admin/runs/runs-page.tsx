@@ -29,10 +29,7 @@ export function RunsPage() {
     return read.data.filter((run) => {
       if (status !== "all" && run.status !== status) return false;
       if (!normalizedQuery) return true;
-      return [run.id, run.agent, run.project]
-        .join(" ")
-        .toLowerCase()
-        .includes(normalizedQuery);
+      return [run.id, run.agent, run.project].join(" ").toLowerCase().includes(normalizedQuery);
     });
   }, [query, read.data, status]);
 
@@ -116,9 +113,7 @@ export function RunsPage() {
                         {run.project}
                       </span>
                       <Mono className="text-[11.5px] text-[var(--projects-muted)]">
-                        {run.durationMs > 0
-                          ? formatDuration(run.durationMs)
-                          : "—"}
+                        {run.durationMs > 0 ? formatDuration(run.durationMs) : "—"}
                       </Mono>
                       <RunStatusBadge status={run.status} />
                       <Mono className="text-[11px] text-[var(--projects-muted)]">
@@ -139,10 +134,8 @@ export function RunsPage() {
                       </span>
                       <Mono className="mt-1 block text-[11px] leading-4 text-[var(--projects-muted)]">
                         {run.project} ·{" "}
-                        {run.durationMs > 0
-                          ? formatDuration(run.durationMs)
-                          : "pending"}{" "}
-                        · {run.startedAt}
+                        {run.durationMs > 0 ? formatDuration(run.durationMs) : "pending"} ·{" "}
+                        {run.startedAt}
                       </Mono>
                     </span>
                   </button>
@@ -158,13 +151,7 @@ export function RunsPage() {
   );
 }
 
-function RunDetail({
-  run,
-  onClose,
-}: {
-  run: RunProjection | null;
-  onClose: () => void;
-}) {
+function RunDetail({ run, onClose }: { run: RunProjection | null; onClose: () => void }) {
   return (
     <DetailDrawer
       open={run !== null}

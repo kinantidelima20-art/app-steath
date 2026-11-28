@@ -1,10 +1,7 @@
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
-import {
-  useExecutionQueueReadModel,
-  type AdminOperation,
-} from "../data/admin-read-model";
+import { useExecutionQueueReadModel, type AdminOperation } from "../data/admin-read-model";
 import { AdminHeader, AdminPageBody, Mono } from "../components/admin-panel";
 import { AdminPanel, AdminPanelHeader } from "../components/admin-panel";
 import { DetailDrawer, DetailField } from "../components/detail-drawer";
@@ -15,10 +12,8 @@ import { formatDuration } from "../lib/format";
 function statusTone(status: string) {
   const normalized = status.toLowerCase();
   if (normalized.includes("fail")) return "danger" as const;
-  if (normalized.includes("run") || normalized.includes("build"))
-    return "warning" as const;
-  if (normalized.includes("complete") || normalized.includes("succeed"))
-    return "success" as const;
+  if (normalized.includes("run") || normalized.includes("build")) return "warning" as const;
+  if (normalized.includes("complete") || normalized.includes("succeed")) return "success" as const;
   return "neutral" as const;
 }
 
@@ -35,10 +30,7 @@ export function WorkersPage() {
   const [selected, setSelected] = useState<AdminOperation | null>(null);
   const { items, summary, queued, running, failed } = read.data;
 
-  const kinds = useMemo(
-    () => [...new Set(items.map((item) => item.kind))].sort(),
-    [items],
-  );
+  const kinds = useMemo(() => [...new Set(items.map((item) => item.kind))].sort(), [items]);
 
   return (
     <AdminPageBody>
@@ -54,15 +46,8 @@ export function WorkersPage() {
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Tile label="Queued" value={queued} tone="neutral" />
         <Tile label="Running" value={running} tone="success" />
-        <Tile
-          label="Failed"
-          value={failed}
-          tone={failed > 0 ? "warning" : "neutral"}
-        />
-        <Tile
-          label="Active deployments"
-          value={summary?.active_deployments ?? 0}
-        />
+        <Tile label="Failed" value={failed} tone={failed > 0 ? "warning" : "neutral"} />
+        <Tile label="Active deployments" value={summary?.active_deployments ?? 0} />
       </div>
 
       <AdminPanel flush>
@@ -122,15 +107,10 @@ export function WorkersPage() {
                       {item.project_name ?? "—"}
                     </span>
                     <Mono className="text-[11.5px] text-[var(--projects-muted)]">
-                      {item.duration_ms > 0
-                        ? formatDuration(item.duration_ms)
-                        : "—"}
+                      {item.duration_ms > 0 ? formatDuration(item.duration_ms) : "—"}
                     </Mono>
                     <span>
-                      <StatusBadge
-                        tone={statusTone(item.status)}
-                        label={item.status}
-                      />
+                      <StatusBadge tone={statusTone(item.status)} label={item.status} />
                     </span>
                     <Mono className="text-[11px] text-[var(--projects-muted)]">
                       {new Date(item.created_at).toISOString().slice(5, 16)}
@@ -192,34 +172,23 @@ function OperationDetail({
       {operation && (
         <div className="grid grid-cols-2 gap-x-4 gap-y-3">
           <DetailField label="Status">
-            <StatusBadge
-              tone={statusTone(operation.status)}
-              label={operation.status}
-            />
+            <StatusBadge tone={statusTone(operation.status)} label={operation.status} />
           </DetailField>
           <DetailField label="Duration">
-            {operation.duration_ms > 0
-              ? formatDuration(operation.duration_ms)
-              : "—"}
+            {operation.duration_ms > 0 ? formatDuration(operation.duration_ms) : "—"}
           </DetailField>
           <DetailField label="Operation ID" wide>
             <Mono>{operation.id}</Mono>
           </DetailField>
           <DetailField label="Started">
-            {operation.started_at
-              ? new Date(operation.started_at).toISOString()
-              : "—"}
+            {operation.started_at ? new Date(operation.started_at).toISOString() : "—"}
           </DetailField>
           <DetailField label="Finished">
-            {operation.finished_at
-              ? new Date(operation.finished_at).toISOString()
-              : "—"}
+            {operation.finished_at ? new Date(operation.finished_at).toISOString() : "—"}
           </DetailField>
           {operation.error && (
             <DetailField label="Error" wide>
-              <span className="text-[var(--projects-danger)]">
-                {operation.error}
-              </span>
+              <span className="text-[var(--projects-danger)]">{operation.error}</span>
             </DetailField>
           )}
         </div>
@@ -245,12 +214,8 @@ function Tile({
         : "text-[var(--projects-text)]";
   return (
     <article className="rounded-lg border border-[var(--projects-border)] bg-[#141416] px-3.5 py-3">
-      <p className="m-0 text-[11px] leading-4 text-[var(--projects-muted)]">
-        {label}
-      </p>
-      <p className={`m-0 text-[17px] font-semibold leading-6 ${valueClass}`}>
-        {value}
-      </p>
+      <p className="m-0 text-[11px] leading-4 text-[var(--projects-muted)]">{label}</p>
+      <p className={`m-0 text-[17px] font-semibold leading-6 ${valueClass}`}>{value}</p>
     </article>
   );
 }

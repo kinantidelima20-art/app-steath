@@ -3,8 +3,7 @@
 import { AnimatedBadge } from "@/components/motion/animated-badge";
 import { cn } from "@/lib/utils";
 
-export type AdminStatusTone =
-  "success" | "warning" | "danger" | "info" | "neutral";
+export type AdminStatusTone = "success" | "warning" | "danger" | "info" | "neutral";
 
 /**
  * Status chip for the admin area, rendered by the shared AnimatedBadge so the

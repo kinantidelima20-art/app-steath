@@ -73,8 +73,7 @@ export function ProvidersPage() {
           subtitle="The catalog never implies that a trusted execution worker is installed."
         />
         <p className="m-0 rounded-lg border border-[var(--projects-border)] bg-[#0f0f11] p-3 text-[12.5px] leading-5 text-[var(--projects-muted)]">
-          {execution?.message ??
-            "Provider execution readiness is not available from the API."}
+          {execution?.message ?? "Provider execution readiness is not available from the API."}
         </p>
       </AdminPanel>
     </AdminPageBody>

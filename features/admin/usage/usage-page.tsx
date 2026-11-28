@@ -1,10 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import {
-  useUsageReadModel,
-  type AdminTimeRange,
-} from "../data/admin-read-model";
+import { useUsageReadModel, type AdminTimeRange } from "../data/admin-read-model";
 import { AdminHeader, AdminPageBody, Mono } from "../components/admin-panel";
 import { AdminPanel, AdminPanelHeader } from "../components/admin-panel";
 import { StatTile } from "../components/stat-tile";
@@ -37,25 +34,14 @@ export function UsagePage() {
       </AdminHeader>
 
       <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
-        <StatTile
-          label="Recent operations"
-          value={String(totalRecent)}
-          hint="bounded API window"
-        />
+        <StatTile label="Recent operations" value={String(totalRecent)} hint="bounded API window" />
         <StatTile
           label="Queued now"
           value={String(summary?.queued_jobs ?? 0)}
           tone={(summary?.queued_jobs ?? 0) > 0 ? "warning" : "neutral"}
         />
-        <StatTile
-          label="Running now"
-          value={String(summary?.running_jobs ?? 0)}
-          tone="success"
-        />
-        <StatTile
-          label="Active deployments"
-          value={String(summary?.active_deployments ?? 0)}
-        />
+        <StatTile label="Running now" value={String(summary?.running_jobs ?? 0)} tone="success" />
+        <StatTile label="Active deployments" value={String(summary?.active_deployments ?? 0)} />
       </div>
 
       {read.status === "pending" ? (
@@ -165,9 +151,7 @@ export function UsagePage() {
                         </Td>
                         <Td>
                           <Mono className="text-[11px] text-[var(--projects-muted)]">
-                            {new Date(operation.created_at)
-                              .toISOString()
-                              .slice(0, 16)}
+                            {new Date(operation.created_at).toISOString().slice(0, 16)}
                           </Mono>
                         </Td>
                       </tr>
@@ -183,11 +167,7 @@ export function UsagePage() {
   );
 }
 
-function BreakdownList({
-  rows,
-}: {
-  rows: Array<{ label: string; value: number }>;
-}) {
+function BreakdownList({ rows }: { rows: Array<{ label: string; value: number }> }) {
   const total = rows.reduce((sum, row) => sum + row.value, 0);
   return (
     <ul className="m-0 list-none p-0">
@@ -205,9 +185,7 @@ function BreakdownList({
               <span className="min-w-0 flex-1 truncate text-[12.5px] text-[var(--projects-text)]">
                 {row.label}
               </span>
-              <Mono className="text-[11.5px] text-[var(--projects-muted)]">
-                {row.value}
-              </Mono>
+              <Mono className="text-[11.5px] text-[var(--projects-muted)]">{row.value}</Mono>
             </div>
             <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/[0.05]">
               <span

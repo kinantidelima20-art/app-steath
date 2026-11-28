@@ -1,7 +1,6 @@
 export type IncidentSeverity = "critical" | "warning" | "info";
 
-export type IncidentStatus =
-  "investigating" | "identified" | "monitoring" | "resolved";
+export type IncidentStatus = "investigating" | "identified" | "monitoring" | "resolved";
 
 /** A timestamped event on an incident timeline (API `AdminIncidentEvent.kind`). */
 export interface IncidentUpdate {

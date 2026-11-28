@@ -1,9 +1,6 @@
 import Link from "next/link";
 import { AdminPanel, AdminPanelHeader, Mono } from "../components/admin-panel";
-import {
-  IncidentStatusBadge,
-  SeverityBadge,
-} from "../components/domain-badges";
+import { IncidentStatusBadge, SeverityBadge } from "../components/domain-badges";
 import type { Incident } from "../types/incidents";
 
 /** Latest incidents, linking into the incidents board. */

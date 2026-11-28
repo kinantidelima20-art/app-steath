@@ -21,9 +21,7 @@ export function GradientAvatar({
   for (let index = 0; index < seed.length; index += 1) {
     hash = (hash * 31 + seed.charCodeAt(index)) % 360;
   }
-  const initials = (
-    seed.split(/[\s@._-]+/)[0]?.slice(0, 2) ?? "?"
-  ).toUpperCase();
+  const initials = (seed.split(/[\s@._-]+/)[0]?.slice(0, 2) ?? "?").toUpperCase();
 
   if (url) {
     return (
@@ -121,21 +119,12 @@ export function ProviderMark({
   provider: string;
   lastUsed?: boolean;
 }) {
-  const label =
-    provider === "github"
-      ? "GitHub"
-      : provider === "google"
-        ? "Google"
-        : "Password";
+  const label = provider === "github" ? "GitHub" : provider === "google" ? "Google" : "Password";
   return (
     <span
       role="img"
       aria-label={lastUsed ? `${label}, last used` : label}
-      title={
-        lastUsed
-          ? `Signed in with ${label} · last used`
-          : `Signed in with ${label}`
-      }
+      title={lastUsed ? `Signed in with ${label} · last used` : `Signed in with ${label}`}
       className={cn(
         "inline-flex size-7 shrink-0 items-center justify-center rounded-md border transition-colors",
         lastUsed
@@ -171,16 +160,10 @@ export function SignInMethods({
   return (
     <span className="inline-flex items-center gap-1.5">
       {methods.map((provider) => (
-        <ProviderMark
-          key={provider}
-          provider={provider}
-          lastUsed={provider === lastMethod}
-        />
+        <ProviderMark key={provider} provider={provider} lastUsed={provider === lastMethod} />
       ))}
       {methods.length === 1 && methods[0] === "password" ? (
-        <span className="truncate text-[12px] text-[var(--projects-muted)]">
-          Password
-        </span>
+        <span className="truncate text-[12px] text-[var(--projects-muted)]">Password</span>
       ) : null}
     </span>
   );

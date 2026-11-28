@@ -5,11 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowDown, ArrowUp, Check, Copy, MoreHorizontal } from "lucide-react";
 import type { components } from "@/lib/admin/api-schema";
 import { cn } from "@/lib/utils";
-import {
-  ACCOUNT_PLANS,
-  planLabel,
-  type AccountPlan,
-} from "../components/admin-select";
+import { ACCOUNT_PLANS, planLabel, type AccountPlan } from "../components/admin-select";
 
 type AdminAccount = components["schemas"]["AdminAccount"];
 
@@ -20,9 +16,7 @@ function stepPlan(plan: AccountPlan, direction: 1 | -1): AccountPlan | null {
 }
 
 function validPlan(plan: string): AccountPlan | null {
-  return (ACCOUNT_PLANS as readonly string[]).includes(plan)
-    ? (plan as AccountPlan)
-    : null;
+  return (ACCOUNT_PLANS as readonly string[]).includes(plan) ? (plan as AccountPlan) : null;
 }
 
 function displayNameOf(account: AdminAccount): string {
@@ -100,8 +94,7 @@ export function AccountActions({
         onClick={onToggle}
         className={cn(
           "inline-flex size-8 items-center justify-center rounded-md border border-[var(--projects-border)] text-[var(--projects-muted)] transition-colors hover:border-[var(--projects-border-hover)] hover:text-[var(--projects-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--projects-accent)]",
-          open &&
-            "border-[var(--projects-border-hover)] text-[var(--projects-text)]",
+          open && "border-[var(--projects-border-hover)] text-[var(--projects-text)]",
         )}
       >
         <MoreHorizontal size={15} strokeWidth={2} aria-hidden="true" />
@@ -112,9 +105,7 @@ export function AccountActions({
           <motion.div
             role="menu"
             aria-label={`Actions for ${name}`}
-            initial={
-              reduce ? false : { opacity: 0, y: flipUp ? 4 : -4, scale: 0.98 }
-            }
+            initial={reduce ? false : { opacity: 0, y: flipUp ? 4 : -4, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{
               opacity: 0,
@@ -133,9 +124,7 @@ export function AccountActions({
               role="menuitem"
               disabled={!promoteTo || busy}
               title={
-                promoteTo
-                  ? `Promote to ${planLabel(promoteTo)}`
-                  : "Already on the highest plan"
+                promoteTo ? `Promote to ${planLabel(promoteTo)}` : "Already on the highest plan"
               }
               onClick={() => {
                 if (promoteTo) onPlanChange(promoteTo);
@@ -149,19 +138,13 @@ export function AccountActions({
                 aria-hidden="true"
                 className="shrink-0 text-[var(--projects-accent)]"
               />
-              {promoteTo
-                ? `Promote to ${planLabel(promoteTo)}`
-                : "Already on Pro"}
+              {promoteTo ? `Promote to ${planLabel(promoteTo)}` : "Already on Pro"}
             </button>
             <button
               type="button"
               role="menuitem"
               disabled={!demoteTo || busy}
-              title={
-                demoteTo
-                  ? `Demote to ${planLabel(demoteTo)}`
-                  : "Already on the lowest plan"
-              }
+              title={demoteTo ? `Demote to ${planLabel(demoteTo)}` : "Already on the lowest plan"}
               onClick={() => {
                 if (demoteTo) onPlanChange(demoteTo);
                 onToggle();
@@ -174,14 +157,9 @@ export function AccountActions({
                 aria-hidden="true"
                 className="shrink-0 text-[var(--projects-muted)]"
               />
-              {demoteTo
-                ? `Demote to ${planLabel(demoteTo)}`
-                : "Already on Free"}
+              {demoteTo ? `Demote to ${planLabel(demoteTo)}` : "Already on Free"}
             </button>
-            <div
-              aria-hidden="true"
-              className="mx-2 my-1 h-px bg-[var(--projects-divider)]"
-            />
+            <div aria-hidden="true" className="mx-2 my-1 h-px bg-[var(--projects-divider)]" />
             <button
               type="button"
               role="menuitem"

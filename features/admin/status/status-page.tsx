@@ -4,10 +4,7 @@ import Link from "next/link";
 import { useStatusReadModel } from "../data/admin-read-model";
 import { AdminHeader, AdminPageBody, Mono } from "../components/admin-panel";
 import { AdminPanel, AdminPanelHeader } from "../components/admin-panel";
-import {
-  IncidentStatusBadge,
-  SeverityBadge,
-} from "../components/domain-badges";
+import { IncidentStatusBadge, SeverityBadge } from "../components/domain-badges";
 import { StatusBadge } from "../components/status-badge";
 import { PanelRowsSkeleton } from "../components/admin-skeletons";
 import { formatRelative } from "@/lib/format";
@@ -15,8 +12,7 @@ import { cn } from "@/lib/utils";
 
 function componentTone(status: string) {
   if (status === "operational") return "success" as const;
-  if (status === "maintenance" || status === "degraded")
-    return "warning" as const;
+  if (status === "maintenance" || status === "degraded") return "warning" as const;
   return "danger" as const;
 }
 
@@ -34,18 +30,8 @@ function componentLabel(status: string): string {
  */
 export function StatusPage() {
   const read = useStatusReadModel();
-  const {
-    name,
-    description,
-    isPublic,
-    updatedAt,
-    components,
-    incidents,
-    degraded,
-  } = read.data;
-  const activeIncidents = incidents.filter(
-    (incident) => incident.status !== "resolved",
-  );
+  const { name, description, isPublic, updatedAt, components, incidents, degraded } = read.data;
+  const activeIncidents = incidents.filter((incident) => incident.status !== "resolved");
 
   return (
     <AdminPageBody>
@@ -77,9 +63,7 @@ export function StatusPage() {
               aria-hidden="true"
               className={cn(
                 "size-2.5 rounded-full",
-                !degraded
-                  ? "bg-[var(--projects-accent)]"
-                  : "bg-[var(--projects-warning)]",
+                !degraded ? "bg-[var(--projects-accent)]" : "bg-[var(--projects-warning)]",
               )}
             />
             <p className="m-0 text-[15px] font-semibold text-[var(--projects-text)]">
@@ -98,10 +82,7 @@ export function StatusPage() {
           <AdminPanel>
             <AdminPanelHeader
               title={name}
-              subtitle={
-                description ||
-                "Configured components and their current reported state."
-              }
+              subtitle={description || "Configured components and their current reported state."}
               right={
                 updatedAt ? (
                   <Mono className="text-[11px] text-[var(--projects-muted)]">
@@ -160,9 +141,7 @@ export function StatusPage() {
                   className="flex flex-wrap items-center gap-2.5 border-b border-[var(--projects-divider)] py-2.5 last:border-b-0"
                 >
                   <SeverityBadge severity={incident.severity} />
-                  <span className="text-[13px] text-[var(--projects-text)]">
-                    {incident.title}
-                  </span>
+                  <span className="text-[13px] text-[var(--projects-text)]">{incident.title}</span>
                   <span className="ml-auto flex items-center gap-3">
                     <Mono className="text-[11px] text-[var(--projects-muted)]">
                       {incident.startedAt}

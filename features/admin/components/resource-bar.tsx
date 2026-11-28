@@ -34,11 +34,7 @@ export function ResourceBar({
         </span>
         <span className="admin-mono text-[11.5px] leading-none text-[var(--projects-text)]">
           {Math.round(clamped)}%
-          {detail && (
-            <span className="ml-1.5 text-[var(--projects-muted)]">
-              {detail}
-            </span>
-          )}
+          {detail && <span className="ml-1.5 text-[var(--projects-muted)]">{detail}</span>}
         </span>
       </div>
       <div
@@ -50,10 +46,7 @@ export function ResourceBar({
         className="h-1 w-full overflow-hidden rounded-full bg-[var(--projects-progress-track)]"
       >
         <div
-          className={cn(
-            "h-full rounded-full transition-[width] duration-500",
-            tone,
-          )}
+          className={cn("h-full rounded-full transition-[width] duration-500", tone)}
           style={{ width: `${clamped}%` }}
         />
       </div>
