@@ -83,14 +83,22 @@ export function CloudflareSettingsPage() {
         subtitle="Instance preferences, telemetry, sign-in, and transactional email. Email provider changes apply immediately."
       >
         {tab === "general" || tab === "telemetry" || tab === "alerting" ? (
-          <button type="button" onClick={markSaved} className="inline-flex h-[34px] items-center gap-[8px] border border-[var(--projects-accent-border)] rounded-control bg-[var(--projects-accent-strong)] py-0 px-[14px] text-ink text-[12.5px]! font-semibold! [transition:filter_120ms_ease] [&:hover:not(:disabled)]:[filter:brightness(1.12)] disabled:opacity-[0.5]">
+          <button
+            type="button"
+            onClick={markSaved}
+            className="inline-flex h-[34px] items-center gap-[8px] border border-[var(--projects-accent-border)] rounded-control bg-[var(--projects-accent-strong)] py-0 px-[14px] text-ink text-[12.5px]! font-semibold! [transition:filter_120ms_ease] [&:hover:not(:disabled)]:[filter:brightness(1.12)] disabled:opacity-[0.5]"
+          >
             {saved ? <Check size={14} aria-hidden="true" /> : null}
             {saved ? "Saved" : "Save changes"}
           </button>
         ) : null}
       </AdminHeader>
 
-      <div className="flex gap-[4px] overflow-x-auto border-b border-b-[var(--projects-border)] mb-[20px]" role="tablist" aria-label="Settings sections">
+      <div
+        className="flex gap-[4px] overflow-x-auto border-b border-b-[var(--projects-border)] mb-[20px]"
+        role="tablist"
+        aria-label="Settings sections"
+      >
         {TABS.map((item) => (
           <button
             key={item.id}

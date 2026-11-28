@@ -133,6 +133,7 @@ docker exec -it stealth-postgres psql -U stealth -d stealth_hosting
 ```
 
 Useful commands:
+
 ```sql
 -- List all tables
 \dt

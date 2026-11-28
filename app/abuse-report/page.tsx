@@ -72,7 +72,10 @@ export default function AbuseReportPage() {
           </button>
         </form>
         {message ? (
-          <p className="auth-message mt-[16px] mb-0 mx-0 text-[#b3b3ba] text-[13px] leading-[18px]" role="status">
+          <p
+            className="auth-message mt-[16px] mb-0 mx-0 text-[#b3b3ba] text-[13px] leading-[18px]"
+            role="status"
+          >
             {message}
           </p>
         ) : null}

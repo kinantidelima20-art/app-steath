@@ -26,7 +26,12 @@ import { getError, useResource } from "@/lib/resource";
 import { useToast } from "@/components/toast-context";
 import { ModalDialog } from "@/components/supabase-modal";
 
-import { dangerButtonClass, modalCloseClass, secondaryButtonClass, serviceDeleteButtonClass } from "@/components/ui-classes";
+import {
+  dangerButtonClass,
+  modalCloseClass,
+  secondaryButtonClass,
+  serviceDeleteButtonClass,
+} from "@/components/ui-classes";
 
 const EMPTY_FORM = {
   name: "",
@@ -140,7 +145,10 @@ export function ServicesPanel({
       </div>
 
       {panel.error || actionError ? (
-        <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+        <div
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+          role="alert"
+        >
           {panel.error || actionError}
         </div>
       ) : null}
@@ -149,7 +157,11 @@ export function ServicesPanel({
       {loading ? (
         <div className="grid grid-cols-1 gap-3">
           {[1, 2].map((n) => (
-            <div key={n} className="bg-surface flex flex-col justify-between p-[16px] rounded-card border border-surface-raised min-h-[120px] h-28" aria-hidden="true">
+            <div
+              key={n}
+              className="bg-surface flex flex-col justify-between p-[16px] rounded-card border border-surface-raised min-h-[120px] h-28"
+              aria-hidden="true"
+            >
               <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] h-4 w-36 rounded mb-2" />
               <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] h-3 w-48 rounded mb-4" />
               <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] h-3 w-24 rounded" />
@@ -158,7 +170,10 @@ export function ServicesPanel({
         </div>
       ) : services.length === 0 ? (
         <div className="bg-surface flex flex-col items-center justify-center py-[56px] px-[24px] rounded-card border border-dashed border-[#262430] text-center">
-          <div className="bg-[#211f29] flex items-center justify-center w-[48px] h-[48px] rounded-card-lg" aria-hidden="true">
+          <div
+            className="bg-[#211f29] flex items-center justify-center w-[48px] h-[48px] rounded-card-lg"
+            aria-hidden="true"
+          >
             <Container className="w-8 h-8 text-zinc-500" />
           </div>
           <h3 className="text-base font-semibold text-white mt-3">No services deployed yet</h3>
@@ -183,10 +198,16 @@ export function ServicesPanel({
           {services.map((service) => {
             const isLive = service.status === "running";
             return (
-              <div key={service.id} className="flex flex-col py-[16px] px-[20px] rounded-card bg-surface border border-surface-raised [transition:border-color_150ms] hover:border-[#34323e]">
+              <div
+                key={service.id}
+                className="flex flex-col py-[16px] px-[20px] rounded-card bg-surface border border-surface-raised [transition:border-color_150ms] hover:border-[#34323e]"
+              >
                 <div className="flex items-center justify-between flex-wrap gap-[12px]">
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="bg-[#211f29] flex items-center justify-center w-[32px] h-[32px] rounded-control shrink-0" aria-hidden="true">
+                    <div
+                      className="bg-[#211f29] flex items-center justify-center w-[32px] h-[32px] rounded-control shrink-0"
+                      aria-hidden="true"
+                    >
                       <Container className="w-4 h-4 text-emerald-400" />
                     </div>
                     <div className="min-w-0">
@@ -211,10 +232,15 @@ export function ServicesPanel({
                   <div className="flex items-center gap-3">
                     <span
                       className={`project-service-status-pill inline-flex items-center gap-[6px] text-[11px] font-medium py-[2px] px-[8px] rounded-control-sm border ${
-                        isLive ? "border-[rgba(62,207,142,0.25)] bg-[rgba(62,207,142,0.08)] text-[var(--color-accent)]" : "border-[rgba(245,158,11,0.25)] bg-[rgba(245,158,11,0.08)] text-[#f59e0b]"
+                        isLive
+                          ? "border-[rgba(62,207,142,0.25)] bg-[rgba(62,207,142,0.08)] text-[var(--color-accent)]"
+                          : "border-[rgba(245,158,11,0.25)] bg-[rgba(245,158,11,0.08)] text-[#f59e0b]"
                       }`}
                     >
-                      <span className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]" aria-hidden="true" />
+                      <span
+                        className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]"
+                        aria-hidden="true"
+                      />
                       {serviceStatusLabel(service.status)}
                     </span>
 
@@ -290,7 +316,10 @@ export function ServicesPanel({
                 container with its own subdomain.
               </p>
               <div>
-                <label htmlFor="service-name-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="service-name-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Service Name
                 </label>
                 <input
@@ -306,7 +335,10 @@ export function ServicesPanel({
               </div>
 
               <div>
-                <label htmlFor="repo-url-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="repo-url-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Git Repository URL (public HTTPS)
                 </label>
                 <input
@@ -326,7 +358,10 @@ export function ServicesPanel({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="branch-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                  <label
+                    htmlFor="branch-input"
+                    className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                  >
                     Git Branch
                   </label>
                   <input
@@ -338,7 +373,10 @@ export function ServicesPanel({
                   />
                 </div>
                 <div>
-                  <label htmlFor="port-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                  <label
+                    htmlFor="port-input"
+                    className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                  >
                     Container Port
                   </label>
                   <input
@@ -354,7 +392,10 @@ export function ServicesPanel({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="dockerfile-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                  <label
+                    htmlFor="dockerfile-input"
+                    className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                  >
                     Dockerfile Path (Optional)
                   </label>
                   <input
@@ -366,7 +407,10 @@ export function ServicesPanel({
                   />
                 </div>
                 <div>
-                  <label htmlFor="health-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                  <label
+                    htmlFor="health-input"
+                    className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                  >
                     Health Check Path (Optional)
                   </label>
                   <input
@@ -433,7 +477,10 @@ export function ServicesPanel({
                 <strong className="text-white">{deleteTarget.name}</strong>.
               </p>
               <div>
-                <label htmlFor="delete-service-confirm-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="delete-service-confirm-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Type <strong>{deleteTarget.name}</strong> to confirm:
                 </label>
                 <input

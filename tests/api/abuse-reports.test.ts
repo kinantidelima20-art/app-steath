@@ -322,7 +322,9 @@ describe("public Abuse Reports", () => {
     );
     expect(denied.status).toBe(403);
     const allowed = await GET(
-      new Request(`${BASE_URL}/api/admin/resources?q=organization`, { headers: { cookie: adminCookie } }),
+      new Request(`${BASE_URL}/api/admin/resources?q=organization`, {
+        headers: { cookie: adminCookie },
+      }),
     );
     expect(allowed.status).toBe(200);
   });

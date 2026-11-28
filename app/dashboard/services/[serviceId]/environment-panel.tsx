@@ -14,7 +14,13 @@ import { formatDateTime } from "@/lib/format";
 import { SupabaseModal } from "@/components/supabase-modal";
 import { recordsTableClass } from "@/components/records-table";
 
-import { dangerLinkButtonClass, dashboardLinkButtonClass, redeployBannerClass, secondaryButtonClass, tableWrapClass } from "@/components/ui-classes";
+import {
+  dangerLinkButtonClass,
+  dashboardLinkButtonClass,
+  redeployBannerClass,
+  secondaryButtonClass,
+  tableWrapClass,
+} from "@/components/ui-classes";
 
 type DraftState = {
   mode: "create" | "edit";
@@ -110,7 +116,10 @@ export function EnvironmentPanel({
   }
 
   return (
-    <section className="dashboard-section mt-0 mb-[24px] mx-0 p-[20px] border border-[#27272a] rounded-card bg-[#0c0c0d] [@media(max-width:600px)]:p-[16px]" aria-labelledby="environment-heading">
+    <section
+      className="dashboard-section mt-0 mb-[24px] mx-0 p-[20px] border border-[#27272a] rounded-card bg-[#0c0c0d] [@media(max-width:600px)]:p-[16px]"
+      aria-labelledby="environment-heading"
+    >
       <div className="dashboard-section-heading flex min-h-[42px] items-center justify-between border-b border-b-[#322f37]">
         <h2 id="environment-heading">Environment Variables</h2>
         <button
@@ -130,7 +139,10 @@ export function EnvironmentPanel({
       ) : null}
 
       {environment.error || actionError ? (
-        <p className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+        <p
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+          role="alert"
+        >
           {environment.error || actionError}
         </p>
       ) : null}
@@ -147,7 +159,10 @@ export function EnvironmentPanel({
                 apply changes.
               </p>
               <div className="mb-4">
-                <label htmlFor="env-key-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="env-key-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Key
                 </label>
                 <input
@@ -162,7 +177,10 @@ export function EnvironmentPanel({
                 />
               </div>
               <div>
-                <label htmlFor="env-value-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="env-value-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   {draft.mode === "edit" ? "New value (leave empty to keep)" : "Value"}
                 </label>
                 <input
@@ -196,7 +214,10 @@ export function EnvironmentPanel({
       ) : null}
 
       {loading ? (
-        <p className="dashboard-table-empty text-[13px] p-[20px] text-[#71717a] text-center" role="status">
+        <p
+          className="dashboard-table-empty text-[13px] p-[20px] text-[#71717a] text-center"
+          role="status"
+        >
           Loading Environment Variables...
         </p>
       ) : variables.length === 0 ? (
@@ -222,7 +243,9 @@ export function EnvironmentPanel({
                 return (
                   <tr key={variable.id}>
                     <td data-label="Key">
-                      <code className="[font-family:ui-monospace,SFMono-Regular,Menlo,monospace] text-[12px] tabular-nums">{variable.key}</code>
+                      <code className="[font-family:ui-monospace,SFMono-Regular,Menlo,monospace] text-[12px] tabular-nums">
+                        {variable.key}
+                      </code>
                     </td>
                     <td data-label="Value">
                       <code className="[font-family:ui-monospace,SFMono-Regular,Menlo,monospace] text-[12px] [overflow-wrap:anywhere] tabular-nums">

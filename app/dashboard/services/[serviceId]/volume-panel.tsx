@@ -12,7 +12,12 @@ import { formatDateTime } from "@/lib/format";
 import { SupabaseModal } from "@/components/supabase-modal";
 import { recordsTableClass } from "@/components/records-table";
 
-import { dangerLinkButtonClass, redeployBannerClass, secondaryButtonClass, tableWrapClass } from "@/components/ui-classes";
+import {
+  dangerLinkButtonClass,
+  redeployBannerClass,
+  secondaryButtonClass,
+  tableWrapClass,
+} from "@/components/ui-classes";
 
 function usageLabel(volume: VolumeSummary): string {
   if (!volume.exists) {
@@ -91,7 +96,10 @@ export function VolumePanel({
   }
 
   return (
-    <section className="dashboard-section mt-0 mb-[24px] mx-0 p-[20px] border border-[#27272a] rounded-card bg-[#0c0c0d] [@media(max-width:600px)]:p-[16px]" aria-labelledby="volume-heading">
+    <section
+      className="dashboard-section mt-0 mb-[24px] mx-0 p-[20px] border border-[#27272a] rounded-card bg-[#0c0c0d] [@media(max-width:600px)]:p-[16px]"
+      aria-labelledby="volume-heading"
+    >
       <div className="dashboard-section-heading flex min-h-[42px] items-center justify-between border-b border-b-[#322f37]">
         <h2 id="volume-heading">Volume</h2>
         {canManage && !volume ? (
@@ -113,7 +121,10 @@ export function VolumePanel({
       ) : null}
 
       {panel.error || actionError ? (
-        <p className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+        <p
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+          role="alert"
+        >
           {panel.error || actionError}
         </p>
       ) : null}
@@ -127,7 +138,10 @@ export function VolumePanel({
                 Deployment.
               </p>
               <div className="mb-4">
-                <label htmlFor="volume-path-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="volume-path-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Mount path
                 </label>
                 <input
@@ -142,7 +156,10 @@ export function VolumePanel({
                 />
               </div>
               <div>
-                <label htmlFor="volume-size-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="volume-size-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Size (MB)
                 </label>
                 <input
@@ -175,7 +192,10 @@ export function VolumePanel({
       ) : null}
 
       {loading ? (
-        <p className="dashboard-table-empty text-[13px] p-[20px] text-[#71717a] text-center" role="status">
+        <p
+          className="dashboard-table-empty text-[13px] p-[20px] text-[#71717a] text-center"
+          role="status"
+        >
           Loading Volume...
         </p>
       ) : !volume ? (
@@ -201,7 +221,9 @@ export function VolumePanel({
             <tbody>
               <tr>
                 <td data-label="Mount path">
-                  <code className="[font-family:ui-monospace,SFMono-Regular,Menlo,monospace] text-[12px] tabular-nums">{volume.mountPath}</code>
+                  <code className="[font-family:ui-monospace,SFMono-Regular,Menlo,monospace] text-[12px] tabular-nums">
+                    {volume.mountPath}
+                  </code>
                 </td>
                 <td data-label="Size">{volume.sizeMb} MB</td>
                 <td data-label="Usage" className="svc-cell-wide">

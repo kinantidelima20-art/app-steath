@@ -18,17 +18,17 @@ export async function ProjectGate({ params }: { params: Promise<{ projectId: str
 
 export function ProjectGateFallback() {
   return (
-      <div className="dashboard-content">
-        <div role="status" aria-label="Loading project">
-          <div className="dashboard-heading-skeleton w-[min(280px,60%)] h-[28px] rounded-[7px] bg-[#232127]" />
-          <div className="dashboard-heading-skeleton w-[min(170px,40%)] h-[14px] mt-[10px] rounded-[7px] bg-[#232127]" />
-          <div className="py-[8px]">
-            <div className={skeletonRowClass} />
-            <div className={skeletonRowClass} />
-            <div className={skeletonRowClass} />
-          </div>
-          <span className="sr-only">Loading Project…</span>
+    <div className="dashboard-content">
+      <div role="status" aria-label="Loading project">
+        <div className="dashboard-heading-skeleton w-[min(280px,60%)] h-[28px] rounded-[7px] bg-[#232127]" />
+        <div className="dashboard-heading-skeleton w-[min(170px,40%)] h-[14px] mt-[10px] rounded-[7px] bg-[#232127]" />
+        <div className="py-[8px]">
+          <div className={skeletonRowClass} />
+          <div className={skeletonRowClass} />
+          <div className={skeletonRowClass} />
         </div>
+        <span className="sr-only">Loading Project…</span>
       </div>
+    </div>
   );
 }

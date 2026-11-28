@@ -1,15 +1,7 @@
 "use client";
 // beui.dev/components/motion/animated-badge — adapted to the Stealth palette.
 
-import {
-  AlertTriangle,
-  Check,
-  Circle,
-  Info,
-  LoaderCircle,
-  X,
-  type LucideIcon,
-} from "lucide-react";
+import { AlertTriangle, Check, Circle, Info, LoaderCircle, X, type LucideIcon } from "lucide-react";
 import {
   AnimatePresence,
   motion,
@@ -21,15 +13,11 @@ import type { ReactNode } from "react";
 import { EASE_OUT } from "@/lib/ease";
 import { cn } from "@/lib/utils";
 
-export type AnimatedBadgeStatus =
-  "neutral" | "info" | "success" | "warning" | "danger" | "loading";
+export type AnimatedBadgeStatus = "neutral" | "info" | "success" | "warning" | "danger" | "loading";
 
 export type AnimatedBadgeSize = "sm" | "md";
 
-export interface AnimatedBadgeProps extends Omit<
-  HTMLMotionProps<"span">,
-  "children"
-> {
+export interface AnimatedBadgeProps extends Omit<HTMLMotionProps<"span">, "children"> {
   status?: AnimatedBadgeStatus;
   size?: AnimatedBadgeSize;
   children?: ReactNode;
@@ -49,8 +37,7 @@ const STATUS_CLASS: Record<AnimatedBadgeStatus, string> = {
     "border-[var(--projects-warning)]/30 bg-[var(--projects-warning)]/10 text-[var(--projects-warning)]",
   danger:
     "border-[var(--projects-danger)]/30 bg-[var(--projects-danger)]/10 text-[var(--projects-danger)]",
-  loading:
-    "border-[var(--admin-info)]/30 bg-[var(--admin-info)]/10 text-[var(--admin-info)]",
+  loading: "border-[var(--admin-info)]/30 bg-[var(--admin-info)]/10 text-[var(--admin-info)]",
 };
 
 const SIZE_CLASS: Record<AnimatedBadgeSize, string> = {
@@ -139,9 +126,7 @@ export function AnimatedBadge({
   const Icon = ICONS[status];
   const resolvedContentKey =
     contentKey ??
-    (typeof children === "string" || typeof children === "number"
-      ? children
-      : status);
+    (typeof children === "string" || typeof children === "number" ? children : status);
 
   return (
     <motion.span

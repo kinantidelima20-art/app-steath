@@ -32,11 +32,7 @@ async function LoginGate({ searchParams }: { searchParams: Promise<LoginSearchPa
 }
 
 /** The dedicated sign-in page, so login has its own address and tab title. */
-export default function LoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<LoginSearchParams>;
-}) {
+export default function LoginPage({ searchParams }: { searchParams: Promise<LoginSearchParams> }) {
   return (
     <Suspense fallback={<AuthPageFallback />}>
       <LoginGate searchParams={searchParams} />

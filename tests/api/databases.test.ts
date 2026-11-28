@@ -645,7 +645,10 @@ describe("Databases", () => {
     // checked for shape rather than compared to the derived name.
     expect(database.username).toMatch(/^database_project_[a-z0-9]{6}$/);
     expect(database.connectionString).toBe(
-      `postgres://${database.username}:[0-9a-f]{64}@db:5432/${names.schema}`.replace("[0-9a-f]{64}", new URL(database.connectionString as string).password),
+      `postgres://${database.username}:[0-9a-f]{64}@db:5432/${names.schema}`.replace(
+        "[0-9a-f]{64}",
+        new URL(database.connectionString as string).password,
+      ),
     );
     expect(new URL(database.connectionString as string).port).toBe("5432");
 
@@ -1213,9 +1216,11 @@ describe("Databases", () => {
     );
     expect(response.status).toBe(200);
 
-    const session = ((await response.json()) as {
-      data: { url: string; expiresInSeconds: number };
-    }).data;
+    const session = (
+      (await response.json()) as {
+        data: { url: string; expiresInSeconds: number };
+      }
+    ).data;
     expect(session.expiresInSeconds).toBe(60);
     // The link must live on the phpMyAdmin host: its session cookie is
     // same-origin and `__Secure-`, so any other host could not hold a session.

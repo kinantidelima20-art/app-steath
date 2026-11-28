@@ -29,7 +29,16 @@ import { formatDateTime } from "@/lib/format";
 import { useToast } from "@/components/toast-context";
 import { ModalDialog } from "@/components/supabase-modal";
 
-import { credentialActionClass, credentialRowClass, credentialToggleClass, credentialValueClass, dangerButtonClass, modalCloseClass, secondaryButtonClass, serviceDeleteButtonClass } from "@/components/ui-classes";
+import {
+  credentialActionClass,
+  credentialRowClass,
+  credentialToggleClass,
+  credentialValueClass,
+  dangerButtonClass,
+  modalCloseClass,
+  secondaryButtonClass,
+  serviceDeleteButtonClass,
+} from "@/components/ui-classes";
 
 const STATUS_LABELS: Record<StorageBucketStatus, string> = {
   provisioning: "Provisioning",
@@ -79,13 +88,18 @@ function CopyValue({ label, value }: { label: string; value: string }) {
       <span className="flex items-center gap-[8px] text-[10.5px] uppercase tracking-[0.04em] text-[#636170]">
         {label}
         {copied ? (
-          <span className="db-cred-copied normal-case text-[10px] font-semibold tracking-[0.02em] text-accent" role="status">
+          <span
+            className="db-cred-copied normal-case text-[10px] font-semibold tracking-[0.02em] text-accent"
+            role="status"
+          >
             Tersalin
           </span>
         ) : null}
       </span>
       <div className="flex items-start gap-[10px] min-w-0">
-        <span className="db-cred-value flex-auto [word-break:break-all] [font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace] text-ink min-w-0 text-[14px] leading-[1.5] [overflow-wrap:anywhere] is-mono">{value}</span>
+        <span className="db-cred-value flex-auto [word-break:break-all] [font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace] text-ink min-w-0 text-[14px] leading-[1.5] [overflow-wrap:anywhere] is-mono">
+          {value}
+        </span>
         <button
           type="button"
           className={credentialToggleClass}
@@ -152,7 +166,10 @@ function SecretKeyRow({ projectId, bucketId }: { projectId: string; bucketId: st
       <span className="flex items-center gap-[8px] text-[10.5px] uppercase tracking-[0.04em] text-[#636170]">
         Secret key
         {copied ? (
-          <span className="db-cred-copied normal-case text-[10px] font-semibold tracking-[0.02em] text-accent" role="status">
+          <span
+            className="db-cred-copied normal-case text-[10px] font-semibold tracking-[0.02em] text-accent"
+            role="status"
+          >
             Tersalin
           </span>
         ) : null}
@@ -236,26 +253,42 @@ ${bucket.public ? `// Public buckets allow anonymous reads:\n// ${publicUrl}\n` 
     <div className="flex flex-col py-[16px] px-[20px] rounded-card bg-surface border border-surface-raised [transition:border-color_150ms] hover:border-[#34323e]">
       <div className="flex items-center justify-between flex-wrap gap-[12px]">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="bg-[#211f29] flex items-center justify-center w-[32px] h-[32px] rounded-control shrink-0" aria-hidden="true">
+          <div
+            className="bg-[#211f29] flex items-center justify-center w-[32px] h-[32px] rounded-control shrink-0"
+            aria-hidden="true"
+          >
             <HardDrive className="w-4 h-4 text-emerald-400" />
           </div>
           <div className="min-w-0">
-            <h3 className="text-ink hover:text-accent text-[14.5px] font-semibold! no-underline [transition:color_150ms]">{bucket.name}</h3>
-            <span className="text-[#716f7c] hover:text-ink-console inline-flex items-center gap-[4px] text-[12px] [font-family:monospace] no-underline mt-[2px]">{bucket.objectName}</span>
+            <h3 className="text-ink hover:text-accent text-[14.5px] font-semibold! no-underline [transition:color_150ms]">
+              {bucket.name}
+            </h3>
+            <span className="text-[#716f7c] hover:text-ink-console inline-flex items-center gap-[4px] text-[12px] [font-family:monospace] no-underline mt-[2px]">
+              {bucket.objectName}
+            </span>
           </div>
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
-          <span className={`project-proxy-badge inline-flex items-center text-[11px] font-semibold py-[3px] px-[8px] rounded-control-sm ${bucket.public ? "border border-[rgba(56,189,248,0.25)] bg-[rgba(56,189,248,0.1)] text-[#38bdf8]" : "border border-[#282631] bg-[#1e1d25] text-[#716f7c]"}`}>
+          <span
+            className={`project-proxy-badge inline-flex items-center text-[11px] font-semibold py-[3px] px-[8px] rounded-control-sm ${bucket.public ? "border border-[rgba(56,189,248,0.25)] bg-[rgba(56,189,248,0.1)] text-[#38bdf8]" : "border border-[#282631] bg-[#1e1d25] text-[#716f7c]"}`}
+          >
             {bucket.public ? <Globe className="w-3 h-3 mr-1" /> : <Lock className="w-3 h-3 mr-1" />}
             {bucket.public ? "Public" : "Private"}
           </span>
-          <span className={`project-service-status-pill inline-flex items-center gap-[6px] text-[11px] font-medium py-[2px] px-[8px] rounded-control-sm border ${ready ? "border-[rgba(62,207,142,0.25)] bg-[rgba(62,207,142,0.08)] text-[var(--color-accent)]" : "border-[rgba(245,158,11,0.25)] bg-[rgba(245,158,11,0.08)] text-[#f59e0b]"}`}>
-            <span className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]" aria-hidden="true" />
+          <span
+            className={`project-service-status-pill inline-flex items-center gap-[6px] text-[11px] font-medium py-[2px] px-[8px] rounded-control-sm border ${ready ? "border-[rgba(62,207,142,0.25)] bg-[rgba(62,207,142,0.08)] text-[var(--color-accent)]" : "border-[rgba(245,158,11,0.25)] bg-[rgba(245,158,11,0.08)] text-[#f59e0b]"}`}
+          >
+            <span
+              className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]"
+              aria-hidden="true"
+            />
             {STATUS_LABELS[bucket.status]}
           </span>
           {bucket.healthy ? null : (
-            <span className="project-health-badge text-[11px] font-semibold py-[2px] px-[7px] rounded-control-sm border border-[rgba(244,63,94,0.2)] bg-[rgba(244,63,94,0.1)] text-[var(--color-danger)]">Unavailable</span>
+            <span className="project-health-badge text-[11px] font-semibold py-[2px] px-[7px] rounded-control-sm border border-[rgba(244,63,94,0.2)] bg-[rgba(244,63,94,0.1)] text-[var(--color-danger)]">
+              Unavailable
+            </span>
           )}
           {canManage ? (
             <button
@@ -304,9 +337,13 @@ ${bucket.public ? `// Public buckets allow anonymous reads:\n// ${publicUrl}\n` 
           <SecretKeyRow projectId={bucket.projectId} bucketId={bucket.id} />
         ) : (
           <div className={credentialRowClass}>
-            <span className="flex items-center gap-[8px] text-[10.5px] uppercase tracking-[0.04em] text-[#636170]">Secret key</span>
+            <span className="flex items-center gap-[8px] text-[10.5px] uppercase tracking-[0.04em] text-[#636170]">
+              Secret key
+            </span>
             <div className="flex items-start gap-[10px] min-w-0">
-              <span className="db-cred-value flex-auto [word-break:break-all] [font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace] text-ink min-w-0 text-[14px] leading-[1.5] [overflow-wrap:anywhere] text-[#716f7c] [font-family:inherit]">Owner or admin only</span>
+              <span className="db-cred-value flex-auto [word-break:break-all] [font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace] text-ink min-w-0 text-[14px] leading-[1.5] [overflow-wrap:anywhere] text-[#716f7c] [font-family:inherit]">
+                Owner or admin only
+              </span>
             </div>
           </div>
         )}
@@ -407,7 +444,10 @@ export function StoragePanel({ projectId, canManage }: { projectId: string; canM
   if (panel.loading) {
     return (
       <div className="space-y-4">
-        <div className="bg-surface flex flex-col justify-between p-[16px] rounded-card border border-surface-raised min-h-[120px] h-44" aria-hidden="true">
+        <div
+          className="bg-surface flex flex-col justify-between p-[16px] rounded-card border border-surface-raised min-h-[120px] h-44"
+          aria-hidden="true"
+        >
           <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] h-5 w-48 rounded mb-4" />
           <div className="grid grid-cols-1 gap-4">
             <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] h-12 rounded" />
@@ -448,14 +488,20 @@ export function StoragePanel({ projectId, canManage }: { projectId: string; canM
       </div>
 
       {!modalOpen && !deleteTarget && (panel.error || actionError) ? (
-        <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+        <div
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+          role="alert"
+        >
           {panel.error || actionError}
         </div>
       ) : null}
 
       {buckets.length === 0 ? (
         <div className="bg-surface flex flex-col items-center justify-center py-[56px] px-[24px] rounded-card border border-dashed border-[#262430] text-center">
-          <div className="bg-[#211f29] flex items-center justify-center w-[48px] h-[48px] rounded-card-lg" aria-hidden="true">
+          <div
+            className="bg-[#211f29] flex items-center justify-center w-[48px] h-[48px] rounded-card-lg"
+            aria-hidden="true"
+          >
             <HardDrive className="w-8 h-8 text-zinc-500" />
           </div>
           <h3 className="text-base font-semibold text-white mt-3">No buckets yet</h3>
@@ -519,7 +565,10 @@ export function StoragePanel({ projectId, canManage }: { projectId: string; canM
               </p>
 
               <div>
-                <label htmlFor="bucket-name-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="bucket-name-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Bucket Name
                 </label>
                 <input
@@ -540,7 +589,10 @@ export function StoragePanel({ projectId, canManage }: { projectId: string; canM
               </div>
 
               <div>
-                <label htmlFor="bucket-quota-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="bucket-quota-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Storage quota
                 </label>
                 <select
@@ -636,7 +688,10 @@ export function StoragePanel({ projectId, canManage }: { projectId: string; canM
                 and every object stored in it. This action cannot be undone.
               </p>
               <div>
-                <label htmlFor="delete-bucket-confirm-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="delete-bucket-confirm-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Type <strong>{deleteTarget.name}</strong> to confirm:
                 </label>
                 <input

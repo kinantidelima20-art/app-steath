@@ -78,8 +78,10 @@ function repoLabel(repoUrl: string): string {
 function statusPillTone(status: string) {
   if (status === "running")
     return "bg-[rgba(0,176,107,0.12)] text-[#00e08c] before:animate-[service-status-pulse_2s_ease-in-out_infinite]";
-  if (status === "deploying" || status === "building") return "bg-[rgba(245,158,11,0.12)] text-[#f5a623]";
-  if (status === "failed" || status === "suspended") return "bg-[rgba(239,68,68,0.12)] text-[#f87171]";
+  if (status === "deploying" || status === "building")
+    return "bg-[rgba(245,158,11,0.12)] text-[#f5a623]";
+  if (status === "failed" || status === "suspended")
+    return "bg-[rgba(239,68,68,0.12)] text-[#f87171]";
   return "bg-[#27272a] text-[#d4d4d8]";
 }
 
@@ -159,8 +161,14 @@ export function ServiceDetail({ serviceId }: { serviceId: string }) {
   if (loading) {
     return (
       <div className="dashboard-content supabase-service-page">
-        <div className="flex items-center gap-[10px] py-[40px] px-0 text-[#71717a] text-[13px]" role="status">
-          <span className="w-[14px] h-[14px] border-2 border-[#3f3f46] border-t-[#ededf2] rounded-[50%] animate-[svc-spin_0.7s_linear_infinite]" aria-hidden="true" />
+        <div
+          className="flex items-center gap-[10px] py-[40px] px-0 text-[#71717a] text-[13px]"
+          role="status"
+        >
+          <span
+            className="w-[14px] h-[14px] border-2 border-[#3f3f46] border-t-[#ededf2] rounded-[50%] animate-[svc-spin_0.7s_linear_infinite]"
+            aria-hidden="true"
+          />
           Loading Service...
         </div>
       </div>
@@ -181,11 +189,17 @@ export function ServiceDetail({ serviceId }: { serviceId: string }) {
             This Service does not exist in the active Organization.
           </p>
           {error || actionError ? (
-            <p className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+            <p
+              className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+              role="alert"
+            >
               {error || actionError}
             </p>
           ) : null}
-          <Link className="text-ink-muted hover:text-[#ededf2] inline-block mt-[16px] text-[13px] no-underline" href="/dashboard/projects">
+          <Link
+            className="text-ink-muted hover:text-[#ededf2] inline-block mt-[16px] text-[13px] no-underline"
+            href="/dashboard/projects"
+          >
             ← Back to Projects
           </Link>
         </div>
@@ -206,7 +220,9 @@ export function ServiceDetail({ serviceId }: { serviceId: string }) {
       <header className="grid gap-[10px] min-w-0 pb-[20px]">
         <div className="flex items-center gap-[12px] flex-wrap">
           <h1 className="supabase-service-title m-0 text-[24px] text-left">{service.name}</h1>
-          <span className={`supabase-service-status inline-flex shrink-0 items-center gap-[7px] py-[3px] px-[10px] rounded-[999px] text-[12px] font-medium before:content-[''] before:w-[6px] before:h-[6px] before:rounded-[50%] before:bg-current is-${service.status} ${statusPillTone(service.status)}`}>
+          <span
+            className={`supabase-service-status inline-flex shrink-0 items-center gap-[7px] py-[3px] px-[10px] rounded-[999px] text-[12px] font-medium before:content-[''] before:w-[6px] before:h-[6px] before:rounded-[50%] before:bg-current is-${service.status} ${statusPillTone(service.status)}`}
+          >
             {serviceStatusLabel(service.status)}
           </span>
         </div>
@@ -236,8 +252,13 @@ export function ServiceDetail({ serviceId }: { serviceId: string }) {
               />
             </svg>
           </a>
-          <span className="svc-meta-item inline-flex items-center gap-[6px] min-w-0 max-w-[100%]" title={service.repoUrl}>
-            <code className="inline-block max-w-[100%] overflow-hidden text-ellipsis whitespace-nowrap align-bottom">{repoLabel(service.repoUrl)}</code>
+          <span
+            className="svc-meta-item inline-flex items-center gap-[6px] min-w-0 max-w-[100%]"
+            title={service.repoUrl}
+          >
+            <code className="inline-block max-w-[100%] overflow-hidden text-ellipsis whitespace-nowrap align-bottom">
+              {repoLabel(service.repoUrl)}
+            </code>
             <span className="shrink-0 text-ink-muted">@{service.branch}</span>
           </span>
           <span className="svc-meta-item inline-flex items-center gap-[6px] min-w-0 max-w-[100%] text-ink-muted">
@@ -247,7 +268,10 @@ export function ServiceDetail({ serviceId }: { serviceId: string }) {
       </header>
 
       {error || actionError ? (
-        <p className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+        <p
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+          role="alert"
+        >
           {error || actionError}
         </p>
       ) : null}
@@ -303,7 +327,10 @@ export function ServiceDetail({ serviceId }: { serviceId: string }) {
 
         {tab === "settings" && canManage ? (
           <>
-            <section className="dashboard-section mt-0 mb-[24px] mx-0 p-[20px] border border-[#27272a] rounded-card bg-[#0c0c0d] [@media(max-width:600px)]:p-[16px]" aria-labelledby="configuration-heading">
+            <section
+              className="dashboard-section mt-0 mb-[24px] mx-0 p-[20px] border border-[#27272a] rounded-card bg-[#0c0c0d] [@media(max-width:600px)]:p-[16px]"
+              aria-labelledby="configuration-heading"
+            >
               <div className="dashboard-section-heading flex min-h-[42px] items-center justify-between border-b border-b-[#322f37]">
                 <h2 id="configuration-heading">Configuration</h2>
               </div>
@@ -350,7 +377,10 @@ export function ServiceDetail({ serviceId }: { serviceId: string }) {
                 Deleting this Service stops its container and removes its Volume, Environment
                 Variables, and Domains.
               </p>
-              <form className="organization-settings-form [@media(max-width:760px)]:flex-col grid gap-[14px] mt-0 mb-[16px] mx-0 p-[16px] border border-[#27272a] rounded-card bg-[#111113] last:mb-[0]" onSubmit={remove}>
+              <form
+                className="organization-settings-form [@media(max-width:760px)]:flex-col grid gap-[14px] mt-0 mb-[16px] mx-0 p-[16px] border border-[#27272a] rounded-card bg-[#111113] last:mb-[0]"
+                onSubmit={remove}
+              >
                 <label>
                   Type <strong>{service.name}</strong> to confirm
                   <input

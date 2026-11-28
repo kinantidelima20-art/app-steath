@@ -120,7 +120,13 @@ async function handleAgentRequest(
     const databaseId = decodeURIComponent(databaseMatch[1]);
     response.writeHead(200, { "content-type": "application/json" });
     response.end(
-      JSON.stringify({ databaseId, status: "running", healthy: true, usageMb: 0, overQuota: false }),
+      JSON.stringify({
+        databaseId,
+        status: "running",
+        healthy: true,
+        usageMb: 0,
+        overQuota: false,
+      }),
     );
     return;
   }
@@ -283,7 +289,8 @@ async function addMember(
   organizationId: string,
   role: "admin" | "member",
 ): Promise<SignUpResult> {
-  const email = uniqueName(`backup${role}`) + Math.random().toString(36).slice(2, 6) + "@example.test";
+  const email =
+    uniqueName(`backup${role}`) + Math.random().toString(36).slice(2, 6) + "@example.test";
   const inviteResponse = await auth.handler(
     new Request(`${BASE_URL}/api/auth/organization/invite-member`, {
       method: "POST",
@@ -328,7 +335,10 @@ type Fixture = {
 let fixture: Fixture;
 
 async function createFixture(): Promise<Fixture> {
-  const owner = await signUp(uniqueName("backupowner") + "@example.test", uniqueName("backupowner"));
+  const owner = await signUp(
+    uniqueName("backupowner") + "@example.test",
+    uniqueName("backupowner"),
+  );
 
   const { POST: createProject } = await import("@/app/api/projects/route");
   const projectResponse = await createProject(
@@ -518,7 +528,9 @@ describe("Daily Backups", () => {
     expect(s3.requests).toHaveLength(1);
     const put = s3.requests[0];
     expect(put.method).toBe("PUT");
-    expect(put.path).toBe(`/test-bucket/backups/${fixture.owner.organizationId}/${backupId}.backup`);
+    expect(put.path).toBe(
+      `/test-bucket/backups/${fixture.owner.organizationId}/${backupId}.backup`,
+    );
     expect(put.headers["x-amz-server-side-encryption"]).toBe("AES256");
     expect(String(put.headers.authorization)).toMatch(
       /^AWS4-HMAC-SHA256 Credential=test-key\/\d{8}\/us-east-1\/s3\/aws4_request, SignedHeaders=/,
@@ -651,7 +663,10 @@ describe("Daily Backups", () => {
     const ownerBackupId = await latestBackupId("database", fixture.databaseId);
     const platformBackupId = await latestBackupId("platform", null);
 
-    const other = await signUp(uniqueName("backupother") + "@example.test", uniqueName("backupother"));
+    const other = await signUp(
+      uniqueName("backupother") + "@example.test",
+      uniqueName("backupother"),
+    );
     const otherBackupId = await createBackupRow({
       organizationId: other.organizationId,
       projectId: null,

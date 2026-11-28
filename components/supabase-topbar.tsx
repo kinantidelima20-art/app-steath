@@ -123,7 +123,10 @@ export function SupabaseTopbar({ onOpenSearch }: { onOpenSearch?: () => void }) 
   const userName = user?.name || user?.email || "User";
 
   return (
-    <header className="supabase-topbar sticky top-0 z-[60] flex h-[48px] shrink-0 w-full items-center justify-between bg-[var(--color-console)] border-b border-[#23222a] px-[16px] select-none [@media(max-width:1023px)]:h-[52px] [@media(max-width:1023px)]:px-[12px] [@media(max-width:1023px)]:gap-[8px]" aria-label="Global header">
+    <header
+      className="supabase-topbar sticky top-0 z-[60] flex h-[48px] shrink-0 w-full items-center justify-between bg-[var(--color-console)] border-b border-[#23222a] px-[16px] select-none [@media(max-width:1023px)]:h-[52px] [@media(max-width:1023px)]:px-[12px] [@media(max-width:1023px)]:gap-[8px]"
+      aria-label="Global header"
+    >
       <div className="supabase-topbar-left [@media(max-width:1023px)]:min-w-0 [@media(max-width:1023px)]:gap-[8px] flex items-center gap-[12px]">
         <button
           type="button"
@@ -148,7 +151,10 @@ export function SupabaseTopbar({ onOpenSearch }: { onOpenSearch?: () => void }) 
             className="w-[22px] h-[22px] object-contain"
           />
         </Link>
-        <span className="supabase-topbar-sep font-light [@media(max-width:1023px)]:hidden text-[#44424d] text-[14px]" aria-hidden="true">
+        <span
+          className="supabase-topbar-sep font-light [@media(max-width:1023px)]:hidden text-[#44424d] text-[14px]"
+          aria-hidden="true"
+        >
           /
         </span>
 
@@ -163,17 +169,29 @@ export function SupabaseTopbar({ onOpenSearch }: { onOpenSearch?: () => void }) 
               aria-expanded={orgDropdownOpen}
               aria-haspopup="menu"
             >
-              <div className="supabase-org-icon-badge bg-[#23212a] flex items-center justify-center w-[20px] h-[20px] rounded-control-sm text-[#a1a0aa]" aria-hidden="true">
+              <div
+                className="supabase-org-icon-badge bg-[#23212a] flex items-center justify-center w-[20px] h-[20px] rounded-control-sm text-[#a1a0aa]"
+                aria-hidden="true"
+              >
                 <div className="w-[8px] h-[8px] rounded-[50%] bg-current [box-shadow:-4px_5px_0_0_currentColor,4px_5px_0_0_currentColor]" />
               </div>
-              <span className="supabase-org-name [@media(max-width:1023px)]:max-w-[96px] [@media(max-width:380px)]:max-w-[64px] max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap">{activeOrg?.name ?? "Select Org"}</span>
-              <span className="bg-[rgba(62,207,142,0.1)] text-[10px] font-bold tracking-[0.04em] py-[1px] px-[5px] rounded-control-sm text-accent border border-[rgba(62,207,142,0.25)] leading-[1.2]">FREE</span>
+              <span className="supabase-org-name [@media(max-width:1023px)]:max-w-[96px] [@media(max-width:380px)]:max-w-[64px] max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap">
+                {activeOrg?.name ?? "Select Org"}
+              </span>
+              <span className="bg-[rgba(62,207,142,0.1)] text-[10px] font-bold tracking-[0.04em] py-[1px] px-[5px] rounded-control-sm text-accent border border-[rgba(62,207,142,0.25)] leading-[1.2]">
+                FREE
+              </span>
               <ChevronsUpDown className="w-3.5 h-3.5 text-zinc-400" aria-hidden="true" />
             </button>
 
             {orgDropdownOpen && (
-              <div className="supabase-dropdown-menu bg-[#16151a] absolute top-[calc(100%_+_6px)] left-[0] z-[70] min-w-[220px] border border-[#2a2833] rounded-card p-[6px] [box-shadow:0_10px_25px_rgba(0,0,0,0.45)]" role="menu">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.05em] text-[#716f7c] pt-[6px] pb-[4px] px-[8px]">Your Organizations</div>
+              <div
+                className="supabase-dropdown-menu bg-[#16151a] absolute top-[calc(100%_+_6px)] left-[0] z-[70] min-w-[220px] border border-[#2a2833] rounded-card p-[6px] [box-shadow:0_10px_25px_rgba(0,0,0,0.45)]"
+                role="menu"
+              >
+                <div className="text-[11px] font-semibold uppercase tracking-[0.05em] text-[#716f7c] pt-[6px] pb-[4px] px-[8px]">
+                  Your Organizations
+                </div>
                 <div className="flex flex-col gap-[2px]">
                   {organizations?.map((org) => {
                     const isActive = org.id === activeOrg?.id;
@@ -185,10 +203,15 @@ export function SupabaseTopbar({ onOpenSearch }: { onOpenSearch?: () => void }) 
                         onClick={() => void handleSelectOrg(org.id)}
                         role="menuitem"
                       >
-                        <div className="supabase-org-icon-badge bg-[#23212a] flex items-center justify-center w-[20px] h-[20px] rounded-control-sm text-[#a1a0aa] small w-[18px] h-[18px] text-[10px]" aria-hidden="true">
+                        <div
+                          className="supabase-org-icon-badge bg-[#23212a] flex items-center justify-center w-[20px] h-[20px] rounded-control-sm text-[#a1a0aa] small w-[18px] h-[18px] text-[10px]"
+                          aria-hidden="true"
+                        >
                           <span className="text-[10px] font-bold">{getInitials(org.name)}</span>
                         </div>
-                        <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{org.name}</span>
+                        <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                          {org.name}
+                        </span>
                         {isActive && (
                           <Check className="w-4 h-4 text-emerald-400" aria-hidden="true" />
                         )}
@@ -228,8 +251,12 @@ export function SupabaseTopbar({ onOpenSearch }: { onOpenSearch?: () => void }) 
           aria-label="Search or jump to (Ctrl+K)"
         >
           <Search className="w-3.5 h-3.5 text-zinc-400" aria-hidden="true" />
-          <span className="supabase-search-label [@media(max-width:1023px)]:hidden text-[12px]">Search...</span>
-          <kbd className="supabase-search-kbd [@media(max-width:1023px)]:hidden bg-[#23212a] text-[10px] [font-family:inherit] py-[1px] px-[5px] rounded-control-sm text-[#716f7c] border border-[#302e3a]">Ctrl K</kbd>
+          <span className="supabase-search-label [@media(max-width:1023px)]:hidden text-[12px]">
+            Search...
+          </span>
+          <kbd className="supabase-search-kbd [@media(max-width:1023px)]:hidden bg-[#23212a] text-[10px] [font-family:inherit] py-[1px] px-[5px] rounded-control-sm text-[#716f7c] border border-[#302e3a]">
+            Ctrl K
+          </kbd>
         </button>
 
         <a
@@ -267,11 +294,19 @@ export function SupabaseTopbar({ onOpenSearch }: { onOpenSearch?: () => void }) 
             aria-haspopup="menu"
             aria-label="User account menu"
           >
-            <UserAvatar user={user} size={26} className="w-[26px] h-[26px] rounded-[50%] object-cover border border-[#3a3845]" decorative />
+            <UserAvatar
+              user={user}
+              size={26}
+              className="w-[26px] h-[26px] rounded-[50%] object-cover border border-[#3a3845]"
+              decorative
+            />
           </button>
 
           {userDropdownOpen && (
-            <div className="supabase-dropdown-menu bg-[#16151a] absolute top-[calc(100%_+_6px)] left-auto right-0 z-[70] min-w-[220px] border border-[#2a2833] rounded-card p-[6px] [box-shadow:0_10px_25px_rgba(0,0,0,0.45)] right-aligned" role="menu">
+            <div
+              className="supabase-dropdown-menu bg-[#16151a] absolute top-[calc(100%_+_6px)] left-auto right-0 z-[70] min-w-[220px] border border-[#2a2833] rounded-card p-[6px] [box-shadow:0_10px_25px_rgba(0,0,0,0.45)] right-aligned"
+              role="menu"
+            >
               <div className={dropdownUserHeaderClass}>
                 <UserAvatar user={user} size={36} />
                 <div className="flex flex-col gap-[1px] min-w-0">
@@ -280,7 +315,9 @@ export function SupabaseTopbar({ onOpenSearch }: { onOpenSearch?: () => void }) 
                     {user?.email ?? "No email on file"}
                   </small>
                   {user?.username ? (
-                    <span className="block overflow-hidden text-ellipsis whitespace-nowrap text-[11px] text-[#716f7c]">@{user.username}</span>
+                    <span className="block overflow-hidden text-ellipsis whitespace-nowrap text-[11px] text-[#716f7c]">
+                      @{user.username}
+                    </span>
                   ) : null}
                 </div>
               </div>

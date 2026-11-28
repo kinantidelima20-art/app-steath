@@ -36,7 +36,10 @@ function DashboardLayoutFallback() {
   return (
     <div className={consoleLayoutClass}>
       <div className="dashboard-gate fixed inset-0 z-[60] bg-console">
-        <div className="dashboard-loading grid min-h-[100dvh] bg-console text-[#b5b2b9] text-[14px]" role="status">
+        <div
+          className="dashboard-loading grid min-h-[100dvh] bg-console text-[#b5b2b9] text-[14px]"
+          role="status"
+        >
           Loading your Organization...
         </div>
       </div>
@@ -130,7 +133,10 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
 
         {!ready || signedOut ? (
           <div className="dashboard-gate fixed inset-0 z-[60] bg-console">
-            <div className="dashboard-loading grid min-h-[100dvh] bg-console text-[#b5b2b9] text-[14px]" role="status">
+            <div
+              className="dashboard-loading grid min-h-[100dvh] bg-console text-[#b5b2b9] text-[14px]"
+              role="status"
+            >
               Loading your Organization...
             </div>
           </div>

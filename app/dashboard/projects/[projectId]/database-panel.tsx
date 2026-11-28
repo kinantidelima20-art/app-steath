@@ -33,7 +33,11 @@ import { formatDateTime } from "@/lib/format";
 import { useToast } from "@/components/toast-context";
 import { CredentialRow, PasswordRow } from "./database-credentials";
 
-import { dangerButtonClass, dangerSecondaryButtonClass, secondaryButtonClass } from "@/components/ui-classes";
+import {
+  dangerButtonClass,
+  dangerSecondaryButtonClass,
+  secondaryButtonClass,
+} from "@/components/ui-classes";
 
 export const squareIconButtonClass = [
   "bg-[#1f1e26] hover:bg-[#272532] inline-flex items-center justify-center w-[28px] h-[28px]",
@@ -292,7 +296,10 @@ export function DatabasePanel({
   if (loading) {
     return (
       <div className="space-y-4">
-        <div className="bg-surface flex flex-col justify-between p-[16px] rounded-card border border-surface-raised min-h-[120px] h-44" aria-hidden="true">
+        <div
+          className="bg-surface flex flex-col justify-between p-[16px] rounded-card border border-surface-raised min-h-[120px] h-44"
+          aria-hidden="true"
+        >
           <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] h-5 w-48 rounded mb-4" />
           <div className="grid grid-cols-4 gap-4">
             <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] h-12 rounded" />
@@ -308,14 +315,20 @@ export function DatabasePanel({
   return (
     <div className="space-y-6">
       {redeployNeeded && (
-        <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-warning" role="status">
+        <div
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-warning"
+          role="status"
+        >
           Database changes are saved but not live yet. Redeploy this project&apos;s Services to
           apply them.
         </div>
       )}
 
       {panel.error || actionError ? (
-        <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+        <div
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+          role="alert"
+        >
           {panel.error || actionError}
         </div>
       ) : null}
@@ -323,7 +336,10 @@ export function DatabasePanel({
       {!database ? (
         /* Empty State */
         <div className="bg-surface flex flex-col items-center justify-center py-[56px] px-[24px] rounded-card border border-dashed border-[#262430] text-center">
-          <div className="bg-[#211f29] flex items-center justify-center w-[48px] h-[48px] rounded-card-lg" aria-hidden="true">
+          <div
+            className="bg-[#211f29] flex items-center justify-center w-[48px] h-[48px] rounded-card-lg"
+            aria-hidden="true"
+          >
             <Database className="w-8 h-8 text-emerald-400" />
           </div>
           <h3 className="text-base font-semibold text-white mt-3">No Database in this Project</h3>
@@ -337,7 +353,11 @@ export function DatabasePanel({
               <p className="text-[11px] uppercase tracking-wide text-zinc-500 mt-4 mb-2">
                 Choose an engine
               </p>
-              <div className="db-engine-choice grid grid-cols-2 [@media(max-width:480px)]:grid-cols-1 gap-[10px] w-full max-w-[520px] mt-[4px] text-left" role="radiogroup" aria-label="Database engine">
+              <div
+                className="db-engine-choice grid grid-cols-2 [@media(max-width:480px)]:grid-cols-1 gap-[10px] w-full max-w-[520px] mt-[4px] text-left"
+                role="radiogroup"
+                aria-label="Database engine"
+              >
                 {ENGINE_CHOICES.map((choice) => {
                   const selected = engine === choice.id;
                   return (
@@ -353,8 +373,12 @@ export function DatabasePanel({
                       <span className="text-[13.5px] font-semibold text-ink-bright">
                         {choice.name} {choice.version}
                       </span>
-                      <span className="text-[11.5px] leading-[1.45] text-[#8b8b96]">{choice.note}</span>
-                      <span className="self-start mt-[2px] py-[2px] px-[6px] rounded-control-sm bg-[#211f29] text-[10.5px] font-medium text-[#b4b3bd]">{choice.client}</span>
+                      <span className="text-[11.5px] leading-[1.45] text-[#8b8b96]">
+                        {choice.note}
+                      </span>
+                      <span className="self-start mt-[2px] py-[2px] px-[6px] rounded-control-sm bg-[#211f29] text-[10.5px] font-medium text-[#b4b3bd]">
+                        {choice.client}
+                      </span>
                     </button>
                   );
                 })}
@@ -390,7 +414,10 @@ export function DatabasePanel({
           <div className="p-[20px] rounded-card bg-surface border border-[var(--color-surface-raised)]">
             <div className="flex items-center justify-between flex-wrap gap-[12px] mb-[16px]">
               <div className="flex items-center gap-2.5">
-                <div className="bg-[#211f29] flex items-center justify-center w-[32px] h-[32px] rounded-control shrink-0" aria-hidden="true">
+                <div
+                  className="bg-[#211f29] flex items-center justify-center w-[32px] h-[32px] rounded-control shrink-0"
+                  aria-hidden="true"
+                >
                   <Database className="w-4 h-4 text-emerald-400" />
                 </div>
                 <div>
@@ -406,15 +433,22 @@ export function DatabasePanel({
               <div className="flex items-center gap-2.5">
                 <span
                   className={`project-service-status-pill inline-flex items-center gap-[6px] text-[11px] font-medium py-[2px] px-[8px] rounded-control-sm border ${
-                    database.status === "running" ? "border-[rgba(62,207,142,0.25)] bg-[rgba(62,207,142,0.08)] text-[var(--color-accent)]" : "border-[rgba(245,158,11,0.25)] bg-[rgba(245,158,11,0.08)] text-[#f59e0b]"
+                    database.status === "running"
+                      ? "border-[rgba(62,207,142,0.25)] bg-[rgba(62,207,142,0.08)] text-[var(--color-accent)]"
+                      : "border-[rgba(245,158,11,0.25)] bg-[rgba(245,158,11,0.08)] text-[#f59e0b]"
                   }`}
                 >
-                  <span className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]" aria-hidden="true" />
+                  <span
+                    className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]"
+                    aria-hidden="true"
+                  />
                   {databaseStatusLabel(database.status)}
                 </span>
                 <span
                   className={`project-health-badge text-[11px] font-semibold py-[2px] px-[7px] rounded-control-sm ${
-                    database.healthy ? "border border-[rgba(62,207,142,0.2)] bg-[rgba(62,207,142,0.1)] text-[var(--color-accent)]" : "border border-[rgba(244,63,94,0.2)] bg-[rgba(244,63,94,0.1)] text-[var(--color-danger)]"
+                    database.healthy
+                      ? "border border-[rgba(62,207,142,0.2)] bg-[rgba(62,207,142,0.1)] text-[var(--color-accent)]"
+                      : "border border-[rgba(244,63,94,0.2)] bg-[rgba(244,63,94,0.1)] text-[var(--color-danger)]"
                   }`}
                 >
                   {database.healthy ? "Healthy" : "Unavailable"}
@@ -464,7 +498,9 @@ export function DatabasePanel({
           <div className="bg-surface rounded-card border border-surface-raised overflow-hidden">
             <div className="flex items-center justify-between py-[16px] px-[20px] border-b border-b-[#23212a]">
               <div>
-                <h3 className="text-[14.5px] font-semibold text-ink m-0">Private Connection String</h3>
+                <h3 className="text-[14.5px] font-semibold text-ink m-0">
+                  Private Connection String
+                </h3>
                 <p className="text-[12px] text-[#716f7c] mt-[3px] mb-0 mx-0">
                   Reachable directly from services in this project via{" "}
                   <code>db:{database.engine === "mysql" ? "3306" : "5432"}</code>. Injected
@@ -559,9 +595,13 @@ export function DatabasePanel({
                     />
                   ) : (
                     <div className="db-cred-row [@media(max-width:400px)]:py-[10px] [@media(max-width:400px)]:px-[12px] flex flex-col gap-[4px] py-[12px] px-[14px] min-w-0">
-                      <span className="flex items-center gap-[8px] text-[10.5px] uppercase tracking-[0.04em] text-[#636170]">Password</span>
+                      <span className="flex items-center gap-[8px] text-[10.5px] uppercase tracking-[0.04em] text-[#636170]">
+                        Password
+                      </span>
                       <div className="flex items-start gap-[10px] min-w-0">
-                        <span className="db-cred-value text-ink min-w-0 text-[14px] leading-[1.5] [overflow-wrap:anywhere] text-[#716f7c] [font-family:inherit]">Owner or admin only</span>
+                        <span className="db-cred-value text-ink min-w-0 text-[14px] leading-[1.5] [overflow-wrap:anywhere] text-[#716f7c] [font-family:inherit]">
+                          Owner or admin only
+                        </span>
                       </div>
                     </div>
                   )}
@@ -587,13 +627,15 @@ export function DatabasePanel({
                     <h3 className="text-[14.5px] font-semibold text-ink m-0">phpMyAdmin</h3>
                   </div>
                   <p className="text-[12px] text-[#716f7c] mt-[3px] mb-0 mx-0">
-                    A browser client for this Database, served on the Platform Domain over HTTPS.
-                    It reaches MySQL through the private Project network.
+                    A browser client for this Database, served on the Platform Domain over HTTPS. It
+                    reaches MySQL through the private Project network.
                   </p>
                 </div>
                 <span
                   className={`project-proxy-badge inline-flex items-center text-[11px] font-semibold py-[3px] px-[8px] rounded-control-sm ${
-                    database.phpMyAdmin.ready ? "border border-[rgba(56,189,248,0.25)] bg-[rgba(56,189,248,0.1)] text-[#38bdf8]" : "border border-[#282631] bg-[#1e1d25] text-[#716f7c]"
+                    database.phpMyAdmin.ready
+                      ? "border border-[rgba(56,189,248,0.25)] bg-[rgba(56,189,248,0.1)] text-[#38bdf8]"
+                      : "border border-[#282631] bg-[#1e1d25] text-[#716f7c]"
                   }`}
                 >
                   <Radio className="w-3 h-3 mr-1" />
@@ -655,7 +697,9 @@ export function DatabasePanel({
                         />
                       ) : (
                         <div className="db-cred-row [@media(max-width:400px)]:py-[10px] [@media(max-width:400px)]:px-[12px] flex flex-col gap-[4px] py-[12px] px-[14px] min-w-0">
-                          <span className="flex items-center gap-[8px] text-[10.5px] uppercase tracking-[0.04em] text-[#636170]">Password</span>
+                          <span className="flex items-center gap-[8px] text-[10.5px] uppercase tracking-[0.04em] text-[#636170]">
+                            Password
+                          </span>
                           <div className="flex items-start gap-[10px] min-w-0">
                             <span className="db-cred-value text-ink min-w-0 text-[14px] leading-[1.5] [overflow-wrap:anywhere] text-[#716f7c] [font-family:inherit]">
                               Owner or admin only
@@ -666,8 +710,8 @@ export function DatabasePanel({
                     </div>
 
                     <p className="text-[11px] text-zinc-500">
-                      Sign in here only with the credentials above; this page is shared by every MySQL
-                      Database on the platform.
+                      Sign in here only with the credentials above; this page is shared by every
+                      MySQL Database on the platform.
                     </p>
                   </>
                 ) : (
@@ -687,7 +731,9 @@ export function DatabasePanel({
                 <div>
                   <div className="flex items-center gap-2">
                     <Globe className="w-4 h-4 text-cyan-400" />
-                    <h3 className="text-[14.5px] font-semibold text-ink m-0">Public Proxy (External Access)</h3>
+                    <h3 className="text-[14.5px] font-semibold text-ink m-0">
+                      Public Proxy (External Access)
+                    </h3>
                   </div>
                   <p className="text-[12px] text-[#716f7c] mt-[3px] mb-0 mx-0">
                     {database.proxy.enabled
@@ -698,7 +744,9 @@ export function DatabasePanel({
 
                 <span
                   className={`project-proxy-badge inline-flex items-center text-[11px] font-semibold py-[3px] px-[8px] rounded-control-sm ${
-                    database.proxy.enabled ? "border border-[rgba(56,189,248,0.25)] bg-[rgba(56,189,248,0.1)] text-[#38bdf8]" : "border border-[#282631] bg-[#1e1d25] text-[#716f7c]"
+                    database.proxy.enabled
+                      ? "border border-[rgba(56,189,248,0.25)] bg-[rgba(56,189,248,0.1)] text-[#38bdf8]"
+                      : "border border-[#282631] bg-[#1e1d25] text-[#716f7c]"
                   }`}
                 >
                   <Radio className="w-3 h-3 mr-1" />
@@ -710,7 +758,10 @@ export function DatabasePanel({
                 {canManage ? (
                   <>
                     <div>
-                      <label htmlFor="proxy-cidrs-input" className="block text-[12.5px] font-medium text-[#c9c7d2] mb-[6px]">
+                      <label
+                        htmlFor="proxy-cidrs-input"
+                        className="block text-[12.5px] font-medium text-[#c9c7d2] mb-[6px]"
+                      >
                         Allowlisted CIDRs (one per line, e.g. <code>0.0.0.0/0</code> or{" "}
                         <code>198.51.100.1/32</code>)
                       </label>
@@ -823,7 +874,9 @@ export function DatabasePanel({
               <div className="bg-[rgba(244,63,94,0.03)] py-[16px] px-[20px] border-b border-b-[rgba(244,63,94,0.15)]">
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-rose-400" />
-                  <h3 className="text-[14.5px] font-semibold text-[var(--color-danger)] m-0">Delete Database</h3>
+                  <h3 className="text-[14.5px] font-semibold text-[var(--color-danger)] m-0">
+                    Delete Database
+                  </h3>
                 </div>
                 <p className="text-[12px] text-[#9e9aa8] mt-[4px] mb-0 mx-0">
                   Permanently deletes the {database.engine === "mysql" ? "MySQL" : "PostgreSQL"}{" "}
@@ -834,7 +887,10 @@ export function DatabasePanel({
 
               <form onSubmit={remove} className="p-[20px]">
                 <div className="max-w-md">
-                  <label htmlFor="delete-db-confirm-input" className="block text-[12.5px] font-medium text-[#c9c7d2] mb-[6px]">
+                  <label
+                    htmlFor="delete-db-confirm-input"
+                    className="block text-[12.5px] font-medium text-[#c9c7d2] mb-[6px]"
+                  >
                     Type <strong>{projectName}</strong> to confirm deletion:
                   </label>
                   <input

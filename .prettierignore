@@ -3,6 +3,8 @@
 build/
 contracts/generated/
 coverage/
+# Verbatim copy of stealth-forge; reformatting would break the sync (ADR-0008).
+features/admin/
 next-env.d.ts
 node_modules/
 out/

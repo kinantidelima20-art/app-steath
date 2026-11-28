@@ -23,7 +23,10 @@ export async function InvitationGate({ params }: { params: Promise<{ invitationI
 export function InvitationFallback() {
   return (
     <main className="invitation-page grid place-items-center min-h-[100dvh] p-[24px] bg-console text-ink-console">
-      <section className="invitation-panel w-[min(100%,440px)] p-[28px] border border-[#322f37] rounded-card-lg bg-[#19171c]" role="status">
+      <section
+        className="invitation-panel w-[min(100%,440px)] p-[28px] border border-[#322f37] rounded-card-lg bg-[#19171c]"
+        role="status"
+      >
         Checking invitation...
       </section>
     </main>

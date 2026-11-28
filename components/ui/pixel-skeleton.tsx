@@ -57,9 +57,7 @@ export function PixelSkeleton({
     const resolveValue = (value: string, fallback: string) => {
       if (!value.startsWith("var(")) return value;
       const name = value.slice(4, -1).trim();
-      return (
-        getComputedStyle(wrapper).getPropertyValue(name).trim() || fallback
-      );
+      return getComputedStyle(wrapper).getPropertyValue(name).trim() || fallback;
     };
     const resolveFill = (): string | CanvasGradient => {
       if (!gradient) return resolveValue(color, "#eeeaf0");
@@ -159,16 +157,7 @@ export function PixelSkeleton({
       themeObserver.disconnect();
       intersectionObserver.disconnect();
     };
-  }, [
-    squareSize,
-    gridGap,
-    color,
-    gradient,
-    maxOpacity,
-    sweepDuration,
-    sweepWidth,
-    sweepNoise,
-  ]);
+  }, [squareSize, gridGap, color, gradient, maxOpacity, sweepDuration, sweepWidth, sweepNoise]);
 
   return (
     <div
@@ -181,10 +170,7 @@ export function PixelSkeleton({
         className,
       )}
     >
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 block h-full w-full"
-      />
+      <canvas ref={canvasRef} className="absolute inset-0 block h-full w-full" />
     </div>
   );
 }

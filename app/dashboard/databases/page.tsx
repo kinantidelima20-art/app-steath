@@ -130,10 +130,12 @@ const STATUS_FILTERS: Array<{ value: DatabaseStatus | "all"; label: string }> = 
 ];
 
 const STATUS_PILL: Record<DatabaseStatus, string> = {
-  running: "bg-[rgba(62,207,142,0.1)] border border-[rgba(62,207,142,0.25)] text-[var(--color-accent)]",
+  running:
+    "bg-[rgba(62,207,142,0.1)] border border-[rgba(62,207,142,0.25)] text-[var(--color-accent)]",
   provisioning: "bg-[rgba(245,158,11,0.1)] border border-[rgba(245,158,11,0.25)] text-[#f59e0b]",
   stopped: "bg-[rgba(156,163,175,0.1)] border border-[rgba(156,163,175,0.25)] text-[#9ca3af]",
-  failed: "bg-[rgba(244,63,94,0.1)] border border-[rgba(244,63,94,0.25)] text-[var(--color-danger)]",
+  failed:
+    "bg-[rgba(244,63,94,0.1)] border border-[rgba(244,63,94,0.25)] text-[var(--color-danger)]",
 };
 
 const STATUS_DOT_TONE: Record<DatabaseStatus, string> = {
@@ -273,11 +275,16 @@ export default function DatabasesPage() {
       <header className="db-heading [@media(max-width:640px)]:flex-col [@media(max-width:640px)]:gap-[16px] flex items-start justify-between gap-[24px] flex-wrap pb-[24px] border-b border-b-[#282631]">
         <div className="flex-1 min-w-[280px]">
           <div className="flex items-center gap-[14px]">
-            <div className="flex items-center justify-center w-[44px] h-[44px] rounded-card-lg [background:linear-gradient(135deg,rgba(99,102,241,0.16)_0%,rgba(62,207,142,0.08)_100%)] border border-[rgba(99,102,241,0.28)] text-accent shrink-0" aria-hidden="true">
+            <div
+              className="flex items-center justify-center w-[44px] h-[44px] rounded-card-lg [background:linear-gradient(135deg,rgba(99,102,241,0.16)_0%,rgba(62,207,142,0.08)_100%)] border border-[rgba(99,102,241,0.28)] text-accent shrink-0"
+              aria-hidden="true"
+            >
               <Database className="w-[22px] h-[22px]" />
             </div>
             <div>
-              <div className="[font-family:var(--font-mono)] text-[11px] font-semibold uppercase tracking-[0.08em] text-accent mb-[2px]">Managed Storage</div>
+              <div className="[font-family:var(--font-mono)] text-[11px] font-semibold uppercase tracking-[0.08em] text-accent mb-[2px]">
+                Managed Storage
+              </div>
               <h1>Databases</h1>
             </div>
           </div>
@@ -287,7 +294,10 @@ export default function DatabasesPage() {
           </p>
         </div>
         <div className="db-actions [@media(max-width:640px)]:flex-col flex items-center gap-[10px] flex-wrap">
-          <span className="db-quota inline-flex items-center gap-[8px] py-[8px] px-[14px] border border-[#282631] rounded-card bg-[#15141a] text-[#9e9aa7] [font-family:var(--font-mono)] text-[12px] leading-[20px] whitespace-nowrap" title="Limit per project in this organization">
+          <span
+            className="db-quota inline-flex items-center gap-[8px] py-[8px] px-[14px] border border-[#282631] rounded-card bg-[#15141a] text-[#9e9aa7] [font-family:var(--font-mono)] text-[12px] leading-[20px] whitespace-nowrap"
+            title="Limit per project in this organization"
+          >
             <Server className="w-[14px] h-[14px] text-accent" aria-hidden="true" />
             <span>
               {databasesList.length} of {QUOTAS.databasesPerProject} per Project
@@ -301,7 +311,10 @@ export default function DatabasesPage() {
       </header>
 
       {databases.error ? (
-        <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+        <div
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+          role="alert"
+        >
           <AlertCircle className="db-alert-icon" aria-hidden="true" />
           <span>{databases.error}</span>
         </div>
@@ -311,14 +324,19 @@ export default function DatabasesPage() {
       {fullDatabase ? (
         <div className={dbBannerClass} role="region" aria-label="Storage warning">
           <div className="flex items-start gap-[12px] min-w-[240px] flex-1">
-            <div className="flex items-center justify-center w-[32px] h-[32px] rounded-card bg-[rgba(245,158,11,0.15)] text-[#f59e0b] shrink-0 mt-[2px]" aria-hidden="true">
+            <div
+              className="flex items-center justify-center w-[32px] h-[32px] rounded-card bg-[rgba(245,158,11,0.15)] text-[#f59e0b] shrink-0 mt-[2px]"
+              aria-hidden="true"
+            >
               <AlertTriangle className="w-[18px] h-[18px]" />
             </div>
             <div className="flex flex-col gap-[2px]">
               <p className="m-0 text-[#f3f2f5] text-[13.5px] leading-[1.45]">
                 <strong>{fullDatabase.database.databaseName}</strong> has used{" "}
-                <span className="[font-family:var(--font-mono)] font-bold text-[#f59e0b]">{fullDatabase.percent}%</span> of its{" "}
-                {fullDatabase.database.storageLimitMb} MB disk allocation.
+                <span className="[font-family:var(--font-mono)] font-bold text-[#f59e0b]">
+                  {fullDatabase.percent}%
+                </span>{" "}
+                of its {fullDatabase.database.storageLimitMb} MB disk allocation.
               </p>
               <p className="m-0 text-[#9e9aa7] text-[12.5px] leading-[1.4]">
                 Expand disk storage before usage reaches 95% to prevent automatic read-only lock.
@@ -336,13 +354,23 @@ export default function DatabasesPage() {
       ) : null}
 
       {/* Overview Metric Cards */}
-      <section className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-[14px] mt-[24px]" aria-label="Database overview metrics">
+      <section
+        className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-[14px] mt-[24px]"
+        aria-label="Database overview metrics"
+      >
         <div className="py-[16px] px-[20px] rounded-card-lg bg-[#15141b] border border-[#272531] [box-shadow:0_2px_8px_rgba(0,0,0,0.2)] [transition:border-color_150ms_ease] hover:border-[#383546]">
           <div className="flex items-center justify-between">
-            <span className="text-[12px] font-medium text-[#8a8694] uppercase tracking-[0.04em]">Total Databases</span>
-            <Database className="db-metric-icon w-[16px] h-[16px] text-[var(--color-accent)]" aria-hidden="true" />
+            <span className="text-[12px] font-medium text-[#8a8694] uppercase tracking-[0.04em]">
+              Total Databases
+            </span>
+            <Database
+              className="db-metric-icon w-[16px] h-[16px] text-[var(--color-accent)]"
+              aria-hidden="true"
+            />
           </div>
-          <div className="mt-[8px] text-[22px] font-bold text-ink tracking-[-0.01em]">{databasesList.length}</div>
+          <div className="mt-[8px] text-[22px] font-bold text-ink tracking-[-0.01em]">
+            {databasesList.length}
+          </div>
           <div className="mt-[4px] text-[12px] text-[#9e9aa7]">
             {databasesList.length === 0
               ? "No databases created"
@@ -352,10 +380,17 @@ export default function DatabasesPage() {
 
         <div className="py-[16px] px-[20px] rounded-card-lg bg-[#15141b] border border-[#272531] [box-shadow:0_2px_8px_rgba(0,0,0,0.2)] [transition:border-color_150ms_ease] hover:border-[#383546]">
           <div className="flex items-center justify-between">
-            <span className="text-[12px] font-medium text-[#8a8694] uppercase tracking-[0.04em]">Engine & Health</span>
-            <CheckCircle2 className="db-metric-icon w-[16px] h-[16px] text-[var(--color-accent)]" aria-hidden="true" />
+            <span className="text-[12px] font-medium text-[#8a8694] uppercase tracking-[0.04em]">
+              Engine & Health
+            </span>
+            <CheckCircle2
+              className="db-metric-icon w-[16px] h-[16px] text-[var(--color-accent)]"
+              aria-hidden="true"
+            />
           </div>
-          <div className="mt-[8px] text-[22px] font-bold text-ink tracking-[-0.01em]">{engineSummary(databasesList)}</div>
+          <div className="mt-[8px] text-[22px] font-bold text-ink tracking-[-0.01em]">
+            {engineSummary(databasesList)}
+          </div>
           <div className="mt-[4px] text-[12px] text-[#9e9aa7]">
             {databasesList.length > 0 && runningCount === databasesList.length
               ? "All instances operational"
@@ -367,8 +402,13 @@ export default function DatabasesPage() {
 
         <div className="py-[16px] px-[20px] rounded-card-lg bg-[#15141b] border border-[#272531] [box-shadow:0_2px_8px_rgba(0,0,0,0.2)] [transition:border-color_150ms_ease] hover:border-[#383546]">
           <div className="flex items-center justify-between">
-            <span className="text-[12px] font-medium text-[#8a8694] uppercase tracking-[0.04em]">Allocated Storage</span>
-            <HardDrive className="db-metric-icon w-[16px] h-[16px] text-[#f59e0b]" aria-hidden="true" />
+            <span className="text-[12px] font-medium text-[#8a8694] uppercase tracking-[0.04em]">
+              Allocated Storage
+            </span>
+            <HardDrive
+              className="db-metric-icon w-[16px] h-[16px] text-[#f59e0b]"
+              aria-hidden="true"
+            />
           </div>
           <div className="mt-[8px] text-[22px] font-bold text-ink tracking-[-0.01em]">
             {totalAllocatedStorage > 0 ? `${totalUsedStorage} MB` : "0 MB"}
@@ -384,7 +424,11 @@ export default function DatabasesPage() {
       {/* Search and Filters toolbar (only when databases exist) */}
       {databasesList.length > 0 && (
         <div className="flex items-center justify-between gap-[14px] flex-wrap mt-[24px]">
-          <div className="db-chip-group [@media(max-width:640px)]:overflow-x-auto [@media(max-width:640px)]:pb-[4px] flex items-center gap-[8px] flex-wrap" role="group" aria-label="Filter databases by status">
+          <div
+            className="db-chip-group [@media(max-width:640px)]:overflow-x-auto [@media(max-width:640px)]:pb-[4px] flex items-center gap-[8px] flex-wrap"
+            role="group"
+            aria-label="Filter databases by status"
+          >
             {STATUS_FILTERS.map((filter) => {
               const count =
                 filter.value === "all" ? databasesList.length : (counts.get(filter.value) ?? 0);
@@ -404,7 +448,9 @@ export default function DatabasesPage() {
                     />
                   )}
                   <span>{filter.label}</span>
-                  <span className="db-chip-count [font-family:var(--font-mono)] text-[11px] py-[1px] px-[6px] rounded-panel bg-[#211f29] text-[#8a8694]">{count}</span>
+                  <span className="db-chip-count [font-family:var(--font-mono)] text-[11px] py-[1px] px-[6px] rounded-panel bg-[#211f29] text-[#8a8694]">
+                    {count}
+                  </span>
                 </button>
               );
             })}
@@ -414,7 +460,10 @@ export default function DatabasesPage() {
             <label htmlFor="db-search-input" className="sr-only">
               Search databases by name, project, or user
             </label>
-            <Search className="absolute left-[12px] top-1/2 w-[16px] h-[16px] -translate-y-1/2 text-[#757180] pointer-events-none" aria-hidden="true" />
+            <Search
+              className="absolute left-[12px] top-1/2 w-[16px] h-[16px] -translate-y-1/2 text-[#757180] pointer-events-none"
+              aria-hidden="true"
+            />
             <input
               type="search"
               id="db-search-input"
@@ -441,8 +490,14 @@ export default function DatabasesPage() {
       {/* Main Content Area */}
       {databases.loading ? (
         <div className="db-table-container [-webkit-overflow-scrolling:touch] mt-[18px] border border-[#272530] rounded-card-lg bg-[#15141b] overflow-x-auto [box-shadow:0_4px_20px_rgba(0,0,0,0.2)]">
-          <div className="flex flex-col items-center justify-center gap-[12px] py-[64px] px-[20px] text-[#9e9aa7] text-[13.5px]" role="status">
-            <RefreshCw className="w-[24px] h-[24px] text-accent animate-[db-spin_1s_linear_infinite]" aria-hidden="true" />
+          <div
+            className="flex flex-col items-center justify-center gap-[12px] py-[64px] px-[20px] text-[#9e9aa7] text-[13.5px]"
+            role="status"
+          >
+            <RefreshCw
+              className="w-[24px] h-[24px] text-accent animate-[db-spin_1s_linear_infinite]"
+              aria-hidden="true"
+            />
             <p>Fetching databases in this organization...</p>
           </div>
         </div>
@@ -455,7 +510,9 @@ export default function DatabasesPage() {
               <Database className="w-[30px] h-[30px]" />
             </div>
           </div>
-          <h2 className="m-0 text-[20px] font-bold text-[var(--color-ink)] tracking-[-0.01em]">No databases provisioned yet</h2>
+          <h2 className="m-0 text-[20px] font-bold text-[var(--color-ink)] tracking-[-0.01em]">
+            No databases provisioned yet
+          </h2>
           <p className="max-w-[520px] mt-[10px] mb-[26px] mx-auto text-[#9e9aa7] text-[14px] leading-[1.6]">
             Every project in Stealth Hosting can host its own dedicated PostgreSQL 16 or MySQL 8
             database. Databases run in private container networks with persistent storage and
@@ -500,10 +557,15 @@ export default function DatabasesPage() {
       ) : visibleDatabases.length === 0 ? (
         /* Empty State: Search or filter has no matching records */
         <div className="db-empty-box mt-[20px] py-[50px] px-[20px] border border-dashed border-[#2d2b38] rounded-card-lg bg-[#15141b] text-center">
-          <div className="flex items-center justify-center w-[44px] h-[44px] mt-0 mb-[14px] mx-auto rounded-card-lg bg-[#1d1b25] text-[#757180]" aria-hidden="true">
+          <div
+            className="flex items-center justify-center w-[44px] h-[44px] mt-0 mb-[14px] mx-auto rounded-card-lg bg-[#1d1b25] text-[#757180]"
+            aria-hidden="true"
+          >
             <SlidersHorizontal className="w-6 h-6 text-muted" />
           </div>
-          <h2 className="m-0 text-[var(--color-ink)] text-[16px] font-semibold">No databases match the filter</h2>
+          <h2 className="m-0 text-[var(--color-ink)] text-[16px] font-semibold">
+            No databases match the filter
+          </h2>
           <p className="max-w-[400px] mt-[8px] mb-[18px] mx-auto text-[#9e9aa7] text-[13px] leading-[1.5]">
             No databases match your current query &ldquo;{search}&rdquo; or the selected status
             filter.
@@ -545,11 +607,16 @@ export default function DatabasesPage() {
                   <tr key={database.id}>
                     <td>
                       <div className="flex items-center gap-[12px]">
-                        <div className="flex items-center justify-center w-[34px] h-[34px] rounded-card bg-[rgba(62,207,142,0.08)] border border-[rgba(62,207,142,0.2)] text-accent shrink-0" aria-hidden="true">
+                        <div
+                          className="flex items-center justify-center w-[34px] h-[34px] rounded-card bg-[rgba(62,207,142,0.08)] border border-[rgba(62,207,142,0.2)] text-accent shrink-0"
+                          aria-hidden="true"
+                        >
                           <Database className="w-[16px] h-[16px]" />
                         </div>
                         <div className="flex flex-col">
-                          <span className="[font-family:var(--font-mono)] font-semibold text-[14px] text-ink">{database.databaseName}</span>
+                          <span className="[font-family:var(--font-mono)] font-semibold text-[14px] text-ink">
+                            {database.databaseName}
+                          </span>
                           <div className="inline-flex items-center gap-[6px] mt-[3px] py-[2px] px-[7px] bg-[#100f14] border border-[#25232d] rounded-control [font-family:var(--font-mono)] text-[11px] text-[#9e9aa7]">
                             <span className="truncate max-w-[200px]">{copyText}</span>
                             <button
@@ -560,9 +627,15 @@ export default function DatabasesPage() {
                               aria-label={`Copy credentials for ${database.databaseName}`}
                             >
                               {isCopied ? (
-                                <Check className="db-copy-icon w-[12px] h-[12px] text-[var(--color-accent)]" aria-hidden="true" />
+                                <Check
+                                  className="db-copy-icon w-[12px] h-[12px] text-[var(--color-accent)]"
+                                  aria-hidden="true"
+                                />
                               ) : (
-                                <Copy className="db-copy-icon w-[12px] h-[12px]" aria-hidden="true" />
+                                <Copy
+                                  className="db-copy-icon w-[12px] h-[12px]"
+                                  aria-hidden="true"
+                                />
                               )}
                             </button>
                           </div>
@@ -581,9 +654,13 @@ export default function DatabasesPage() {
                     </td>
 
                     <td>
-                      <span className={`db-status-pill inline-flex items-center gap-[8px] py-[3px] px-[10px] rounded-[14px] text-[12px] font-medium whitespace-nowrap ${STATUS_PILL[database.status]}`}>
+                      <span
+                        className={`db-status-pill inline-flex items-center gap-[8px] py-[3px] px-[10px] rounded-[14px] text-[12px] font-medium whitespace-nowrap ${STATUS_PILL[database.status]}`}
+                      >
                         <span className="relative inline-flex" aria-hidden="true">
-                          <span className={`db-dot w-[7px] h-[7px] rounded-[50%] shrink-0 ${STATUS_DOT_TONE[database.status]}`} />
+                          <span
+                            className={`db-dot w-[7px] h-[7px] rounded-[50%] shrink-0 ${STATUS_DOT_TONE[database.status]}`}
+                          />
                         </span>
                         <span className="db-status-text">
                           {databaseStatusLabel(database.status)}
@@ -600,8 +677,12 @@ export default function DatabasesPage() {
                     <td>
                       <div className="min-w-[170px]">
                         <div className="db-disk-meta flex justify-between gap-[8px] mb-[5px] [font-family:var(--font-mono)] text-[11.5px]">
-                          <span className="db-disk-used text-[var(--color-ink)] font-medium">{usageLabel(database)}</span>
-                          <span className="db-disk-cap text-[#8a8694]">of {database.storageLimitMb} MB</span>
+                          <span className="db-disk-used text-[var(--color-ink)] font-medium">
+                            {usageLabel(database)}
+                          </span>
+                          <span className="db-disk-cap text-[#8a8694]">
+                            of {database.storageLimitMb} MB
+                          </span>
                         </div>
                         {percent === null ? null : (
                           <div
@@ -620,7 +701,9 @@ export default function DatabasesPage() {
                         )}
                         {percent !== null && (
                           <div className="mt-[4px] text-[11px] text-[#757180] text-right">
-                            <span className="[font-family:var(--font-mono)]">{percent}% utilized</span>
+                            <span className="[font-family:var(--font-mono)]">
+                              {percent}% utilized
+                            </span>
                           </div>
                         )}
                       </div>
@@ -633,7 +716,10 @@ export default function DatabasesPage() {
                         title={`Manage ${database.databaseName} in ${database.projectName}`}
                       >
                         <span>Manage</span>
-                        <ArrowUpRight className="w-[13px] h-[13px] text-[#9e9aa7]" aria-hidden="true" />
+                        <ArrowUpRight
+                          className="w-[13px] h-[13px] text-[#9e9aa7]"
+                          aria-hidden="true"
+                        />
                       </Link>
                     </td>
                   </tr>

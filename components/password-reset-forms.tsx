@@ -16,7 +16,14 @@ function BrandHeading({ title }: { title: string }) {
   return (
     <>
       <div className="brand-mark flex justify-center h-[56px] w-[56px] mt-0 mb-[24px] mx-auto">
-        <Image src="/stealth-cat.png" alt="Stealth" width={56} height={56} priority className="w-[56px] h-[56px] object-contain" />
+        <Image
+          src="/stealth-cat.png"
+          alt="Stealth"
+          width={56}
+          height={56}
+          priority
+          className="w-[56px] h-[56px] object-contain"
+        />
       </div>
       <h1 className="text-center">{title}</h1>
     </>
@@ -70,7 +77,13 @@ export function ForgotPasswordForm() {
         </p>
 
         <p
-          className={isError ? "mt-3 py-2 px-3 border border-[#880c02] rounded-card bg-[#3b0501] text-[#fd9087] text-[12.5px] leading-4" : notice ? "mt-3 py-2 px-3 border border-[#904506] rounded-card bg-[#2a1502] text-[#f79847] text-[12.5px] leading-4" : "sr-only"}
+          className={
+            isError
+              ? "mt-3 py-2 px-3 border border-[#880c02] rounded-card bg-[#3b0501] text-[#fd9087] text-[12.5px] leading-4"
+              : notice
+                ? "mt-3 py-2 px-3 border border-[#904506] rounded-card bg-[#2a1502] text-[#f79847] text-[12.5px] leading-4"
+                : "sr-only"
+          }
           role="status"
           aria-live="polite"
         >
@@ -174,10 +187,18 @@ function ResetPasswordTokenForm({ token }: { token: string }) {
 
       <div id="reset-content" className="login-content w-[min(100%,364px)] m-auto">
         <BrandHeading title="Set a new password" />
-        <p className="auth-lead mt-[8px] mb-[20px] mx-0 text-[#999999] text-[13.5px] leading-[1.6]">Choose a password of at least 8 characters for this account.</p>
+        <p className="auth-lead mt-[8px] mb-[20px] mx-0 text-[#999999] text-[13.5px] leading-[1.6]">
+          Choose a password of at least 8 characters for this account.
+        </p>
 
         <p
-          className={isError ? "mt-3 py-2 px-3 border border-[#880c02] rounded-card bg-[#3b0501] text-[#fd9087] text-[12.5px] leading-4" : notice ? "mt-3 py-2 px-3 border border-[#904506] rounded-card bg-[#2a1502] text-[#f79847] text-[12.5px] leading-4" : "sr-only"}
+          className={
+            isError
+              ? "mt-3 py-2 px-3 border border-[#880c02] rounded-card bg-[#3b0501] text-[#fd9087] text-[12.5px] leading-4"
+              : notice
+                ? "mt-3 py-2 px-3 border border-[#904506] rounded-card bg-[#2a1502] text-[#f79847] text-[12.5px] leading-4"
+                : "sr-only"
+          }
           role="status"
           aria-live="polite"
         >

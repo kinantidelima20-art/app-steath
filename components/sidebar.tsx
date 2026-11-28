@@ -244,10 +244,25 @@ const iconMap: Record<Exclude<IconName, "slack">, LucideIcon> = {
   admin: ShieldCheck,
 };
 
-function Icon({ name, size = 16, className }: { name: IconName; size?: number; className?: string }) {
+function Icon({
+  name,
+  size = 16,
+  className,
+}: {
+  name: IconName;
+  size?: number;
+  className?: string;
+}) {
   if (name === "slack") {
     return (
-      <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={className}
+        aria-hidden="true"
+      >
         <path d="M6.2 14.5a2.2 2.2 0 1 1-2.2-2.2h2.2v2.2ZM7.3 14.5a2.2 2.2 0 1 1 4.4 0V20a2.2 2.2 0 1 1-4.4 0v-5.5Z" />
         <path d="M9.5 6.2a2.2 2.2 0 1 1 2.2-2.2v2.2H9.5ZM9.5 7.3a2.2 2.2 0 1 1 0 4.4H4a2.2 2.2 0 1 1 0-4.4h5.5Z" />
         <path d="M17.8 9.5A2.2 2.2 0 1 1 20 11.7h-2.2V9.5ZM16.7 9.5a2.2 2.2 0 1 1-4.4 0V4a2.2 2.2 0 1 1 4.4 0v5.5Z" />
@@ -286,15 +301,26 @@ function Identity({
 }) {
   return (
     <>
-      <span className="inline-flex h-[20px] flex-none bg-[#2b2930] text-[#eeedf0] text-[10px] font-semibold w-[20px] items-center justify-center rounded-control" aria-hidden="true">
+      <span
+        className="inline-flex h-[20px] flex-none bg-[#2b2930] text-[#eeedf0] text-[10px] font-semibold w-[20px] items-center justify-center rounded-control"
+        aria-hidden="true"
+      >
         {getInitials(organization.name)}
       </span>
       {!collapsed ? (
         <>
-          <span className="min-w-0 overflow-hidden flex-initial text-ellipsis whitespace-nowrap text-[14px] font-semibold max-w-[min(18ch,100%)] tracking-[-0.01em]" title={organization.name}>
+          <span
+            className="min-w-0 overflow-hidden flex-initial text-ellipsis whitespace-nowrap text-[14px] font-semibold max-w-[min(18ch,100%)] tracking-[-0.01em]"
+            title={organization.name}
+          >
             {organization.name}
           </span>
-          <ChevronDown size={16} strokeWidth={1.7} className="flex-none text-[#7e7a84]" aria-hidden="true" />
+          <ChevronDown
+            size={16}
+            strokeWidth={1.7}
+            className="flex-none text-[#7e7a84]"
+            aria-hidden="true"
+          />
         </>
       ) : null}
     </>
@@ -356,9 +382,18 @@ function NavRow({
       title={collapsed ? label : undefined}
     >
       <Icon name={icon} />
-      {!collapsed ? <span className="relative z-[1] min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{label}</span> : null}
+      {!collapsed ? (
+        <span className="relative z-[1] min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+          {label}
+        </span>
+      ) : null}
       {!collapsed && accent ? (
-        <Gift size={16} strokeWidth={1.7} className="ml-auto text-[#ffa057] text-[16px] leading-[16px]" aria-hidden="true" />
+        <Gift
+          size={16}
+          strokeWidth={1.7}
+          className="ml-auto text-[#ffa057] text-[16px] leading-[16px]"
+          aria-hidden="true"
+        />
       ) : null}
     </Link>
   );
@@ -388,14 +423,22 @@ function SearchDialog({
   if (!open) return null;
 
   return (
-    <div className="flex items-start justify-center pt-[20vh] pb-0 px-[16px] fixed inset-0 z-[100] bg-[rgb(0_0_0_/_45%)] [backdrop-filter:blur(3px)]" role="presentation">
+    <div
+      className="flex items-start justify-center pt-[20vh] pb-0 px-[16px] fixed inset-0 z-[100] bg-[rgb(0_0_0_/_45%)] [backdrop-filter:blur(3px)]"
+      role="presentation"
+    >
       <button
         type="button"
         className="focus-visible:outline-2 focus-visible:outline-[#aaa6ec] focus-visible:outline-offset-[2px] absolute inset-0 border-0 bg-transparent"
         onClick={onClose}
         aria-label="Close search"
       />
-      <div className="search-dialog relative z-[1] w-[min(520px,100%)] overflow-hidden border border-[#3a373f] rounded-card bg-[#232127] [box-shadow:0_24px_80px_rgb(0_0_0_/_60%)]" role="dialog" aria-modal="true" aria-label="Search">
+      <div
+        className="search-dialog relative z-[1] w-[min(520px,100%)] overflow-hidden border border-[#3a373f] rounded-card bg-[#232127] [box-shadow:0_24px_80px_rgb(0_0_0_/_60%)]"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search"
+      >
         <div className="search-dialog-input flex h-[48px] items-center gap-[12px] py-0 px-[14px] border-b border-b-[#322f37] text-[14px] text-[#8a8791] [&>kbd]:flex-none [&>kbd]:text-[#b5b2b9] [&>kbd]:[font-family:inherit] [&>kbd]:text-[12px] [&>kbd]:leading-[15px]">
           <Icon name="search" />
           <input
@@ -438,7 +481,9 @@ function SearchDialog({
               </button>
             ))
           ) : (
-            <p className="py-[32px] px-[10px] text-[#8a8791] text-[13px] text-center">No results found.</p>
+            <p className="py-[32px] px-[10px] text-[#8a8791] text-[13px] text-center">
+              No results found.
+            </p>
           )}
         </div>
       </div>
@@ -590,8 +635,12 @@ export function Sidebar({
   };
 
   const renderContent = (mobile = false) => (
-    <div className={`sidebar-panel flex w-full min-w-0 h-full flex-col overflow-hidden border-r border-r-[#282631] bg-console [@media(max-width:1023px)]:bg-[#232127] [@media(max-width:1023px)]:rounded-t-[20px] ${mobile ? "mobile-sidebar-panel" : ""}`}>
-      <header className={`sidebar-header relative flex h-[48px] shrink-0 items-center [transition:gap_360ms_cubic-bezier(0.22,1,0.36,1),padding_360ms_cubic-bezier(0.22,1,0.36,1)] ${collapsed && !mobile ? "justify-center gap-0 p-0" : "gap-[8px] py-0 px-[16px]"}`}>
+    <div
+      className={`sidebar-panel flex w-full min-w-0 h-full flex-col overflow-hidden border-r border-r-[#282631] bg-console [@media(max-width:1023px)]:bg-[#232127] [@media(max-width:1023px)]:rounded-t-[20px] ${mobile ? "mobile-sidebar-panel" : ""}`}
+    >
+      <header
+        className={`sidebar-header relative flex h-[48px] shrink-0 items-center [transition:gap_360ms_cubic-bezier(0.22,1,0.36,1),padding_360ms_cubic-bezier(0.22,1,0.36,1)] ${collapsed && !mobile ? "justify-center gap-0 p-0" : "gap-[8px] py-0 px-[16px]"}`}
+      >
         {!collapsed || mobile ? (
           <button
             type="button"
@@ -638,7 +687,9 @@ export function Sidebar({
             role="dialog"
             aria-label="Organization switcher"
           >
-            <p className="search-section-label m-[4px_8px_8px] p-[8px] text-[#96929d] text-[12px]">Your Organizations</p>
+            <p className="search-section-label m-[4px_8px_8px] p-[8px] text-[#96929d] text-[12px]">
+              Your Organizations
+            </p>
             {organizations?.map((item) => (
               <button
                 key={item.id}
@@ -648,10 +699,15 @@ export function Sidebar({
                 onClick={() => void switchOrganization(item.id)}
                 disabled={organizationBusy}
               >
-                <span className="inline-flex h-[20px] flex-none bg-[#2b2930] text-[#eeedf0] text-[10px] font-semibold w-[20px] items-center justify-center rounded-control" aria-hidden="true">
+                <span
+                  className="inline-flex h-[20px] flex-none bg-[#2b2930] text-[#eeedf0] text-[10px] font-semibold w-[20px] items-center justify-center rounded-control"
+                  aria-hidden="true"
+                >
                   {getInitials(item.name)}
                 </span>
-                <span className="min-w-0 flex-1 overflow-hidden text-[13px] text-ellipsis whitespace-nowrap">{item.name}</span>
+                <span className="min-w-0 flex-1 overflow-hidden text-[13px] text-ellipsis whitespace-nowrap">
+                  {item.name}
+                </span>
                 {item.id === activeOrganizationId ? (
                   <small className="text-[#aaa4af] text-[11px]">Active</small>
                 ) : null}
@@ -663,7 +719,10 @@ export function Sidebar({
               </p>
             ) : null}
             {createOrganizationOpen ? (
-              <form className="organization-switcher-create grid gap-[7px] pt-[12px] pb-[4px] px-[8px] border-t border-t-[#39363f]" onSubmit={createOrganization}>
+              <form
+                className="organization-switcher-create grid gap-[7px] pt-[12px] pb-[4px] px-[8px] border-t border-t-[#39363f]"
+                onSubmit={createOrganization}
+              >
                 <label htmlFor={mobile ? "mobile-new-organization" : "new-organization"}>
                   Organization name
                 </label>
@@ -723,7 +782,10 @@ export function Sidebar({
         ) : null}
       </button>
 
-      <nav className="sidebar-nav flex min-h-[0] flex-1 flex-col gap-[2px] mt-[8px] pt-0 pb-[8px] px-0 overflow-x-hidden overflow-y-auto" aria-label="Sidebar links">
+      <nav
+        className="sidebar-nav flex min-h-[0] flex-1 flex-col gap-[2px] mt-[8px] pt-0 pb-[8px] px-0 overflow-x-hidden overflow-y-auto"
+        aria-label="Sidebar links"
+      >
         {primaryItems.map((item) => (
           <NavRow
             key={item.label}
@@ -767,7 +829,9 @@ export function Sidebar({
         {mobile ? (
           <>
             <div className="h-[1px] my-0 mx-[8px] bg-[#322f37]" />
-            <div className={`profile-area relative pt-[10px] pb-[6px] px-[12px] [@media(max-width:1023px)]:pb-[calc(13px_+_env(safe-area-inset-bottom))] [transition:padding_360ms_cubic-bezier(0.22,1,0.36,1)] ${collapsed && !mobile ? "is-collapsed" : ""}`}>
+            <div
+              className={`profile-area relative pt-[10px] pb-[6px] px-[12px] [@media(max-width:1023px)]:pb-[calc(13px_+_env(safe-area-inset-bottom))] [transition:padding_360ms_cubic-bezier(0.22,1,0.36,1)] ${collapsed && !mobile ? "is-collapsed" : ""}`}
+            >
               {profileOpen && !mobile ? (
                 <div
                   className={`profile-menu absolute right-[12px] bottom-[calc(100%_+_5px)] left-[12px] z-[60] p-[6px] border border-[#2d2d35] rounded-card-lg bg-[#232127] [box-shadow:0_16px_40px_rgb(0_0_0_/_50%)] ${collapsed ? "is-collapsed" : ""}`}
@@ -775,7 +839,11 @@ export function Sidebar({
                   aria-label="User menu"
                 >
                   <div className="profile-menu-user flex items-center gap-[10px] p-[10px]">
-                    <UserAvatar user={user} size={36} className="profile-avatar-image w-[40px] h-[40px] flex-none rounded-[50%] object-cover large" />
+                    <UserAvatar
+                      user={user}
+                      size={36}
+                      className="profile-avatar-image w-[40px] h-[40px] flex-none rounded-[50%] object-cover large"
+                    />
                     <div>
                       <strong title={user.name}>{user.name}</strong>
                       <small>{user.role}</small>
@@ -806,7 +874,12 @@ export function Sidebar({
                   aria-haspopup="menu"
                   aria-expanded={profileOpen}
                 >
-                  <UserAvatar user={user} size={32} className="profile-avatar inline-flex w-[32px] h-[32px] flex-none items-center justify-center rounded-[50%] bg-[#2b2930] text-ink-console text-[13px] font-semibold" decorative />
+                  <UserAvatar
+                    user={user}
+                    size={32}
+                    className="profile-avatar inline-flex w-[32px] h-[32px] flex-none items-center justify-center rounded-[50%] bg-[#2b2930] text-ink-console text-[13px] font-semibold"
+                    decorative
+                  />
                   {!collapsed || mobile ? (
                     <>
                       <span className="profile-copy min-w-0 flex-1 flex flex-col gap-[2px] [&>strong]:overflow-hidden [&>strong]:text-ellipsis [&>strong]:whitespace-nowrap [&>strong]:text-[14px] [&>strong]:font-medium [&>strong]:leading-[17px] [&>small]:text-[#7e7a84] [&>small]:text-[12px] [&>small]:leading-[15px]">
@@ -829,7 +902,14 @@ export function Sidebar({
     <>
       <div className={userMobileTopbarClass}>
         <Link href="/dashboard" className={mobileBrandClass} aria-label="Stealth home">
-          <Image src="/stealth-cat.png" alt="" width={24} height={24} className="h-[24px] w-[24px] object-contain" priority />
+          <Image
+            src="/stealth-cat.png"
+            alt=""
+            width={24}
+            height={24}
+            className="h-[24px] w-[24px] object-contain"
+            priority
+          />
         </Link>
         <div className={mobileTopbarActionsClass}>
           <button

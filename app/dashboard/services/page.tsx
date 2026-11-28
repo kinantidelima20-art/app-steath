@@ -139,11 +139,16 @@ export default function ServicesPage() {
                 : "bg-[#1d1b22] border border-[#282632] text-[#878492]";
 
     return (
-      <span className={`services-status-pill inline-flex items-center gap-[6px] h-[22px] py-0 px-[8px] rounded-[9999px] text-[11px] font-medium shrink-0 ${variant}`}>
+      <span
+        className={`services-status-pill inline-flex items-center gap-[6px] h-[22px] py-0 px-[8px] rounded-[9999px] text-[11px] font-medium shrink-0 ${variant}`}
+      >
         {status === "deploying" ? (
           <Loader2 className="w-3 h-3 animate-spin" aria-hidden="true" />
         ) : (
-          <span className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]" aria-hidden="true" />
+          <span
+            className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]"
+            aria-hidden="true"
+          />
         )}
         <span>{serviceStatusLabel(status)}</span>
       </span>
@@ -172,7 +177,9 @@ export default function ServicesPage() {
     <div className="services-page-container [@media(max-width:720px)]:pt-[20px] [@media(max-width:720px)]:pb-[48px] [@media(max-width:720px)]:px-[16px] pt-[24px] pb-[56px] px-[32px] max-w-[1280px] my-0 mx-auto w-full">
       <header className="flex items-end justify-between flex-wrap gap-[16px] mb-[18px]">
         <div className="min-w-0">
-          <h1 className="text-[20px]! font-semibold! text-ink tracking-[-0.015em]! m-0">Services</h1>
+          <h1 className="text-[20px]! font-semibold! text-ink tracking-[-0.015em]! m-0">
+            Services
+          </h1>
           <p className="text-[13px] text-ink-muted mt-[4px] leading-[1.4]">
             Containers, builds and public routing for {organization?.name ?? "your organization"}.
           </p>
@@ -205,22 +212,35 @@ export default function ServicesPage() {
       </header>
 
       {servicesResource.error ? (
-        <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error mb-[16px]" role="alert">
+        <div
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error mb-[16px]"
+          role="alert"
+        >
           {servicesResource.error}
         </div>
       ) : null}
 
-      <div className="services-summary [@media(max-width:720px)]:gap-[10px_16px] flex items-center flex-wrap gap-[12px_24px] py-[12px] px-0 mb-[18px] border-t border-t-surface-raised border-b border-b-surface-raised" aria-label="Services summary">
+      <div
+        className="services-summary [@media(max-width:720px)]:gap-[10px_16px] flex items-center flex-wrap gap-[12px_24px] py-[12px] px-0 mb-[18px] border-t border-t-surface-raised border-b border-b-surface-raised"
+        aria-label="Services summary"
+      >
         <div className="services-summary-total flex items-baseline gap-[8px] text-ink-muted text-[12px]">
-          <strong className="text-[var(--color-ink-bright)] text-[18px] tabular-nums">{serviceList.length}</strong>
+          <strong className="text-[var(--color-ink-bright)] text-[18px] tabular-nums">
+            {serviceList.length}
+          </strong>
           <span>services across {projectList.length} projects</span>
         </div>
         <div className="flex items-center flex-wrap gap-[16px]">
           <span className="services-summary-state inline-flex items-center gap-[7px] text-[12px] text-ink-muted tabular-nums is-running [&_.project-status-dot]:bg-[var(--color-accent)]">
-            <span className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]" aria-hidden="true" />
+            <span
+              className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]"
+              aria-hidden="true"
+            />
             {runningCount} running
           </span>
-          <span className="services-summary-state inline-flex items-center gap-[7px] text-[12px] text-ink-muted tabular-nums is-deploying">{deployingCount} deploying</span>
+          <span className="services-summary-state inline-flex items-center gap-[7px] text-[12px] text-ink-muted tabular-nums is-deploying">
+            {deployingCount} deploying
+          </span>
           <span className="services-summary-state inline-flex items-center gap-[7px] text-[12px] text-ink-muted tabular-nums is-attention text-[#fda4af]">
             {attentionCount} need attention
           </span>
@@ -233,7 +253,10 @@ export default function ServicesPage() {
       <div className="flex items-center justify-between flex-wrap gap-[12px] mb-[20px]">
         <div className="flex items-center flex-wrap gap-[10px] flex-1">
           <div className="relative w-full max-w-[340px]">
-            <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[15px] h-[15px] text-[#706d7e] pointer-events-none" aria-hidden="true" />
+            <Search
+              className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[15px] h-[15px] text-[#706d7e] pointer-events-none"
+              aria-hidden="true"
+            />
             <input
               type="search"
               placeholder="Search name, repo or hostname..."
@@ -287,8 +310,14 @@ export default function ServicesPage() {
         </div>
 
         <div className="flex items-center gap-[12px]">
-          <span className="text-[12px] text-ink-muted tabular-nums whitespace-nowrap">{filteredServices.length} shown</span>
-          <div className="bg-surface flex items-center border border-[#282631] rounded-control p-[2px]" role="group" aria-label="View mode">
+          <span className="text-[12px] text-ink-muted tabular-nums whitespace-nowrap">
+            {filteredServices.length} shown
+          </span>
+          <div
+            className="bg-surface flex items-center border border-[#282631] rounded-control p-[2px]"
+            role="group"
+            aria-label="View mode"
+          >
             <button
               type="button"
               className={`supabase-view-btn flex items-center justify-center w-[28px] h-[28px] rounded-control-sm bg-transparent border-0 cursor-pointer [transition:color_150ms,background-color_150ms] ${viewMode === "grid" ? "bg-[#282632] text-[var(--color-ink)]" : "text-[#716f7c] hover:text-ink-console"}`}
@@ -314,9 +343,17 @@ export default function ServicesPage() {
       </div>
 
       {loading && serviceList.length === 0 ? (
-        <div className="services-grid grid gap-[12px] grid-cols-[repeat(auto-fill,minmax(300px,1fr))]" role="status" aria-label="Loading services">
+        <div
+          className="services-grid grid gap-[12px] grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
+          role="status"
+          aria-label="Loading services"
+        >
           {[1, 2, 3, 4].map((item) => (
-            <div key={item} className="bg-surface border border-[var(--color-surface-raised)] rounded-card p-[16px]" aria-hidden="true">
+            <div
+              key={item}
+              className="bg-surface border border-[var(--color-surface-raised)] rounded-card p-[16px]"
+              aria-hidden="true"
+            >
               <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] h-4 w-36 rounded mb-3" />
               <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] h-3 w-24 rounded mb-4" />
               <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] h-3 w-2/3 rounded" />
@@ -358,18 +395,32 @@ export default function ServicesPage() {
       ) : viewMode === "grid" ? (
         <div className="flex flex-col">
           {groups.map((group) => (
-            <section key={group.id} className="mb-[22px] last:mb-0" aria-label={`Project ${group.name}`}>
+            <section
+              key={group.id}
+              className="mb-[22px] last:mb-0"
+              aria-label={`Project ${group.name}`}
+            >
               <div className="flex items-baseline gap-[8px] mb-[8px]">
-                <h2 className="services-group-name text-[12px] font-semibold text-ink-console m-0">{group.name}</h2>
-                <span className="services-group-count text-[11px] [font-family:var(--font-console-mono)] text-ink-muted">{group.items.length}</span>
-                <Link href={`/dashboard/projects/${group.id}`} className="services-group-link text-accent hover:text-[#6ee7b7] inline-flex items-center gap-[3px] ml-[auto] text-[11px]">
+                <h2 className="services-group-name text-[12px] font-semibold text-ink-console m-0">
+                  {group.name}
+                </h2>
+                <span className="services-group-count text-[11px] [font-family:var(--font-console-mono)] text-ink-muted">
+                  {group.items.length}
+                </span>
+                <Link
+                  href={`/dashboard/projects/${group.id}`}
+                  className="services-group-link text-accent hover:text-[#6ee7b7] inline-flex items-center gap-[3px] ml-[auto] text-[11px]"
+                >
                   Open project
                   <ArrowUpRight className="w-3 h-3" aria-hidden="true" />
                 </Link>
               </div>
               <div className="services-grid grid gap-[12px] grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
                 {group.items.map((service) => (
-                  <article key={service.id} className="bg-surface border border-surface-raised rounded-card py-[14px] px-[16px] flex flex-col min-w-0 [transition:border-color_120ms_ease] hover:border-[#3a3744]">
+                  <article
+                    key={service.id}
+                    className="bg-surface border border-surface-raised rounded-card py-[14px] px-[16px] flex flex-col min-w-0 [transition:border-color_120ms_ease] hover:border-[#3a3744]"
+                  >
                     <div className="flex items-start justify-between gap-[12px] mb-[10px]">
                       <div className="min-w-0">
                         <Link
@@ -381,7 +432,9 @@ export default function ServicesPage() {
                         </Link>
                         <div className="services-card-meta flex items-center gap-[6px] min-w-0 mt-[3px] text-[11px] text-ink-muted [&>span:last-child]:overflow-hidden [&>span:last-child]:text-ellipsis [&>span:last-child]:whitespace-nowrap">
                           <GitBranch className="w-3 h-3" aria-hidden="true" />
-                          <span className="text-[11px] [font-family:var(--font-console-mono)]">{service.branch}</span>
+                          <span className="text-[11px] [font-family:var(--font-console-mono)]">
+                            {service.branch}
+                          </span>
                           <span aria-hidden="true">·</span>
                           <span title={service.repoUrl}>
                             {service.repoUrl.replace(/^https?:\/\//, "").split("/")[0]}
@@ -441,10 +494,21 @@ export default function ServicesPage() {
             {groups.map((group) => (
               <tbody key={group.id}>
                 <tr className="services-group-row">
-                  <th colSpan={6} scope="rowgroup" className="px-[14px] py-[9px] bg-[#131217] border-b border-[var(--color-surface-raised)] font-normal text-left">
-                    <span className="services-group-name text-[12px] font-semibold text-ink-console m-0">{group.name}</span>
-                    <span className="services-group-count text-[12px] [font-family:var(--font-console-mono)] text-ink-muted">{group.items.length}</span>
-                    <Link href={`/dashboard/projects/${group.id}`} className="services-group-link text-accent hover:text-[#6ee7b7] inline-flex items-center gap-[3px] ml-[auto] text-[11px]">
+                  <th
+                    colSpan={6}
+                    scope="rowgroup"
+                    className="px-[14px] py-[9px] bg-[#131217] border-b border-[var(--color-surface-raised)] font-normal text-left"
+                  >
+                    <span className="services-group-name text-[12px] font-semibold text-ink-console m-0">
+                      {group.name}
+                    </span>
+                    <span className="services-group-count text-[12px] [font-family:var(--font-console-mono)] text-ink-muted">
+                      {group.items.length}
+                    </span>
+                    <Link
+                      href={`/dashboard/projects/${group.id}`}
+                      className="services-group-link text-accent hover:text-[#6ee7b7] inline-flex items-center gap-[3px] ml-[auto] text-[11px]"
+                    >
                       Open project
                       <ArrowUpRight className="w-3 h-3" aria-hidden="true" />
                     </Link>
@@ -461,7 +525,9 @@ export default function ServicesPage() {
                       </Link>
                       <div className="services-card-meta flex items-center gap-[6px] min-w-0 mt-[3px] text-[11px] text-ink-muted [&>span:last-child]:overflow-hidden [&>span:last-child]:text-ellipsis [&>span:last-child]:whitespace-nowrap">
                         <GitBranch className="w-3 h-3" aria-hidden="true" />
-                        <span className="text-[11px] [font-family:var(--font-console-mono)]">{service.branch}</span>
+                        <span className="text-[11px] [font-family:var(--font-console-mono)]">
+                          {service.branch}
+                        </span>
                         <span aria-hidden="true">·</span>
                         <span title={service.repoUrl}>
                           {service.repoUrl.replace(/^https?:\/\//, "").split("/")[0]}
@@ -486,7 +552,9 @@ export default function ServicesPage() {
                     <td className="text-[11px] [font-family:var(--font-console-mono)] text-ink-muted tabular-nums whitespace-nowrap">
                       {service.cpuLimit} vCPU · {service.memoryLimitMb} MB
                     </td>
-                    <td className="text-[11px] [font-family:var(--font-console-mono)]">:{service.containerPort}</td>
+                    <td className="text-[11px] [font-family:var(--font-console-mono)]">
+                      :{service.containerPort}
+                    </td>
                     <td>
                       <div className="flex items-center justify-end gap-[6px]">
                         <a

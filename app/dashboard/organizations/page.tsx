@@ -8,11 +8,18 @@ import { useToast } from "@/components/toast-context";
 import { useGsapEntrance } from "@/lib/animation/use-gsap-entrance";
 import { ModalDialog } from "@/components/supabase-modal";
 
-import { modalCloseClass, secondaryButtonClass, spacedSecondaryButtonClass } from "@/components/ui-classes";
+import {
+  modalCloseClass,
+  secondaryButtonClass,
+  spacedSecondaryButtonClass,
+} from "@/components/ui-classes";
 
 function OrgHexIcon() {
   return (
-    <div className="flex items-center justify-center w-[36px] h-[36px] rounded-card bg-[#211f27] text-[#8e8c99] shrink-0" aria-hidden="true">
+    <div
+      className="flex items-center justify-center w-[36px] h-[36px] rounded-card bg-[#211f27] text-[#8e8c99] shrink-0"
+      aria-hidden="true"
+    >
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor">
         <circle cx="12" cy="7" r="2.5" fill="currentColor" />
         <circle cx="7" cy="15" r="2.5" fill="currentColor" />
@@ -108,11 +115,16 @@ export default function OrganizationsPage() {
   return (
     <div className="min-h-[calc(100dvh_-_48px)] bg-console text-ink-console py-[48px] px-[32px]">
       <div className="max-w-[1100px] mx-auto">
-        <h1 className="text-[28px]! font-semibold! tracking-[-0.02em]! text-ink mt-0! mb-[24px]! mx-0!">Your organizations</h1>
+        <h1 className="text-[28px]! font-semibold! tracking-[-0.02em]! text-ink mt-0! mb-[24px]! mx-0!">
+          Your organizations
+        </h1>
 
         <div className="flex items-center justify-between gap-[16px] mb-[24px]">
           <div className="relative w-[280px] max-w-full">
-            <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[15px] h-[15px] text-[#6a6875] pointer-events-none" aria-hidden="true" />
+            <Search
+              className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[15px] h-[15px] text-[#6a6875] pointer-events-none"
+              aria-hidden="true"
+            />
             <input
               type="search"
               placeholder="Search for an organization"
@@ -146,9 +158,16 @@ export default function OrganizationsPage() {
         </div>
 
         {isPending ? (
-          <div className="orgs-grid grid gap-[16px] grid-cols-[repeat(auto-fill,minmax(320px,1fr))]" aria-label="Loading organizations">
+          <div
+            className="orgs-grid grid gap-[16px] grid-cols-[repeat(auto-fill,minmax(320px,1fr))]"
+            aria-label="Loading organizations"
+          >
             {[1, 2].map((n) => (
-              <div key={n} className="flex items-center gap-[16px] py-[16px] px-[20px] rounded-card bg-surface border border-[var(--color-surface-raised)] min-h-[70px]" aria-hidden="true">
+              <div
+                key={n}
+                className="flex items-center gap-[16px] py-[16px] px-[20px] rounded-card bg-surface border border-[var(--color-surface-raised)] min-h-[70px]"
+                aria-hidden="true"
+              >
                 <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] w-9 h-9 rounded-lg" />
                 <div className="flex-1 space-y-2">
                   <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] h-4 rounded w-32" />
@@ -191,7 +210,10 @@ export default function OrganizationsPage() {
             )}
           </div>
         ) : (
-          <div ref={gridRef} className="orgs-grid grid gap-[16px] grid-cols-[repeat(auto-fill,minmax(320px,1fr))]">
+          <div
+            ref={gridRef}
+            className="orgs-grid grid gap-[16px] grid-cols-[repeat(auto-fill,minmax(320px,1fr))]"
+          >
             {filteredOrgs.map((org) => {
               const isSwitching = switchingId === org.id;
               return (
@@ -240,7 +262,10 @@ export default function OrganizationsPage() {
                 workspace.
               </p>
 
-              <label htmlFor="modal-org-name" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+              <label
+                htmlFor="modal-org-name"
+                className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+              >
                 Organization name
               </label>
               <input

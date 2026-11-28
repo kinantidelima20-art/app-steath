@@ -29,7 +29,13 @@ import { getInitials } from "@/components/identity";
 import { useToast } from "@/components/toast-context";
 import { ModalDialog } from "@/components/supabase-modal";
 
-import { dangerButtonClass, dangerSecondaryButtonClass, filterSelectClass, modalCloseClass, secondaryButtonClass } from "@/components/ui-classes";
+import {
+  dangerButtonClass,
+  dangerSecondaryButtonClass,
+  filterSelectClass,
+  modalCloseClass,
+  secondaryButtonClass,
+} from "@/components/ui-classes";
 
 export const membersTableClass = [
   "members-table w-full min-w-[640px] text-[13px] text-left [&_th]:px-[16px] [&_th]:py-[11px]",
@@ -284,11 +290,16 @@ export default function MembersPage() {
       {/* Page Header */}
       <header className="flex items-center justify-between flex-wrap gap-[16px] mb-[24px]">
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-[40px] h-[40px] rounded-panel bg-[#1a1922] border border-[#282633] shrink-0" aria-hidden="true">
+          <div
+            className="flex items-center justify-center w-[40px] h-[40px] rounded-panel bg-[#1a1922] border border-[#282633] shrink-0"
+            aria-hidden="true"
+          >
             <Users className="w-5 h-5 text-emerald-400" />
           </div>
           <div>
-            <h1 className="text-[24px] font-semibold! tracking-[-0.02em]! text-ink m-0 leading-[1.2]!">Team Members</h1>
+            <h1 className="text-[24px] font-semibold! tracking-[-0.02em]! text-ink m-0 leading-[1.2]!">
+              Team Members
+            </h1>
             <p className="text-[13px] text-[#8e8c99] mt-[3px]">
               Manage team access, invitations, and role-based permissions in {organizationName}.
             </p>
@@ -326,7 +337,10 @@ export default function MembersPage() {
       </header>
 
       {error ? (
-        <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error my-4" role="alert">
+        <div
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error my-4"
+          role="alert"
+        >
           {error}
         </div>
       ) : null}
@@ -334,7 +348,10 @@ export default function MembersPage() {
       {/* Filter Toolbar */}
       <div className="flex items-center justify-between flex-wrap gap-[12px] mb-[20px]">
         <div className="relative w-[280px] max-w-full">
-          <Search className="absolute left-[10px] top-1/2 -translate-y-1/2 w-[14px] h-[14px] text-[#636170] pointer-events-none" aria-hidden="true" />
+          <Search
+            className="absolute left-[10px] top-1/2 -translate-y-1/2 w-[14px] h-[14px] text-[#636170] pointer-events-none"
+            aria-hidden="true"
+          />
           <input
             type="search"
             placeholder="Search by name or email..."
@@ -367,7 +384,9 @@ export default function MembersPage() {
             <option value="member">Members</option>
           </select>
 
-          <span className="bg-surface inline-flex items-center h-[34px] py-0 px-[10px] rounded-control border border-[#282631] text-[12.5px] text-[#8e8c99]">{filteredMembers.length} Members</span>
+          <span className="bg-surface inline-flex items-center h-[34px] py-0 px-[10px] rounded-control border border-[#282631] text-[12.5px] text-[#8e8c99]">
+            {filteredMembers.length} Members
+          </span>
         </div>
       </div>
 
@@ -423,15 +442,26 @@ export default function MembersPage() {
                   <tr key={member.id}>
                     <td>
                       <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-[34px] h-[34px] rounded-[50%] bg-[#24222f] border border-[#322f3e] text-accent font-semibold text-[12px] shrink-0" aria-hidden="true">
+                        <div
+                          className="flex items-center justify-center w-[34px] h-[34px] rounded-[50%] bg-[#24222f] border border-[#322f3e] text-accent font-semibold text-[12px] shrink-0"
+                          aria-hidden="true"
+                        >
                           <span>{getInitials(member.user.name || member.user.email)}</span>
                         </div>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="text-[13.5px] font-semibold text-ink">{member.user.name}</span>
-                            {isCurrentUser && <span className="text-[10px] font-semibold py-[1px] px-[5px] rounded-control-sm bg-[rgba(62,207,142,0.1)] text-accent border border-[rgba(62,207,142,0.25)]">You</span>}
+                            <span className="text-[13.5px] font-semibold text-ink">
+                              {member.user.name}
+                            </span>
+                            {isCurrentUser && (
+                              <span className="text-[10px] font-semibold py-[1px] px-[5px] rounded-control-sm bg-[rgba(62,207,142,0.1)] text-accent border border-[rgba(62,207,142,0.25)]">
+                                You
+                              </span>
+                            )}
                           </div>
-                          <span className="block text-[11.5px] text-[#716f7c] [font-family:monospace]">{member.user.email}</span>
+                          <span className="block text-[11.5px] text-[#716f7c] [font-family:monospace]">
+                            {member.user.email}
+                          </span>
                         </div>
                       </div>
                     </td>
@@ -503,7 +533,9 @@ export default function MembersPage() {
           <div className="flex items-center gap-2">
             <Clock className="w-4 h-4 text-amber-400" />
             <h2 className="text-sm font-semibold text-white">Pending Invitations</h2>
-            <span className="bg-surface inline-flex items-center h-[34px] py-0 px-[10px] rounded-control border border-[#282631] text-[12.5px] text-[#8e8c99]">{invitations.length}</span>
+            <span className="bg-surface inline-flex items-center h-[34px] py-0 px-[10px] rounded-control border border-[#282631] text-[12.5px] text-[#8e8c99]">
+              {invitations.length}
+            </span>
           </div>
 
           <div className="bg-surface rounded-card border border-surface-raised overflow-x-auto">
@@ -528,7 +560,9 @@ export default function MembersPage() {
                       </div>
                     </td>
                     <td>
-                      <span className="members-role-badge inline-flex items-center text-[11.5px] font-medium py-[2px] px-[8px] rounded-control-sm bg-[#201e27] border border-[#2a2835] text-[#9e9aa7] capitalize">{invitation.role}</span>
+                      <span className="members-role-badge inline-flex items-center text-[11.5px] font-medium py-[2px] px-[8px] rounded-control-sm bg-[#201e27] border border-[#2a2835] text-[#9e9aa7] capitalize">
+                        {invitation.role}
+                      </span>
                     </td>
                     <td className="text-xs text-zinc-400">
                       {new Date(invitation.expiresAt).toLocaleDateString(undefined, {
@@ -581,7 +615,10 @@ export default function MembersPage() {
               </div>
 
               <div>
-                <label htmlFor="invitation-link-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="invitation-link-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Invitation URL
                 </label>
                 <div className="flex items-center gap-2">
@@ -628,7 +665,10 @@ export default function MembersPage() {
             <form onSubmit={invite}>
               <div className="supabase-modal-body space-y-4">
                 <div>
-                  <label htmlFor="invite-email-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                  <label
+                    htmlFor="invite-email-input"
+                    className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                  >
                     Email address
                   </label>
                   <input
@@ -644,7 +684,10 @@ export default function MembersPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="invite-role-select" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                  <label
+                    htmlFor="invite-role-select"
+                    className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                  >
                     Organization Role
                   </label>
                   <select

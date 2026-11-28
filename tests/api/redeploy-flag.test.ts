@@ -121,13 +121,17 @@ async function readRedeployFlags(input: {
   projectId: string;
   serviceId: string;
 }): Promise<PanelFlags> {
-  const [{ getService }, { getServiceVolume }, { getProjectDatabase }, { listEnvironmentVariables }] =
-    await Promise.all([
-      import("@/lib/platform/services"),
-      import("@/lib/platform/volumes"),
-      import("@/lib/platform/databases"),
-      import("@/lib/platform/environment-variables"),
-    ]);
+  const [
+    { getService },
+    { getServiceVolume },
+    { getProjectDatabase },
+    { listEnvironmentVariables },
+  ] = await Promise.all([
+    import("@/lib/platform/services"),
+    import("@/lib/platform/volumes"),
+    import("@/lib/platform/databases"),
+    import("@/lib/platform/environment-variables"),
+  ]);
 
   const [service, volume, database, variables] = await Promise.all([
     getService(input.organizationId, input.serviceId),
@@ -172,15 +176,15 @@ describe("needsRedeploy", () => {
       variables: true,
     };
 
-    expect(await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id })).toEqual(
-      offline,
-    );
+    expect(
+      await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id }),
+    ).toEqual(offline);
 
     // Nothing is live yet, so a revision bump alone is not a pending redeploy.
     await bumpRevision(service.id);
-    expect(await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id })).toEqual(
-      offline,
-    );
+    expect(
+      await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id }),
+    ).toEqual(offline);
 
     // A Deployment that recorded the current revision is up to date.
     await insertRunningDeployment({
@@ -189,15 +193,15 @@ describe("needsRedeploy", () => {
       createdAt: minutesAgo(10),
       finishedAt: minutesAgo(10),
     });
-    expect(await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id })).toEqual(
-      offline,
-    );
+    expect(
+      await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id }),
+    ).toEqual(offline);
 
     // A later change makes every panel agree that a redeploy is pending.
     await bumpRevision(service.id);
-    expect(await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id })).toEqual(
-      stale,
-    );
+    expect(
+      await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id }),
+    ).toEqual(stale);
 
     // Deploying the new revision clears the flag everywhere at once.
     await insertRunningDeployment({
@@ -206,9 +210,9 @@ describe("needsRedeploy", () => {
       createdAt: minutesAgo(1),
       finishedAt: minutesAgo(1),
     });
-    expect(await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id })).toEqual(
-      offline,
-    );
+    expect(
+      await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id }),
+    ).toEqual(offline);
   });
 
   it("reads the revision of the live container, not the highest one in history", async () => {
@@ -237,7 +241,9 @@ describe("needsRedeploy", () => {
 
     // Comparing against the highest revision in history would hide this; the
     // newest `finishedAt` is the container the Service points at.
-    expect(await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id })).toEqual({
+    expect(
+      await readRedeployFlags({ ...owner, projectId: project.id, serviceId: service.id }),
+    ).toEqual({
       service: true,
       volume: true,
       database: true,
@@ -247,21 +253,23 @@ describe("needsRedeploy", () => {
 
   it("keeps the shared 404 for another Organization's Service and Project", async () => {
     const owner = await signUp(uniqueName("flagown") + "@example.test", uniqueName("flagown"));
-    const outsider = await signUp(
-      uniqueName("flagout") + "@example.test",
-      uniqueName("flagout"),
-    );
+    const outsider = await signUp(uniqueName("flagout") + "@example.test", uniqueName("flagout"));
     const project = await createProject(owner.cookie, "Flag Owned");
     const service = await createService(owner.cookie, project.id, "Owned App");
 
-    const [{ getService }, { getServiceVolume }, { getProjectDatabase }, { listEnvironmentVariables }, { getServiceRuntime }] =
-      await Promise.all([
-        import("@/lib/platform/services"),
-        import("@/lib/platform/volumes"),
-        import("@/lib/platform/databases"),
-        import("@/lib/platform/environment-variables"),
-        import("@/lib/platform/runtime"),
-      ]);
+    const [
+      { getService },
+      { getServiceVolume },
+      { getProjectDatabase },
+      { listEnvironmentVariables },
+      { getServiceRuntime },
+    ] = await Promise.all([
+      import("@/lib/platform/services"),
+      import("@/lib/platform/volumes"),
+      import("@/lib/platform/databases"),
+      import("@/lib/platform/environment-variables"),
+      import("@/lib/platform/runtime"),
+    ]);
 
     await expect(getService(outsider.organizationId, service.id)).rejects.toMatchObject({
       status: 404,

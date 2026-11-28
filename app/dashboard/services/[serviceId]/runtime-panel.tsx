@@ -99,7 +99,10 @@ export function RuntimePanel({
   const running = status === "running";
 
   return (
-    <section className="dashboard-section mt-0 mb-[24px] mx-0 p-[20px] border border-[#27272a] rounded-card bg-[#0c0c0d] [@media(max-width:600px)]:p-[16px]" aria-labelledby="runtime-heading">
+    <section
+      className="dashboard-section mt-0 mb-[24px] mx-0 p-[20px] border border-[#27272a] rounded-card bg-[#0c0c0d] [@media(max-width:600px)]:p-[16px]"
+      aria-labelledby="runtime-heading"
+    >
       <div className="dashboard-section-heading flex min-h-[42px] items-center justify-between border-b border-b-[#322f37]">
         <h2 id="runtime-heading">Runtime</h2>
         {canManage ? (
@@ -131,7 +134,10 @@ export function RuntimePanel({
       </div>
 
       {runtime.error ? (
-        <p className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+        <p
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+          role="alert"
+        >
           {runtime.error}
         </p>
       ) : null}
@@ -192,7 +198,10 @@ export function RuntimePanel({
           </button>
         </div>
         {logError ? (
-          <p className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+          <p
+            className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+            role="alert"
+          >
             {logError}
           </p>
         ) : null}
@@ -201,7 +210,9 @@ export function RuntimePanel({
             {logLines.length > 0 ? logLines.join("\n") : "Waiting for output..."}
           </pre>
         ) : (
-          <p className="dashboard-table-empty text-[13px] p-[20px] text-[#71717a] text-center">Follow the log to see what the container writes.</p>
+          <p className="dashboard-table-empty text-[13px] p-[20px] text-[#71717a] text-center">
+            Follow the log to see what the container writes.
+          </p>
         )}
       </div>
     </section>

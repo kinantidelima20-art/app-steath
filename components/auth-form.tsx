@@ -51,7 +51,11 @@ function GoogleMark() {
 
 function GitHubMark() {
   return (
-    <svg viewBox="0 0 24 24" className="flex-none w-[16px] h-[16px] github-mark fill-[#eaeaea]" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      className="flex-none w-[16px] h-[16px] github-mark fill-[#eaeaea]"
+      aria-hidden="true"
+    >
       <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.2.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z" />
     </svg>
   );
@@ -59,7 +63,11 @@ function GitHubMark() {
 
 function LockMark() {
   return (
-    <svg viewBox="0 0 24 24" className="small-icon w-[14px] h-[14px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      className="small-icon w-[14px] h-[14px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]"
+      aria-hidden="true"
+    >
       <rect x="4" y="10" width="16" height="11" rx="2" />
       <path d="M8 10V7a4 4 0 0 1 8 0v3" />
     </svg>
@@ -68,7 +76,11 @@ function LockMark() {
 
 export function EyeMark({ hidden = false }: { hidden?: boolean }) {
   return (
-    <svg viewBox="0 0 24 24" className="small-icon w-[14px] h-[14px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      className="small-icon w-[14px] h-[14px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]"
+      aria-hidden="true"
+    >
       {hidden ? (
         <>
           <path d="m3 3 18 18" />
@@ -87,7 +99,11 @@ export function EyeMark({ hidden = false }: { hidden?: boolean }) {
 
 function CheckMark() {
   return (
-    <svg viewBox="0 0 24 24" className="check-icon w-[13px] h-[13px] fill-none [stroke:#0a0a0a] [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:3]" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      className="check-icon w-[13px] h-[13px] fill-none [stroke:#0a0a0a] [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:3]"
+      aria-hidden="true"
+    >
       <path d="m5 12 4 4L19 6" />
     </svg>
   );
@@ -219,7 +235,14 @@ export function AuthForm({ initialMode }: { initialMode: AuthFormMode }) {
 
       <div id="login-content" className="login-content w-[min(100%,364px)] m-auto">
         <div className="brand-mark flex justify-center h-[56px] w-[56px] mt-0 mb-[24px] mx-auto">
-          <Image src="/stealth-cat.png" alt="Stealth" width={56} height={56} priority className="w-[56px] h-[56px] object-contain" />
+          <Image
+            src="/stealth-cat.png"
+            alt="Stealth"
+            width={56}
+            height={56}
+            priority
+            className="w-[56px] h-[56px] object-contain"
+          />
         </div>
 
         <h1 className="text-center">{isSignUp ? "Sign up" : "Sign in to Stealth"}</h1>
@@ -237,7 +260,11 @@ export function AuthForm({ initialMode }: { initialMode: AuthFormMode }) {
           >
             <GoogleMark />
             Google
-            {!socialProviders?.google ? <span className="provider-soon text-[10px] font-medium text-[#909090] tracking-[0.02em]">Coming soon</span> : null}
+            {!socialProviders?.google ? (
+              <span className="provider-soon text-[10px] font-medium text-[#909090] tracking-[0.02em]">
+                Coming soon
+              </span>
+            ) : null}
           </button>
           <button
             type="button"
@@ -247,21 +274,38 @@ export function AuthForm({ initialMode }: { initialMode: AuthFormMode }) {
           >
             <GitHubMark />
             GitHub
-            {!socialProviders?.github ? <span className="provider-soon text-[10px] font-medium text-[#909090] tracking-[0.02em]">Coming soon</span> : null}
+            {!socialProviders?.github ? (
+              <span className="provider-soon text-[10px] font-medium text-[#909090] tracking-[0.02em]">
+                Coming soon
+              </span>
+            ) : null}
           </button>
         </div>
 
         <button type="button" className={`${authProviderButtonClass} w-full mt-[10px]`} disabled>
           <LockMark />
           Continue with SSO
-          <span className="provider-soon text-[10px] font-medium text-[#909090] tracking-[0.02em]">Coming soon</span>
+          <span className="provider-soon text-[10px] font-medium text-[#909090] tracking-[0.02em]">
+            Coming soon
+          </span>
         </button>
 
-        <p className={notice ? "mt-3 py-2 px-3 border border-[#904506] rounded-card bg-[#2a1502] text-[#f79847] text-[12.5px] leading-4" : "sr-only"} role="status" aria-live="polite">
+        <p
+          className={
+            notice
+              ? "mt-3 py-2 px-3 border border-[#904506] rounded-card bg-[#2a1502] text-[#f79847] text-[12.5px] leading-4"
+              : "sr-only"
+          }
+          role="status"
+          aria-live="polite"
+        >
           {notice}
         </p>
 
-        <div className="divider flex items-center gap-[12px] my-[20px] mx-0 text-[#999999] text-[11px] font-medium tracking-[0.08em]" aria-hidden="true">
+        <div
+          className="divider flex items-center gap-[12px] my-[20px] mx-0 text-[#999999] text-[11px] font-medium tracking-[0.08em]"
+          aria-hidden="true"
+        >
           <span className="h-[1px] flex-1 bg-[#2c2c2c]" />
           OR
           <span className="h-[1px] flex-1 bg-[#2c2c2c]" />
@@ -330,7 +374,10 @@ export function AuthForm({ initialMode }: { initialMode: AuthFormMode }) {
                 onChange={(event) => setRememberEmail(event.target.checked)}
                 disabled={isLoading}
               />
-              <span className="checkbox-mark flex w-[18px] h-[18px] flex-none items-center justify-center border-2 border-[#82b6ff] rounded-[5px] bg-[#82b6ff]" aria-hidden="true">
+              <span
+                className="checkbox-mark flex w-[18px] h-[18px] flex-none items-center justify-center border-2 border-[#82b6ff] rounded-[5px] bg-[#82b6ff]"
+                aria-hidden="true"
+              >
                 {rememberEmail ? <CheckMark /> : null}
               </span>
               Keep me signed in on this device

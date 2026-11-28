@@ -3,7 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, Copy, Eye, EyeOff, Loader2 } from "lucide-react";
 
-import { credentialActionClass, credentialRowClass, credentialToggleClass, credentialValueClass } from "@/components/ui-classes";
+import {
+  credentialActionClass,
+  credentialRowClass,
+  credentialToggleClass,
+  credentialValueClass,
+} from "@/components/ui-classes";
 
 /**
  * One label/value pair with its own copy button.
@@ -31,13 +36,18 @@ export function CredentialRow({
         {/* The copied confirmation is written out, not just an icon, so it is
             readable at a glance and announced to a screen reader. */}
         {copied ? (
-          <span className="db-cred-copied normal-case text-[10px] font-semibold tracking-[0.02em] text-accent" role="status">
+          <span
+            className="db-cred-copied normal-case text-[10px] font-semibold tracking-[0.02em] text-accent"
+            role="status"
+          >
             Tersalin
           </span>
         ) : null}
       </span>
       <div className="flex items-start gap-[10px] min-w-0">
-        <span className="db-cred-value flex-auto [word-break:break-all] [font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace] text-ink min-w-0 text-[14px] leading-[1.5] [overflow-wrap:anywhere] is-mono">{value}</span>
+        <span className="db-cred-value flex-auto [word-break:break-all] [font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace] text-ink min-w-0 text-[14px] leading-[1.5] [overflow-wrap:anywhere] is-mono">
+          {value}
+        </span>
         <button
           type="button"
           className={credentialToggleClass}
@@ -155,7 +165,10 @@ export function PasswordRow({
       <span className="flex items-center gap-[8px] text-[10.5px] uppercase tracking-[0.04em] text-[#636170]">
         Password
         {copied ? (
-          <span className="db-cred-copied normal-case text-[10px] font-semibold tracking-[0.02em] text-accent" role="status">
+          <span
+            className="db-cred-copied normal-case text-[10px] font-semibold tracking-[0.02em] text-accent"
+            role="status"
+          >
             Tersalin
           </span>
         ) : null}

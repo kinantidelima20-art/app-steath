@@ -21,13 +21,9 @@ export async function GET(
       projectId,
     });
 
-    await recordAudit(
-      "database.password_revealed",
-      actor.organizationId,
-      actor.userId,
-      undefined,
-      { projectId },
-    );
+    await recordAudit("database.password_revealed", actor.organizationId, actor.userId, undefined, {
+      projectId,
+    });
 
     return apiData(revealed);
   });

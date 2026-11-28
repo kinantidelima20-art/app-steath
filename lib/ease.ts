@@ -7,9 +7,7 @@ export const EASE_DRAWER: [number, number, number, number] = [0.32, 0.72, 0, 1];
 // gsap power2.out — entrance/popover feel
 export const POWER2_OUT: [number, number, number, number] = [0.33, 1, 0.68, 1];
 // gsap power2.inOut — symmetric ease for the height expand/collapse
-export const POWER2_INOUT: [number, number, number, number] = [
-  0.45, 0, 0.55, 1,
-];
+export const POWER2_INOUT: [number, number, number, number] = [0.45, 0, 0.55, 1];
 
 export const SPRING_PRESS = {
   type: "spring",
@@ -70,9 +68,7 @@ export const LABEL_EXIT_TRANSITION = {
 } as const;
 
 // Added for the beUI status-bar chart port (its tooltip and bar motion).
-export const EASE_IN_OUT: [number, number, number, number] = [
-  0.77, 0, 0.175, 1,
-];
+export const EASE_IN_OUT: [number, number, number, number] = [0.77, 0, 0.175, 1];
 /** Content swaps, e.g. a label trading places with an icon. */
 export const SPRING_SWAP = {
   type: "spring",

@@ -88,8 +88,7 @@ export function formatConversationStamp(value: string | null | undefined) {
 }
 
 export function formatBytes(value: number | null | undefined) {
-  if (value === null || value === undefined || !Number.isFinite(value))
-    return "Not available";
+  if (value === null || value === undefined || !Number.isFinite(value)) return "Not available";
   if (value < 1024) return `${value} B`;
   const units = ["KB", "MB", "GB", "TB"];
   let amount = value;
@@ -103,17 +102,11 @@ export function formatBytes(value: number | null | undefined) {
 
 export function formatCount(value: number | null | undefined) {
   if (value === null || value === undefined) return "Not available";
-  return (value > 9999 ? compactCountFormat : standardCountFormat).format(
-    value,
-  );
+  return (value > 9999 ? compactCountFormat : standardCountFormat).format(value);
 }
 
 /** "1 record" / "12 records", with locale-formatted counts. */
-export function pluralize(
-  count: number,
-  singular: string,
-  plural = `${singular}s`,
-) {
+export function pluralize(count: number, singular: string, plural = `${singular}s`) {
   return `${formatCount(count)} ${count === 1 ? singular : plural}`;
 }
 

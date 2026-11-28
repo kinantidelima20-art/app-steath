@@ -496,4 +496,3 @@ export function markServiceStopped(serviceId: string): Promise<void> {
 export function markServiceRunning(serviceId: string): Promise<void> {
   return setServiceStatus(serviceId, "running");
 }
-

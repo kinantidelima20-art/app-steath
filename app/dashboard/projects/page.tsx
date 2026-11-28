@@ -23,7 +23,12 @@ import { MAX_SLUG_LENGTH, slugify } from "@/lib/slug";
 import { useToast } from "@/components/toast-context";
 import { ModalDialog } from "@/components/supabase-modal";
 
-import { filterSelectClass, modalCloseClass, secondaryButtonClass, spacedSecondaryButtonClass } from "@/components/ui-classes";
+import {
+  filterSelectClass,
+  modalCloseClass,
+  secondaryButtonClass,
+  spacedSecondaryButtonClass,
+} from "@/components/ui-classes";
 
 export const createProjectCtaClass = [
   "inline-flex items-center gap-[8px] min-h-[38px] py-[8px] px-[18px] rounded-card border-0",
@@ -121,7 +126,10 @@ export default function ProjectsPage() {
       </div>
 
       {projects.error ? (
-        <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error mb-4" role="alert">
+        <div
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error mb-4"
+          role="alert"
+        >
           {projects.error}
         </div>
       ) : null}
@@ -130,7 +138,10 @@ export default function ProjectsPage() {
       <div className="flex items-center justify-between flex-wrap gap-[12px] mb-[24px]">
         <div className="flex items-center gap-[10px] flex-wrap">
           <div className="supabase-project-search relative flex items-center w-[240px]">
-            <Search className="absolute left-[10px] w-4 h-4 text-zinc-500 pointer-events-none" aria-hidden="true" />
+            <Search
+              className="absolute left-[10px] w-4 h-4 text-zinc-500 pointer-events-none"
+              aria-hidden="true"
+            />
             <input
               type="search"
               placeholder="Search for a project"
@@ -161,11 +172,16 @@ export default function ProjectsPage() {
               <option value="active">Status: Active</option>
               <option value="empty">Status: Empty</option>
             </select>
-            <ChevronDown className="absolute right-[8px] w-[14px] h-[14px] text-[#716f7c] pointer-events-none" aria-hidden="true" />
+            <ChevronDown
+              className="absolute right-[8px] w-[14px] h-[14px] text-[#716f7c] pointer-events-none"
+              aria-hidden="true"
+            />
           </div>
 
           <div className="relative flex items-center">
-            <span className="inline-flex items-center h-[34px] py-0 px-[12px] rounded-control border border-[#282631] bg-surface text-[#8e8c99] text-[13px] select-none">Sorted by name</span>
+            <span className="inline-flex items-center h-[34px] py-0 px-[12px] rounded-control border border-[#282631] bg-surface text-[#8e8c99] text-[13px] select-none">
+              Sorted by name
+            </span>
           </div>
         </div>
 
@@ -214,7 +230,11 @@ export default function ProjectsPage() {
           {projects.loading ? (
             <div className="supabase-projects-grid grid gap-[16px] grid-cols-[repeat(auto-fill,minmax(280px,1fr))]">
               {[1, 2, 3].map((n) => (
-                <div key={n} className="bg-surface flex flex-col justify-between p-[16px] rounded-card border border-surface-raised min-h-[120px]" aria-hidden="true">
+                <div
+                  key={n}
+                  className="bg-surface flex flex-col justify-between p-[16px] rounded-card border border-surface-raised min-h-[120px]"
+                  aria-hidden="true"
+                >
                   <div className="flex items-start gap-[12px]">
                     <div className="bg-[#1f1d27] animate-[supabasePulse_1.5s_cubic-bezier(0.4,0,0.6,1)_infinite] w-8 h-8 rounded-md" />
                     <div className="flex-1 space-y-2">
@@ -232,11 +252,18 @@ export default function ProjectsPage() {
           ) : projectList.length === 0 ? (
             /* Create a project Hero Box matching Image 2 */
             <div className="flex flex-col items-center justify-center text-center py-[64px] px-[32px] rounded-card bg-[#151419] border border-[#24222b]">
-              <div className="flex items-center justify-center mb-[16px] text-[#6a6877]" aria-hidden="true">
+              <div
+                className="flex items-center justify-center mb-[16px] text-[#6a6877]"
+                aria-hidden="true"
+              >
                 <Boxes className="w-10 h-10 text-zinc-400" />
               </div>
-              <h2 className="text-[18px] font-semibold text-ink mt-0 mb-[6px] mx-0">Create a project</h2>
-              <p className="text-[13px] text-[#83818e] mb-[20px]">Launch a complete backend built on Postgres.</p>
+              <h2 className="text-[18px] font-semibold text-ink mt-0 mb-[6px] mx-0">
+                Create a project
+              </h2>
+              <p className="text-[13px] text-[#83818e] mb-[20px]">
+                Launch a complete backend built on Postgres.
+              </p>
               <button
                 type="button"
                 className={createProjectCtaClass}
@@ -277,10 +304,17 @@ export default function ProjectsPage() {
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="truncate text-[15px] font-semibold text-ink m-0">{project.name}</h3>
-                      <p className="truncate text-[12px] text-[#716f7c] [font-family:monospace] mt-[2px] mb-0 mx-0">{project.slug}</p>
+                      <h3 className="truncate text-[15px] font-semibold text-ink m-0">
+                        {project.name}
+                      </h3>
+                      <p className="truncate text-[12px] text-[#716f7c] [font-family:monospace] mt-[2px] mb-0 mx-0">
+                        {project.slug}
+                      </p>
                     </div>
-                    <ArrowUpRight className="supabase-card-arrow w-[16px] h-[16px] text-[#555360] [transition:color_150ms,transform_150ms] group-hover:text-[var(--color-accent)] group-hover:[transform:translate(2px,-2px)]" aria-hidden="true" />
+                    <ArrowUpRight
+                      className="supabase-card-arrow w-[16px] h-[16px] text-[#555360] [transition:color_150ms,transform_150ms] group-hover:text-[var(--color-accent)] group-hover:[transform:translate(2px,-2px)]"
+                      aria-hidden="true"
+                    />
                   </div>
 
                   <div className="flex items-center gap-[12px] mt-[16px] pt-[12px] border-t border-t-[#232129]">
@@ -366,7 +400,10 @@ export default function ProjectsPage() {
                 <h3 className="text-[14px] font-semibold text-ink m-0">Free plan usage</h3>
                 <p className="text-[12px] text-[#716f7c] mt-[2px]">Current billing cycle</p>
               </div>
-              <button type="button" className="inline-flex items-center justify-center py-[5px] px-[12px] rounded-control bg-[#1c1b22] border border-[#302e3b] text-ink-console text-[12px]! font-medium! cursor-pointer [transition:background-color_150ms,border-color_150ms] whitespace-nowrap hover:bg-[#24232c] hover:border-[#3e3c4b]">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center py-[5px] px-[12px] rounded-control bg-[#1c1b22] border border-[#302e3b] text-ink-console text-[12px]! font-medium! cursor-pointer [transition:background-color_150ms,border-color_150ms] whitespace-nowrap hover:bg-[#24232c] hover:border-[#3e3c4b]"
+              >
                 Upgrade to Pro
               </button>
             </div>
@@ -378,10 +415,15 @@ export default function ProjectsPage() {
                     <Circle className="w-3 h-3 text-zinc-500" />
                     <span className="text-[#a19fa9]">Egress</span>
                   </div>
-                  <span className="text-ink font-medium [font-family:inherit] text-[12px]">0 / 5 GB</span>
+                  <span className="text-ink font-medium [font-family:inherit] text-[12px]">
+                    0 / 5 GB
+                  </span>
                 </div>
                 <div className="bg-[#211f2a] w-full h-[4px] rounded-[99px] overflow-hidden">
-                  <div className="bg-accent h-full rounded-[99px] [transition:width_300ms_ease]" style={{ width: "0%" }} />
+                  <div
+                    className="bg-accent h-full rounded-[99px] [transition:width_300ms_ease]"
+                    style={{ width: "0%" }}
+                  />
                 </div>
               </div>
 
@@ -411,10 +453,15 @@ export default function ProjectsPage() {
                     <Circle className="w-3 h-3 text-zinc-500" />
                     <span className="text-[#a19fa9]">Monthly active users</span>
                   </div>
-                  <span className="text-ink font-medium [font-family:inherit] text-[12px]">0 / 50,000</span>
+                  <span className="text-ink font-medium [font-family:inherit] text-[12px]">
+                    0 / 50,000
+                  </span>
                 </div>
                 <div className="bg-[#211f2a] w-full h-[4px] rounded-[99px] overflow-hidden">
-                  <div className="bg-accent h-full rounded-[99px] [transition:width_300ms_ease]" style={{ width: "0%" }} />
+                  <div
+                    className="bg-accent h-full rounded-[99px] [transition:width_300ms_ease]"
+                    style={{ width: "0%" }}
+                  />
                 </div>
               </div>
 
@@ -424,10 +471,15 @@ export default function ProjectsPage() {
                     <Circle className="w-3 h-3 text-zinc-500" />
                     <span className="text-[#a19fa9]">File storage</span>
                   </div>
-                  <span className="text-ink font-medium [font-family:inherit] text-[12px]">0 / 1 GB</span>
+                  <span className="text-ink font-medium [font-family:inherit] text-[12px]">
+                    0 / 1 GB
+                  </span>
                 </div>
                 <div className="bg-[#211f2a] w-full h-[4px] rounded-[99px] overflow-hidden">
-                  <div className="bg-accent h-full rounded-[99px] [transition:width_300ms_ease]" style={{ width: "0%" }} />
+                  <div
+                    className="bg-accent h-full rounded-[99px] [transition:width_300ms_ease]"
+                    style={{ width: "0%" }}
+                  />
                 </div>
               </div>
 
@@ -437,10 +489,15 @@ export default function ProjectsPage() {
                     <Circle className="w-3 h-3 text-zinc-500" />
                     <span className="text-[#a19fa9]">Log Ingestion</span>
                   </div>
-                  <span className="text-ink font-medium [font-family:inherit] text-[12px]">0 / 1 GB</span>
+                  <span className="text-ink font-medium [font-family:inherit] text-[12px]">
+                    0 / 1 GB
+                  </span>
                 </div>
                 <div className="bg-[#211f2a] w-full h-[4px] rounded-[99px] overflow-hidden">
-                  <div className="bg-accent h-full rounded-[99px] [transition:width_300ms_ease]" style={{ width: "0%" }} />
+                  <div
+                    className="bg-accent h-full rounded-[99px] [transition:width_300ms_ease]"
+                    style={{ width: "0%" }}
+                  />
                 </div>
               </div>
 
@@ -450,10 +507,15 @@ export default function ProjectsPage() {
                     <Circle className="w-3 h-3 text-zinc-500" />
                     <span className="text-[#a19fa9]">Log Query</span>
                   </div>
-                  <span className="text-ink font-medium [font-family:inherit] text-[12px]">0 / 100 GB</span>
+                  <span className="text-ink font-medium [font-family:inherit] text-[12px]">
+                    0 / 100 GB
+                  </span>
                 </div>
                 <div className="bg-[#211f2a] w-full h-[4px] rounded-[99px] overflow-hidden">
-                  <div className="bg-accent h-full rounded-[99px] [transition:width_300ms_ease]" style={{ width: "0%" }} />
+                  <div
+                    className="bg-accent h-full rounded-[99px] [transition:width_300ms_ease]"
+                    style={{ width: "0%" }}
+                  />
                 </div>
               </div>
             </div>
@@ -484,7 +546,10 @@ export default function ProjectsPage() {
               </p>
 
               <div className="mb-4">
-                <label htmlFor="project-name-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="project-name-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Project name
                 </label>
                 <input
@@ -505,7 +570,10 @@ export default function ProjectsPage() {
               </div>
 
               <div>
-                <label htmlFor="project-slug-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                <label
+                  htmlFor="project-slug-input"
+                  className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                >
                   Slug identifier
                 </label>
                 <input

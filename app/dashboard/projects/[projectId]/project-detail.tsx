@@ -74,8 +74,7 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
   const error = panel.error;
   const name = draft?.name ?? project?.name ?? "";
   const slug = draft?.slug ?? project?.slug ?? "";
-  const storageBucketCount =
-    (project as ProjectWithStorageCount | null)?.storageBucketCount ?? 0;
+  const storageBucketCount = (project as ProjectWithStorageCount | null)?.storageBucketCount ?? 0;
 
   const refreshSummary = panel.refresh;
 
@@ -161,7 +160,10 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
       {/* Top Header */}
       <header className="border-b border-[#23222a] pb-0 mb-[24px]">
         <nav className="flex items-center gap-[8px] text-[13px] mb-[14px]" aria-label="Breadcrumb">
-          <Link href="/dashboard/projects" className="text-[#8e8c99] hover:text-ink-console no-underline [transition:color_150ms]">
+          <Link
+            href="/dashboard/projects"
+            className="text-[#8e8c99] hover:text-ink-console no-underline [transition:color_150ms]"
+          >
             Projects
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-zinc-600" aria-hidden="true" />
@@ -170,23 +172,35 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
 
         <div className="flex items-center justify-between flex-wrap gap-[16px] mb-[22px]">
           <div className="flex items-center gap-[14px]">
-            <div className="flex items-center justify-center w-[44px] h-[44px] rounded-panel bg-[#1a1922] border border-[#2a2736] shrink-0" aria-hidden="true">
+            <div
+              className="flex items-center justify-center w-[44px] h-[44px] rounded-panel bg-[#1a1922] border border-[#2a2736] shrink-0"
+              aria-hidden="true"
+            >
               <Boxes className="w-5 h-5 text-emerald-400" />
             </div>
             <div>
               <div className="flex items-center gap-3">
-                <h1 className="text-[24px] font-semibold! tracking-[-0.02em]! text-ink m-0 leading-[1.2]!">{project.name}</h1>
+                <h1 className="text-[24px] font-semibold! tracking-[-0.02em]! text-ink m-0 leading-[1.2]!">
+                  {project.name}
+                </h1>
                 <span
                   className={`project-status-pill inline-flex items-center gap-[6px] text-[11px] font-medium py-[2px] px-[8px] rounded-[99px] border ${
-                    project.status === "active" ? "bg-[rgba(62,207,142,0.1)] border-[rgba(62,207,142,0.25)] text-[var(--color-accent)]" : "bg-[rgba(255,255,255,0.05)] border-[#2a2835] text-[#9e9aa8]"
+                    project.status === "active"
+                      ? "bg-[rgba(62,207,142,0.1)] border-[rgba(62,207,142,0.25)] text-[var(--color-accent)]"
+                      : "bg-[rgba(255,255,255,0.05)] border-[#2a2835] text-[#9e9aa8]"
                   }`}
                 >
-                  <span className={`project-status-dot bg-current w-[6px] h-[6px] rounded-[50%] ${project.status === "active" ? "[box-shadow:0_0_8px_rgba(62,207,142,0.6)]" : ""}`} aria-hidden="true" />
+                  <span
+                    className={`project-status-dot bg-current w-[6px] h-[6px] rounded-[50%] ${project.status === "active" ? "[box-shadow:0_0_8px_rgba(62,207,142,0.6)]" : ""}`}
+                    aria-hidden="true"
+                  />
                   {project.status === "active" ? "Active" : "Empty"}
                 </span>
               </div>
               <div className="flex items-center gap-2 mt-1">
-                <code className="text-[12px] [font-family:monospace] text-[#716f7c] bg-[#17161c] py-[1px] px-[6px] rounded-control-sm border border-[#262430]">{project.slug}</code>
+                <code className="text-[12px] [font-family:monospace] text-[#716f7c] bg-[#17161c] py-[1px] px-[6px] rounded-control-sm border border-[#262430]">
+                  {project.slug}
+                </code>
                 <button
                   type="button"
                   className="inline-flex items-center justify-center w-[22px] h-[22px] rounded-control-sm bg-transparent border border-transparent text-[#716f7c] cursor-pointer [transition:all_120ms] hover:bg-[#211f29] hover:border-[#312f3d] hover:text-ink-console"
@@ -217,7 +231,11 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex items-center gap-[4px] mt-[8px]" role="tablist" aria-label="Project sections">
+        <div
+          className="flex items-center gap-[4px] mt-[8px]"
+          role="tablist"
+          aria-label="Project sections"
+        >
           <button
             type="button"
             role="tab"
@@ -229,7 +247,9 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
           >
             <Container className="w-4 h-4" />
             <span>Services</span>
-            <span className="text-[11px] py-[1px] px-[6px] rounded-[99px] bg-[#22202a] text-[#a19fa9]">{project.serviceCount}</span>
+            <span className="text-[11px] py-[1px] px-[6px] rounded-[99px] bg-[#22202a] text-[#a19fa9]">
+              {project.serviceCount}
+            </span>
           </button>
 
           <button
@@ -245,7 +265,9 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
             <span>Database</span>
             <span
               className={`project-tab-status-dot w-[7px] h-[7px] rounded-[50%] ${
-                project.databaseCount > 0 ? "bg-[var(--color-accent)] [box-shadow:0_0_6px_rgba(62,207,142,0.6)]" : "bg-[#555360]"
+                project.databaseCount > 0
+                  ? "bg-[var(--color-accent)] [box-shadow:0_0_6px_rgba(62,207,142,0.6)]"
+                  : "bg-[#555360]"
               }`}
               title={project.databaseCount > 0 ? "Provisioned" : "None"}
             />
@@ -264,7 +286,9 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
             <span>Storage</span>
             <span
               className={`project-tab-status-dot w-[7px] h-[7px] rounded-[50%] ${
-                storageBucketCount > 0 ? "bg-[var(--color-accent)] [box-shadow:0_0_6px_rgba(62,207,142,0.6)]" : "bg-[#555360]"
+                storageBucketCount > 0
+                  ? "bg-[var(--color-accent)] [box-shadow:0_0_6px_rgba(62,207,142,0.6)]"
+                  : "bg-[#555360]"
               }`}
               title={storageBucketCount > 0 ? "Provisioned" : "None"}
             />
@@ -287,7 +311,10 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
 
       {/* Global Alerts */}
       {error || actionError ? (
-        <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error my-4" role="alert">
+        <div
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error my-4"
+          role="alert"
+        >
           {error || actionError}
         </div>
       ) : null}
@@ -343,7 +370,10 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
                 <form onSubmit={rename} className="p-[20px]">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="edit-project-name" className="block text-[12.5px] font-medium text-[#c9c7d2] mb-[6px]">
+                      <label
+                        htmlFor="edit-project-name"
+                        className="block text-[12.5px] font-medium text-[#c9c7d2] mb-[6px]"
+                      >
                         Project Name
                       </label>
                       <input
@@ -356,7 +386,10 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
                       />
                     </div>
                     <div>
-                      <label htmlFor="edit-project-slug" className="block text-[12.5px] font-medium text-[#c9c7d2] mb-[6px]">
+                      <label
+                        htmlFor="edit-project-slug"
+                        className="block text-[12.5px] font-medium text-[#c9c7d2] mb-[6px]"
+                      >
                         Project Slug
                       </label>
                       <input
@@ -405,7 +438,9 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
                 <div className="bg-[rgba(244,63,94,0.03)] py-[16px] px-[20px] border-b border-b-[rgba(244,63,94,0.15)]">
                   <div className="flex items-center gap-2">
                     <AlertTriangle className="w-5 h-5 text-rose-400" />
-                    <h2 className="text-[14.5px] font-semibold text-[var(--color-danger)] m-0">Delete Project</h2>
+                    <h2 className="text-[14.5px] font-semibold text-[var(--color-danger)] m-0">
+                      Delete Project
+                    </h2>
                   </div>
                   <p className="text-[12px] text-[#9e9aa8] mt-[4px] mb-0 mx-0">
                     Permanently delete this project and all associated services, database records,
@@ -415,7 +450,10 @@ export function ProjectDetail({ projectId }: { projectId: string }) {
 
                 <form onSubmit={remove} className="p-[20px]">
                   <div className="max-w-md">
-                    <label htmlFor="delete-confirm-input" className="block text-[12.5px] font-medium text-[#c9c7d2] mb-[6px]">
+                    <label
+                      htmlFor="delete-confirm-input"
+                      className="block text-[12.5px] font-medium text-[#c9c7d2] mb-[6px]"
+                    >
                       Type <strong>{project.name}</strong> to confirm deletion
                     </label>
                     <input

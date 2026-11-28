@@ -37,7 +37,14 @@ import { useToast } from "@/components/toast-context";
 import { copyToClipboard } from "@/lib/clipboard";
 import { ModalDialog } from "@/components/supabase-modal";
 
-import { compactSecondaryButtonClass, dangerButtonClass, filterSelectClass, modalCloseClass, secondaryButtonClass, successBadgeClass } from "@/components/ui-classes";
+import {
+  compactSecondaryButtonClass,
+  dangerButtonClass,
+  filterSelectClass,
+  modalCloseClass,
+  secondaryButtonClass,
+  successBadgeClass,
+} from "@/components/ui-classes";
 
 export const domainsTableClass = [
   "domains-table w-full text-left [&_th]:px-[18px] [&_th]:py-[12px] [&_th]:text-[11px]",
@@ -227,12 +234,17 @@ export default function DomainsPage() {
       {/* Header */}
       <header className="flex items-center justify-between flex-wrap gap-[16px] mb-[24px]">
         <div className="flex items-center gap-3">
-          <div className="w-[40px] h-[40px] rounded-panel bg-[rgba(62,207,142,0.1)] border border-[rgba(62,207,142,0.25)] flex items-center justify-center shrink-0" aria-hidden="true">
+          <div
+            className="w-[40px] h-[40px] rounded-panel bg-[rgba(62,207,142,0.1)] border border-[rgba(62,207,142,0.25)] flex items-center justify-center shrink-0"
+            aria-hidden="true"
+          >
             <Globe className="w-5 h-5 text-emerald-400" />
           </div>
           <div>
             <div className="flex items-center gap-2.5">
-              <h1 className="text-[22px]! font-semibold! text-ink tracking-[-0.015em]! m-0">Domains &amp; Networking</h1>
+              <h1 className="text-[22px]! font-semibold! text-ink tracking-[-0.015em]! m-0">
+                Domains &amp; Networking
+              </h1>
               <span className={successBadgeClass}>EDGE PROXY</span>
             </div>
             <p className="text-[13px] text-[#878492] mt-[4px] leading-[1.4]">
@@ -275,7 +287,10 @@ export default function DomainsPage() {
 
       {/* Global Alerts */}
       {customDomainsResource.error ? (
-        <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error my-4" role="alert">
+        <div
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error my-4"
+          role="alert"
+        >
           {customDomainsResource.error}
         </div>
       ) : null}
@@ -287,39 +302,55 @@ export default function DomainsPage() {
       >
         <div className="bg-surface border border-surface-raised rounded-panel py-[16px] px-[18px] flex flex-col gap-[6px] [transition:border-color_150ms_ease] hover:border-[#34313c]">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-medium text-[#878492] uppercase tracking-[0.04em]">Custom Domains</span>
+            <span className="text-[11px] font-medium text-[#878492] uppercase tracking-[0.04em]">
+              Custom Domains
+            </span>
             <Globe className="w-4 h-4 text-emerald-400" />
           </div>
-          <span className="text-[22px] font-semibold text-ink tabular-nums leading-[1.2]">{customDomains.length}</span>
+          <span className="text-[22px] font-semibold text-ink tabular-nums leading-[1.2]">
+            {customDomains.length}
+          </span>
           <span className="text-[11px] text-zinc-500">Connected brand hostnames</span>
         </div>
 
         <div className="bg-surface border border-surface-raised rounded-panel py-[16px] px-[18px] flex flex-col gap-[6px] [transition:border-color_150ms_ease] hover:border-[#34313c]">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-medium text-[#878492] uppercase tracking-[0.04em]">Active &amp; SSL Issued</span>
+            <span className="text-[11px] font-medium text-[#878492] uppercase tracking-[0.04em]">
+              Active &amp; SSL Issued
+            </span>
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
           </div>
-          <span className="text-[22px] font-semibold text-ink tabular-nums leading-[1.2] text-emerald-400">{activeCount}</span>
+          <span className="text-[22px] font-semibold text-ink tabular-nums leading-[1.2] text-emerald-400">
+            {activeCount}
+          </span>
           <span className="text-[11px] text-zinc-500">HTTPS live on edge proxy</span>
         </div>
 
         <div className="bg-surface border border-surface-raised rounded-panel py-[16px] px-[18px] flex flex-col gap-[6px] [transition:border-color_150ms_ease] hover:border-[#34313c]">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-medium text-[#878492] uppercase tracking-[0.04em]">Pending Verification</span>
+            <span className="text-[11px] font-medium text-[#878492] uppercase tracking-[0.04em]">
+              Pending Verification
+            </span>
             <RotateCw
               className={`w-4 h-4 ${pendingCount > 0 ? "text-amber-400 animate-spin" : "text-zinc-500"}`}
             />
           </div>
-          <span className="text-[22px] font-semibold text-ink tabular-nums leading-[1.2] text-amber-400">{pendingCount}</span>
+          <span className="text-[22px] font-semibold text-ink tabular-nums leading-[1.2] text-amber-400">
+            {pendingCount}
+          </span>
           <span className="text-[11px] text-zinc-500">Awaiting DNS propagation</span>
         </div>
 
         <div className="bg-surface border border-surface-raised rounded-panel py-[16px] px-[18px] flex flex-col gap-[6px] [transition:border-color_150ms_ease] hover:border-[#34313c]">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-medium text-[#878492] uppercase tracking-[0.04em]">Platform Subdomains</span>
+            <span className="text-[11px] font-medium text-[#878492] uppercase tracking-[0.04em]">
+              Platform Subdomains
+            </span>
             <Server className="w-4 h-4 text-blue-400" />
           </div>
-          <span className="text-[22px] font-semibold text-ink tabular-nums leading-[1.2]">{services.length}</span>
+          <span className="text-[22px] font-semibold text-ink tabular-nums leading-[1.2]">
+            {services.length}
+          </span>
           <span className="text-[11px] text-zinc-500">Automatic *.nazxf.my.id endpoints</span>
         </div>
       </section>
@@ -333,7 +364,9 @@ export default function DomainsPage() {
         >
           <Globe className="w-4 h-4 mr-2" />
           <span>Custom Domains</span>
-          <span className="bg-[#22202a] inline-flex items-center justify-center h-[18px] py-0 px-[6px] rounded-[9999px] text-[10px] font-semibold text-[#a19ea8] ml-[6px]">{customDomains.length}</span>
+          <span className="bg-[#22202a] inline-flex items-center justify-center h-[18px] py-0 px-[6px] rounded-[9999px] text-[10px] font-semibold text-[#a19ea8] ml-[6px]">
+            {customDomains.length}
+          </span>
         </button>
 
         <button
@@ -343,7 +376,9 @@ export default function DomainsPage() {
         >
           <Server className="w-4 h-4 mr-2" />
           <span>Platform Subdomains</span>
-          <span className="bg-[#22202a] inline-flex items-center justify-center h-[18px] py-0 px-[6px] rounded-[9999px] text-[10px] font-semibold text-[#a19ea8] ml-[6px]">{services.length}</span>
+          <span className="bg-[#22202a] inline-flex items-center justify-center h-[18px] py-0 px-[6px] rounded-[9999px] text-[10px] font-semibold text-[#a19ea8] ml-[6px]">
+            {services.length}
+          </span>
         </button>
 
         <button
@@ -362,7 +397,10 @@ export default function DomainsPage() {
           {/* Toolbar */}
           <div className="flex items-center justify-between flex-wrap gap-[12px] mb-[16px]">
             <div className="relative w-full max-w-[380px]">
-              <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[15px] h-[15px] text-[#706d7e] pointer-events-none" aria-hidden="true" />
+              <Search
+                className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[15px] h-[15px] text-[#706d7e] pointer-events-none"
+                aria-hidden="true"
+              />
               <input
                 type="search"
                 placeholder="Search domains by hostname, service, or project..."
@@ -395,7 +433,9 @@ export default function DomainsPage() {
                 <option value="failed">Verification Failed</option>
               </select>
 
-              <span className="inline-flex items-center h-[24px] py-0 px-[10px] rounded-[9999px] text-[11px] font-medium bg-[#1d1b22] border border-[#282632] text-[#878492]">{filteredDomains.length} Domains</span>
+              <span className="inline-flex items-center h-[24px] py-0 px-[10px] rounded-[9999px] text-[11px] font-medium bg-[#1d1b22] border border-[#282632] text-[#878492]">
+                {filteredDomains.length} Domains
+              </span>
             </div>
           </div>
 
@@ -416,7 +456,10 @@ export default function DomainsPage() {
               </div>
             ) : filteredDomains.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-[56px] px-[20px] text-center">
-                <div className="w-[52px] h-[52px] rounded-[50%] bg-[rgba(62,207,142,0.08)] border border-[rgba(62,207,142,0.2)] flex items-center justify-center" aria-hidden="true">
+                <div
+                  className="w-[52px] h-[52px] rounded-[50%] bg-[rgba(62,207,142,0.08)] border border-[rgba(62,207,142,0.2)] flex items-center justify-center"
+                  aria-hidden="true"
+                >
                   <Globe className="w-7 h-7 text-emerald-400" />
                 </div>
                 <h3 className="text-base font-semibold text-white mt-3">
@@ -470,7 +513,10 @@ export default function DomainsPage() {
                       <tr key={dom.id}>
                         <td>
                           <div className="flex items-center gap-2.5">
-                            <div className="w-[30px] h-[30px] rounded-control bg-[#1f1d26] border border-[#2d2a37] flex items-center justify-center shrink-0" aria-hidden="true">
+                            <div
+                              className="w-[30px] h-[30px] rounded-control bg-[#1f1d26] border border-[#2d2a37] flex items-center justify-center shrink-0"
+                              aria-hidden="true"
+                            >
                               <Globe
                                 className={`w-3.5 h-3.5 ${isActive ? "text-emerald-400" : "text-zinc-500"}`}
                               />
@@ -522,10 +568,17 @@ export default function DomainsPage() {
                         <td>
                           <span
                             className={`domains-status-pill inline-flex items-center gap-[6px] h-[22px] py-0 px-[8px] rounded-[9999px] text-[11px] font-medium ${
-                              isActive ? "is-active bg-[#0f2e21] border border-[#1d4a36] text-[var(--color-accent)]" : isFailed ? "is-failed bg-[#2d1419] border border-[#4d222a] text-[var(--color-danger)]" : "is-pending bg-[#2a2012] border border-[#48381c] text-[var(--color-warning)]"
+                              isActive
+                                ? "is-active bg-[#0f2e21] border border-[#1d4a36] text-[var(--color-accent)]"
+                                : isFailed
+                                  ? "is-failed bg-[#2d1419] border border-[#4d222a] text-[var(--color-danger)]"
+                                  : "is-pending bg-[#2a2012] border border-[#48381c] text-[var(--color-warning)]"
                             }`}
                           >
-                            <span className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]" aria-hidden="true" />
+                            <span
+                              className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]"
+                              aria-hidden="true"
+                            />
                             <span className="capitalize">{dom.status}</span>
                           </span>
                           {dom.lastError ? (
@@ -709,7 +762,10 @@ export default function DomainsPage() {
                                 : "is-pending bg-[#2a2012] border border-[#48381c] text-[var(--color-warning)]"
                           }`}
                         >
-                          <span className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]" aria-hidden="true" />
+                          <span
+                            className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]"
+                            aria-hidden="true"
+                          />
                           <span className="capitalize">{srv.status}</span>
                         </span>
                       </td>
@@ -750,7 +806,9 @@ export default function DomainsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Step 1 */}
               <div className="bg-[#131217] border border-[#24222c] rounded-card p-[18px]">
-                <div className="bg-[rgba(62,207,142,0.12)] w-[24px] h-[24px] rounded-[50%] border border-[rgba(62,207,142,0.3)] text-accent flex items-center justify-center text-[11px] font-bold mb-[12px]">1</div>
+                <div className="bg-[rgba(62,207,142,0.12)] w-[24px] h-[24px] rounded-[50%] border border-[rgba(62,207,142,0.3)] text-accent flex items-center justify-center text-[11px] font-bold mb-[12px]">
+                  1
+                </div>
                 <h3 className="text-sm font-semibold text-white mb-1">Add Domain to Service</h3>
                 <p className="text-xs text-zinc-400 leading-relaxed">
                   Click <strong>&ldquo;Add Custom Domain&rdquo;</strong>, select your target
@@ -760,7 +818,9 @@ export default function DomainsPage() {
 
               {/* Step 2 */}
               <div className="bg-[#131217] border border-[#24222c] rounded-card p-[18px]">
-                <div className="bg-[rgba(62,207,142,0.12)] w-[24px] h-[24px] rounded-[50%] border border-[rgba(62,207,142,0.3)] text-accent flex items-center justify-center text-[11px] font-bold mb-[12px]">2</div>
+                <div className="bg-[rgba(62,207,142,0.12)] w-[24px] h-[24px] rounded-[50%] border border-[rgba(62,207,142,0.3)] text-accent flex items-center justify-center text-[11px] font-bold mb-[12px]">
+                  2
+                </div>
                 <h3 className="text-sm font-semibold text-white mb-1">
                   Publish Ownership TXT Record
                 </h3>
@@ -773,7 +833,9 @@ export default function DomainsPage() {
 
               {/* Step 3 */}
               <div className="bg-[#131217] border border-[#24222c] rounded-card p-[18px]">
-                <div className="bg-[rgba(62,207,142,0.12)] w-[24px] h-[24px] rounded-[50%] border border-[rgba(62,207,142,0.3)] text-accent flex items-center justify-center text-[11px] font-bold mb-[12px]">3</div>
+                <div className="bg-[rgba(62,207,142,0.12)] w-[24px] h-[24px] rounded-[50%] border border-[rgba(62,207,142,0.3)] text-accent flex items-center justify-center text-[11px] font-bold mb-[12px]">
+                  3
+                </div>
                 <h3 className="text-sm font-semibold text-white mb-1">Point CNAME or A Record</h3>
                 <p className="text-xs text-zinc-400 leading-relaxed">
                   For subdomains (e.g. <code>api.example.com</code>), add a <strong>CNAME</strong>{" "}
@@ -784,7 +846,9 @@ export default function DomainsPage() {
 
               {/* Step 4 */}
               <div className="bg-[#131217] border border-[#24222c] rounded-card p-[18px]">
-                <div className="bg-[rgba(62,207,142,0.12)] w-[24px] h-[24px] rounded-[50%] border border-[rgba(62,207,142,0.3)] text-accent flex items-center justify-center text-[11px] font-bold mb-[12px]">4</div>
+                <div className="bg-[rgba(62,207,142,0.12)] w-[24px] h-[24px] rounded-[50%] border border-[rgba(62,207,142,0.3)] text-accent flex items-center justify-center text-[11px] font-bold mb-[12px]">
+                  4
+                </div>
                 <h3 className="text-sm font-semibold text-white mb-1">Verify &amp; Auto-SSL</h3>
                 <p className="text-xs text-zinc-400 leading-relaxed">
                   Click <strong>&ldquo;Verify DNS&rdquo;</strong>. Once DNS resolves, the edge proxy
@@ -818,7 +882,10 @@ export default function DomainsPage() {
           <form onSubmit={handleAddDomain}>
             <div className="supabase-modal-body space-y-4">
               {addError && (
-                <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+                <div
+                  className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+                  role="alert"
+                >
                   {addError}
                 </div>
               )}
@@ -831,7 +898,10 @@ export default function DomainsPage() {
               ) : (
                 <>
                   <div>
-                    <label htmlFor="service-select" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                    <label
+                      htmlFor="service-select"
+                      className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                    >
                       Target Service:
                     </label>
                     <select
@@ -853,7 +923,10 @@ export default function DomainsPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="hostname-input" className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]">
+                    <label
+                      htmlFor="hostname-input"
+                      className="block text-[13px] font-medium text-[#c9c7d2] mb-[6px]"
+                    >
                       Domain Name / Hostname:
                     </label>
                     <input
@@ -1119,7 +1192,10 @@ export default function DomainsPage() {
 
           <div className="supabase-modal-body space-y-3">
             {deleteError && (
-              <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+              <div
+                className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+                role="alert"
+              >
                 {deleteError}
               </div>
             )}

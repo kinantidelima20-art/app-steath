@@ -294,7 +294,9 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
               <X className="w-3.5 h-3.5" />
             </button>
           ) : null}
-          <kbd className="text-[10px] [font-family:inherit] py-[2px] px-[6px] rounded-control-sm bg-[#211f29] border border-[#322f3e] text-[#7d7a8c]">ESC</kbd>
+          <kbd className="text-[10px] [font-family:inherit] py-[2px] px-[6px] rounded-control-sm bg-[#211f29] border border-[#322f3e] text-[#7d7a8c]">
+            ESC
+          </kbd>
         </div>
 
         <div className="max-h-[340px] overflow-y-auto p-[8px]" role="listbox">
@@ -317,14 +319,20 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
                   onClick={command.onSelect}
                   onMouseEnter={() => setSelectedIndex(idx)}
                 >
-                  <div className="flex items-center justify-center w-[28px] h-[28px] rounded-control bg-[#24222f] shrink-0">{command.icon}</div>
+                  <div className="flex items-center justify-center w-[28px] h-[28px] rounded-control bg-[#24222f] shrink-0">
+                    {command.icon}
+                  </div>
                   <div className="flex-1 min-w-0 flex flex-col">
                     <span className="text-[13.5px] font-medium text-ink">{command.title}</span>
                     {command.subtitle && (
-                      <span className="truncate text-[11.5px] text-[#787687]">{command.subtitle}</span>
+                      <span className="truncate text-[11.5px] text-[#787687]">
+                        {command.subtitle}
+                      </span>
                     )}
                   </div>
-                  <span className="text-[10.5px] font-medium uppercase tracking-[0.05em] text-[#615f6e] py-[2px] px-[6px] rounded-control-sm bg-[#1a1922]">{command.category}</span>
+                  <span className="text-[10.5px] font-medium uppercase tracking-[0.05em] text-[#615f6e] py-[2px] px-[6px] rounded-control-sm bg-[#1a1922]">
+                    {command.category}
+                  </span>
                   {isSelected && (
                     <ArrowRight className="w-3.5 h-3.5 text-zinc-400 ml-2" aria-hidden="true" />
                   )}
@@ -336,13 +344,22 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
 
         <div className="flex items-center gap-[16px] py-[10px] px-[18px] bg-[#131217] border-t border-t-[#23212b] text-[11.5px] text-[#716f7c]">
           <span className="flex items-center gap-[5px]">
-            <kbd className="bg-[#1d1c24] text-[9.5px] [font-family:inherit] py-[1px] px-[4px] rounded-[3px] border border-[#2a2835] text-[#8c899c]">&uarr;&darr;</kbd> Navigate
+            <kbd className="bg-[#1d1c24] text-[9.5px] [font-family:inherit] py-[1px] px-[4px] rounded-[3px] border border-[#2a2835] text-[#8c899c]">
+              &uarr;&darr;
+            </kbd>{" "}
+            Navigate
           </span>
           <span className="flex items-center gap-[5px]">
-            <kbd className="bg-[#1d1c24] text-[9.5px] [font-family:inherit] py-[1px] px-[4px] rounded-[3px] border border-[#2a2835] text-[#8c899c]">&crarr;</kbd> Select
+            <kbd className="bg-[#1d1c24] text-[9.5px] [font-family:inherit] py-[1px] px-[4px] rounded-[3px] border border-[#2a2835] text-[#8c899c]">
+              &crarr;
+            </kbd>{" "}
+            Select
           </span>
           <span className="flex items-center gap-[5px]">
-            <kbd className="bg-[#1d1c24] text-[9.5px] [font-family:inherit] py-[1px] px-[4px] rounded-[3px] border border-[#2a2835] text-[#8c899c]">ESC</kbd> Close
+            <kbd className="bg-[#1d1c24] text-[9.5px] [font-family:inherit] py-[1px] px-[4px] rounded-[3px] border border-[#2a2835] text-[#8c899c]">
+              ESC
+            </kbd>{" "}
+            Close
           </span>
         </div>
       </div>

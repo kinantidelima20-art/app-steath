@@ -9,16 +9,16 @@ Seluruh 8 kandidat dieksekusi satu per satu, masing-masing di branch sendiri,
 digate (tsc / lint / build / test dengan PostgreSQL scratch), di-deploy,
 di-spot-check, lalu di-merge fast-forward ke `main` dan di-push.
 
-| # | Kandidat | Hasil | Commit |
-|---|----------|-------|--------|
-| B | Dead code & file mati | −2.957 baris | (squash awal) |
-| F | Modul `lib/platform/api.ts` (`withOrg`/`withAdmin`) | +445/−193 | `c21ae80` |
-| D | Konsolidasi modul domain platform | +717/−884 | (3 commit) |
-| C | Hook `useResource` + `getError` (17 panel) | +1187/−672 | (2 commit) |
-| A | Satu transport HTTP (`lib/platform/http.ts`) | +210/−299 | `d8d86dd` |
-| E | Scheduler + registry worker | +407/−178 | `5f421c6` |
-| G | SQL admin keluar dari route handler | +1344/−744 | `edcb783` |
-| H | Satu formatter waktu bersama | +30/−40 | `aebb02a` |
+| #   | Kandidat                                            | Hasil        | Commit        |
+| --- | --------------------------------------------------- | ------------ | ------------- |
+| B   | Dead code & file mati                               | −2.957 baris | (squash awal) |
+| F   | Modul `lib/platform/api.ts` (`withOrg`/`withAdmin`) | +445/−193    | `c21ae80`     |
+| D   | Konsolidasi modul domain platform                   | +717/−884    | (3 commit)    |
+| C   | Hook `useResource` + `getError` (17 panel)          | +1187/−672   | (2 commit)    |
+| A   | Satu transport HTTP (`lib/platform/http.ts`)        | +210/−299    | `d8d86dd`     |
+| E   | Scheduler + registry worker                         | +407/−178    | `5f421c6`     |
+| G   | SQL admin keluar dari route handler                 | +1344/−744   | `edcb783`     |
+| H   | Satu formatter waktu bersama                        | +30/−40      | `aebb02a`     |
 
 ## Temuan di luar rencana
 

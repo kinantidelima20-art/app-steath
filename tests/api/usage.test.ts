@@ -106,7 +106,13 @@ async function handleAgentRequest(
     const databaseId = decodeURIComponent(databaseMatch[1]);
     response.writeHead(200, { "content-type": "application/json" });
     response.end(
-      JSON.stringify({ databaseId, status: "running", healthy: true, usageMb: 0, overQuota: false }),
+      JSON.stringify({
+        databaseId,
+        status: "running",
+        healthy: true,
+        usageMb: 0,
+        overQuota: false,
+      }),
     );
     return;
   }
@@ -182,7 +188,8 @@ async function addMember(
   organizationId: string,
   role: "admin" | "member",
 ): Promise<SignUpResult> {
-  const email = uniqueName(`usage${role}`) + Math.random().toString(36).slice(2, 6) + "@example.test";
+  const email =
+    uniqueName(`usage${role}`) + Math.random().toString(36).slice(2, 6) + "@example.test";
   const inviteResponse = await auth.handler(
     new Request(`${BASE_URL}/api/auth/organization/invite-member`, {
       method: "POST",
@@ -529,7 +536,10 @@ describe("Organization usage and Quota", () => {
   });
 
   it("rejects a Service past the Project Quota with the limit and current usage", async () => {
-    const owner = await signUp(uniqueName("useprojsvc") + "@example.test", uniqueName("useprojsvc"));
+    const owner = await signUp(
+      uniqueName("useprojsvc") + "@example.test",
+      uniqueName("useprojsvc"),
+    );
     const project = await createProject(owner.cookie, "Service Quota");
     await createService(owner.cookie, project.id, "Quota App One");
     await createService(owner.cookie, project.id, "Quota App Two");

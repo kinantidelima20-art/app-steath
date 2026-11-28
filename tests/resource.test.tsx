@@ -3,7 +3,11 @@ import { renderHook, waitFor, act } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { getError, useResource } from "@/lib/resource";
 
-function deferred<T>(): { promise: Promise<T>; resolve: (value: T) => void; reject: (error: unknown) => void } {
+function deferred<T>(): {
+  promise: Promise<T>;
+  resolve: (value: T) => void;
+  reject: (error: unknown) => void;
+} {
   let resolve!: (value: T) => void;
   let reject!: (error: unknown) => void;
   const promise = new Promise<T>((res, rej) => {
@@ -51,9 +55,12 @@ describe("useResource", () => {
       .mockImplementationOnce(() => first.promise)
       .mockImplementationOnce(() => second.promise);
 
-    const { result, rerender } = renderHook(({ key }: { key: string }) => useResource(fetcher, [key]), {
-      initialProps: { key: "a" },
-    });
+    const { result, rerender } = renderHook(
+      ({ key }: { key: string }) => useResource(fetcher, [key]),
+      {
+        initialProps: { key: "a" },
+      },
+    );
 
     // The first request is still in flight when the dependency changes and a
     // second request starts.
@@ -71,10 +78,7 @@ describe("useResource", () => {
   });
 
   it("refresh re-runs the fetcher and replaces data", async () => {
-    const fetcher = vi
-      .fn()
-      .mockResolvedValueOnce({ count: 1 })
-      .mockResolvedValueOnce({ count: 2 });
+    const fetcher = vi.fn().mockResolvedValueOnce({ count: 1 }).mockResolvedValueOnce({ count: 2 });
 
     const { result } = renderHook(() => useResource(fetcher, []));
 

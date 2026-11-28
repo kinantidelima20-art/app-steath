@@ -77,9 +77,7 @@ async function handleAgentRequest(
 
   agent.requests.push({ method: request.method ?? "GET", path: url.pathname });
 
-  const hostnameMatch = url.pathname.match(
-    /^\/v1\/services\/([^/]+)\/hostnames\/([^/]+)$/,
-  );
+  const hostnameMatch = url.pathname.match(/^\/v1\/services\/([^/]+)\/hostnames\/([^/]+)$/);
   if (hostnameMatch) {
     const serviceId = decodeURIComponent(hostnameMatch[1]);
     const hostname = decodeURIComponent(hostnameMatch[2]);
@@ -209,7 +207,13 @@ async function addMember(
   return member;
 }
 
-type ServiceBody = { id: string; name: string; status: string; projectId: string; platformHostname: string };
+type ServiceBody = {
+  id: string;
+  name: string;
+  status: string;
+  projectId: string;
+  platformHostname: string;
+};
 
 async function createProject(cookie: string, name: string): Promise<{ id: string; name: string }> {
   const { POST } = await import("@/app/api/projects/route");
@@ -322,10 +326,7 @@ async function queryRows<T extends Record<string, unknown>>(
 describe("Custom Domain", () => {
   it("adds one Custom Domain per Service and rejects a second", async () => {
     agent.reset();
-    const owner = await signUp(
-      uniqueName("cdowner") + "@example.test",
-      uniqueName("cdowner"),
-    );
+    const owner = await signUp(uniqueName("cdowner") + "@example.test", uniqueName("cdowner"));
     const project = await createProject(owner.cookie, "Custom Domain");
     const service = await createService(owner.cookie, project.id, "Web App");
 
@@ -352,9 +353,7 @@ describe("Custom Domain", () => {
 
     const read = await customDomainRequest(owner.cookie, service.id);
     expect(read.status).toBe(200);
-    expect(((await read.json()) as { data: CustomDomainBody }).data.hostname).toBe(
-      domain.hostname,
-    );
+    expect(((await read.json()) as { data: CustomDomainBody }).data.hostname).toBe(domain.hostname);
 
     const events = await queryRows<{ action: string }>(
       'SELECT "action" FROM "audit_event" WHERE "organizationId" = $1 AND "action" LIKE $2 ORDER BY "createdAt"',
@@ -398,10 +397,7 @@ describe("Custom Domain", () => {
 
   it("lets members read the domain but never change it", async () => {
     agent.reset();
-    const owner = await signUp(
-      uniqueName("cdroles") + "@example.test",
-      uniqueName("cdroles"),
-    );
+    const owner = await signUp(uniqueName("cdroles") + "@example.test", uniqueName("cdroles"));
     const project = await createProject(owner.cookie, "Custom Domain Roles");
     const service = await createService(owner.cookie, project.id, "Role App");
     const member = await addMember(owner.cookie, owner.organizationId, "member");
@@ -415,9 +411,9 @@ describe("Custom Domain", () => {
     expect(create.status).toBe(403);
 
     expect((await verifyRequest(member.cookie, service.id)).status).toBe(403);
-    expect((await customDomainRequest(member.cookie, service.id, { method: "DELETE" })).status).toBe(
-      403,
-    );
+    expect(
+      (await customDomainRequest(member.cookie, service.id, { method: "DELETE" })).status,
+    ).toBe(403);
 
     const ownerCreate = await customDomainRequest(owner.cookie, service.id, {
       method: "POST",
@@ -432,10 +428,7 @@ describe("Custom Domain", () => {
 
   it("verifies the TXT record, routes the hostname, and allows its certificate", async () => {
     agent.reset();
-    const owner = await signUp(
-      uniqueName("cdverify") + "@example.test",
-      uniqueName("cdverify"),
-    );
+    const owner = await signUp(uniqueName("cdverify") + "@example.test", uniqueName("cdverify"));
     const project = await createProject(owner.cookie, "Custom Domain Verify");
     const service = await createService(owner.cookie, project.id, "Verify App");
     const hostname = `verify.${uniqueName("example")}.com`;
@@ -484,10 +477,7 @@ describe("Custom Domain", () => {
 
   it("records a failed verification and leaves the Platform Subdomain serving", async () => {
     agent.reset();
-    const owner = await signUp(
-      uniqueName("cdfail") + "@example.test",
-      uniqueName("cdfail"),
-    );
+    const owner = await signUp(uniqueName("cdfail") + "@example.test", uniqueName("cdfail"));
     const project = await createProject(owner.cookie, "Custom Domain Failure");
     const service = await createService(owner.cookie, project.id, "Failure App");
     const hostname = `fail-${RUN_ID}.invalid`;
@@ -542,10 +532,7 @@ describe("Custom Domain", () => {
 
   it("deletes the domain, its route, and its certificate status", async () => {
     agent.reset();
-    const owner = await signUp(
-      uniqueName("cddelete") + "@example.test",
-      uniqueName("cddelete"),
-    );
+    const owner = await signUp(uniqueName("cddelete") + "@example.test", uniqueName("cddelete"));
     const project = await createProject(owner.cookie, "Custom Domain Delete");
     const service = await createService(owner.cookie, project.id, "Delete App");
     const hostname = `delete.${uniqueName("example")}.com`;
@@ -594,17 +581,16 @@ describe("Custom Domain", () => {
 
   it("only allows registered hostnames through the certificate ask endpoint", async () => {
     agent.reset();
-    const owner = await signUp(
-      uniqueName("cdask") + "@example.test",
-      uniqueName("cdask"),
-    );
+    const owner = await signUp(uniqueName("cdask") + "@example.test", uniqueName("cdask"));
     const project = await createProject(owner.cookie, "Custom Domain Ask");
     const service = await createService(owner.cookie, project.id, "Ask App");
     const hostname = `ask.${uniqueName("example")}.com`;
 
     expect((await askRequest("wrong-token", service.platformHostname)).status).toBe(401);
     expect((await askRequest(AGENT_TOKEN, service.platformHostname)).status).toBe(200);
-    expect((await askRequest(AGENT_TOKEN, `unknown.${uniqueName("example")}.com`)).status).toBe(403);
+    expect((await askRequest(AGENT_TOKEN, `unknown.${uniqueName("example")}.com`)).status).toBe(
+      403,
+    );
 
     const added = await customDomainRequest(owner.cookie, service.id, {
       method: "POST",
@@ -617,14 +603,8 @@ describe("Custom Domain", () => {
 
   it("never exposes another organization's Service", async () => {
     agent.reset();
-    const owner = await signUp(
-      uniqueName("cdorg") + "@example.test",
-      uniqueName("cdorg"),
-    );
-    const other = await signUp(
-      uniqueName("cdother") + "@example.test",
-      uniqueName("cdother"),
-    );
+    const owner = await signUp(uniqueName("cdorg") + "@example.test", uniqueName("cdorg"));
+    const other = await signUp(uniqueName("cdother") + "@example.test", uniqueName("cdother"));
     const project = await createProject(owner.cookie, "Custom Domain Organization");
     const service = await createService(owner.cookie, project.id, "Organization App");
 

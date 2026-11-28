@@ -296,11 +296,9 @@ export const AdminErrorGroupStatus = {
 export type AdminErrorGroupStatus =
   (typeof AdminErrorGroupStatus)[keyof typeof AdminErrorGroupStatus];
 
-export const UpdateAdminErrorGroupStatusRequestStatus =
-  AdminErrorGroupStatus;
+export const UpdateAdminErrorGroupStatusRequestStatus = AdminErrorGroupStatus;
 
-export type UpdateAdminErrorGroupStatusRequestStatus =
-  AdminErrorGroupStatus;
+export type UpdateAdminErrorGroupStatusRequestStatus = AdminErrorGroupStatus;
 
 /** The status-page component states, as the Forge generated enum named them. */
 export const AdminStatusPageComponentStatus = {

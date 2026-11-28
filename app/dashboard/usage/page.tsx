@@ -120,7 +120,11 @@ function QuotaMeter({
         <span className="usage-meter-numbers ml-[auto] [font-family:var(--font-console-mono)] text-[12px] tabular-nums text-ink-bright [&_span]:text-[var(--color-ink-muted)]">
           {used} <span>/ {limit}</span>
         </span>
-        <span className={`usage-meter-percent [font-family:var(--font-console-mono)] text-[12px] tabular-nums text-ink-bright min-w-[36px] text-ink-muted text-right ${TONE_TEXT[tone]}`}>{percent}%</span>
+        <span
+          className={`usage-meter-percent [font-family:var(--font-console-mono)] text-[12px] tabular-nums text-ink-bright min-w-[36px] text-ink-muted text-right ${TONE_TEXT[tone]}`}
+        >
+          {percent}%
+        </span>
       </div>
       <div
         className="bg-[#1a1922] h-[6px] w-full rounded-[9999px] overflow-hidden"
@@ -130,9 +134,14 @@ function QuotaMeter({
         aria-valuemax={100}
         aria-label={`${label} usage`}
       >
-        <div className={`usage-progress-fill h-full rounded-[9999px] bg-accent ${TONE_FILL[tone]}`} style={{ width: `${percent}%` }} />
+        <div
+          className={`usage-progress-fill h-full rounded-[9999px] bg-accent ${TONE_FILL[tone]}`}
+          style={{ width: `${percent}%` }}
+        />
       </div>
-      {description ? <p className="mt-[6px] mb-0 mx-0 text-[11px] text-ink-muted">{description}</p> : null}
+      {description ? (
+        <p className="mt-[6px] mb-0 mx-0 text-[11px] text-ink-muted">{description}</p>
+      ) : null}
     </div>
   );
 }
@@ -208,7 +217,9 @@ export default function UsagePage() {
     <div className="usage-page-container [@media(max-width:720px)]:pt-[20px] [@media(max-width:720px)]:pb-[48px] [@media(max-width:720px)]:px-[16px] pt-[24px] pb-[56px] px-[32px] max-w-[1280px] my-0 mx-auto w-full">
       <header className="flex items-end justify-between flex-wrap gap-[16px] mb-[18px]">
         <div className="min-w-0">
-          <h1 className="text-[20px]! font-semibold! text-ink tracking-[-0.015em]! m-0">Usage &amp; Quotas</h1>
+          <h1 className="text-[20px]! font-semibold! text-ink tracking-[-0.015em]! m-0">
+            Usage &amp; Quotas
+          </h1>
           <p className="text-[13px] text-ink-muted mt-[4px] leading-[1.4]">
             Measured resources and limits for {organization?.name ?? "your organization"}.
           </p>
@@ -229,8 +240,13 @@ export default function UsagePage() {
       </header>
 
       {usageData ? (
-        <div className={`usage-status-line inline-flex items-center gap-[8px] mb-[18px] text-[12px] text-ink-muted ${quotaAttention ? "text-[var(--color-warning)] [&_.project-status-dot]:bg-[var(--color-warning)]" : "[&_.project-status-dot]:bg-[var(--color-accent)]"}`}>
-          <span className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]" aria-hidden="true" />
+        <div
+          className={`usage-status-line inline-flex items-center gap-[8px] mb-[18px] text-[12px] text-ink-muted ${quotaAttention ? "text-[var(--color-warning)] [&_.project-status-dot]:bg-[var(--color-warning)]" : "[&_.project-status-dot]:bg-[var(--color-accent)]"}`}
+        >
+          <span
+            className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]"
+            aria-hidden="true"
+          />
           <span>
             {quotaAttention === 0
               ? "All quotas within limits"
@@ -240,7 +256,10 @@ export default function UsagePage() {
       ) : null}
 
       {error ? (
-        <div className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error mb-[16px]" role="alert">
+        <div
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error mb-[16px]"
+          role="alert"
+        >
           {error}
         </div>
       ) : null}
@@ -252,7 +271,9 @@ export default function UsagePage() {
         </div>
       ) : !usageData ? (
         <div className="py-[48px] px-[20px] text-center border border-dashed border-[#2a2833] rounded-card">
-          <h2 className="text-[14px] font-semibold text-ink-bright mt-0 mb-[6px] mx-0">Quota unavailable</h2>
+          <h2 className="text-[14px] font-semibold text-ink-bright mt-0 mb-[6px] mx-0">
+            Quota unavailable
+          </h2>
           <p className="max-w-[460px] my-0 mx-auto text-[12px] leading-[1.5] text-ink-muted">
             The organization quota could not be loaded. Try refreshing.
           </p>
@@ -285,7 +306,9 @@ export default function UsagePage() {
             </div>
             <div className="usage-capacity bg-surface grid gap-[16px] p-[18px] border border-surface-raised rounded-card grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] [@media(max-width:860px)]:grid-cols-1">
               <div className={usageCapacityPrimaryClass}>
-                <span className="text-[11px] uppercase tracking-[0.04em] text-ink-muted">Services in this organization</span>
+                <span className="text-[11px] uppercase tracking-[0.04em] text-ink-muted">
+                  Services in this organization
+                </span>
                 <div className={usageCapacityValueClass}>
                   <strong>{usageData.counts.services.used}</strong>
                   <span>/ {usageData.counts.services.limit}</span>
@@ -355,12 +378,17 @@ export default function UsagePage() {
               </div>
             ) : (
               <div className="py-[40px] px-[20px] text-center">
-                <p className="text-[14px] font-semibold text-ink-bright mt-0 mb-[6px] mx-0">No services to measure yet</p>
+                <p className="text-[14px] font-semibold text-ink-bright mt-0 mb-[6px] mx-0">
+                  No services to measure yet
+                </p>
                 <p className="max-w-[460px] my-0 mx-auto text-[12px] leading-[1.5] text-ink-muted">
                   Deploy a service from a project. Its CPU, memory, storage and status will appear
                   here automatically.
                 </p>
-                <Link href="/dashboard/projects" className="text-accent hover:text-[#6ee7b7] ml-[12px] text-[11px]">
+                <Link
+                  href="/dashboard/projects"
+                  className="text-accent hover:text-[#6ee7b7] ml-[12px] text-[11px]"
+                >
                   Go to Projects
                 </Link>
               </div>
@@ -374,15 +402,24 @@ export default function UsagePage() {
             </div>
             <div className="bg-surface border border-surface-raised rounded-card overflow-hidden">
               {usageData.projects.map((project) => (
-                <div key={project.id} className="usage-project-row [@media(max-width:720px)]:gap-[8px] grid items-center gap-[20px] py-[11px] px-[16px] border-b border-b-[#1f1d25] last:border-b-0 grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)] [@media(max-width:720px)]:grid-cols-1">
-                  <Link href={`/dashboard/projects/${project.id}`} className="usage-row-name text-[13px] font-semibold text-ink-bright">
+                <div
+                  key={project.id}
+                  className="usage-project-row [@media(max-width:720px)]:gap-[8px] grid items-center gap-[20px] py-[11px] px-[16px] border-b border-b-[#1f1d25] last:border-b-0 grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)] [@media(max-width:720px)]:grid-cols-1"
+                >
+                  <Link
+                    href={`/dashboard/projects/${project.id}`}
+                    className="usage-row-name text-[13px] font-semibold text-ink-bright"
+                  >
                     {project.name}
                   </Link>
                   <div className="usage-project-metric min-w-0 [&>span]:block [&>span]:mb-[5px] [&>span]:text-[11px] [&>span]:text-[var(--color-ink-muted)] [&>span]:[font-family:var(--font-console-mono)] [&>span]:tabular-nums">
                     <span>
                       Services {project.serviceCount}/{project.serviceLimit}
                     </span>
-                    <div className="usage-mini-track bg-[#23212b] h-[4px] rounded-[9999px] overflow-hidden [&>div]:h-full [&>div]:rounded-[9999px] [&>div]:bg-[var(--color-accent)]" aria-hidden="true">
+                    <div
+                      className="usage-mini-track bg-[#23212b] h-[4px] rounded-[9999px] overflow-hidden [&>div]:h-full [&>div]:rounded-[9999px] [&>div]:bg-[var(--color-accent)]"
+                      aria-hidden="true"
+                    >
                       <div
                         style={{
                           width: `${calculatePercent(project.serviceCount, project.serviceLimit)}%`,
@@ -394,7 +431,10 @@ export default function UsagePage() {
                     <span>
                       Databases {project.databaseCount}/{project.databaseLimit}
                     </span>
-                    <div className="usage-mini-track bg-[#23212b] h-[4px] rounded-[9999px] overflow-hidden [&>div]:h-full [&>div]:rounded-[9999px] [&>div]:bg-[var(--color-accent)]" aria-hidden="true">
+                    <div
+                      className="usage-mini-track bg-[#23212b] h-[4px] rounded-[9999px] overflow-hidden [&>div]:h-full [&>div]:rounded-[9999px] [&>div]:bg-[var(--color-accent)]"
+                      aria-hidden="true"
+                    >
                       <div
                         style={{
                           width: `${calculatePercent(project.databaseCount, project.databaseLimit)}%`,
@@ -418,7 +458,9 @@ export default function UsagePage() {
             <div className="bg-surface border border-surface-raised rounded-card overflow-x-auto">
               {usageData.services.length === 0 ? (
                 <div className="py-[40px] px-[20px] text-center">
-                  <p className="text-[14px] font-semibold text-ink-bright mt-0 mb-[6px] mx-0">No deployed services</p>
+                  <p className="text-[14px] font-semibold text-ink-bright mt-0 mb-[6px] mx-0">
+                    No deployed services
+                  </p>
                   <p className="max-w-[460px] my-0 mx-auto text-[12px] leading-[1.5] text-ink-muted">
                     Deploy a service from a project to start measuring container compute and memory.
                   </p>
@@ -437,9 +479,17 @@ export default function UsagePage() {
                   {serviceGroups.map((group) => (
                     <tbody key={group.id}>
                       <tr className="usage-group-row">
-                        <th colSpan={5} scope="rowgroup" className="px-[14px] py-[9px] bg-[#131217] border-b border-[var(--color-surface-raised)] font-normal text-left">
-                          <span className="text-[12px] font-semibold text-ink-console">{group.name}</span>
-                          <span className="ml-[8px] text-[11px] [font-family:var(--font-console-mono)] text-ink-muted">{group.items.length}</span>
+                        <th
+                          colSpan={5}
+                          scope="rowgroup"
+                          className="px-[14px] py-[9px] bg-[#131217] border-b border-[var(--color-surface-raised)] font-normal text-left"
+                        >
+                          <span className="text-[12px] font-semibold text-ink-console">
+                            {group.name}
+                          </span>
+                          <span className="ml-[8px] text-[11px] [font-family:var(--font-console-mono)] text-ink-muted">
+                            {group.items.length}
+                          </span>
                           <Link
                             href={`/dashboard/projects/${group.id}`}
                             className="text-accent hover:text-[#6ee7b7] ml-[12px] text-[11px]"
@@ -488,7 +538,10 @@ export default function UsagePage() {
                                     : "bg-[#2a2012] border border-[#48381c] text-[var(--color-warning)]"
                               }`}
                             >
-                              <span className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]" aria-hidden="true" />
+                              <span
+                                className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]"
+                                aria-hidden="true"
+                              />
                               <span>{service.status.replace("_", " ")}</span>
                             </span>
                           </td>
@@ -548,7 +601,10 @@ export default function UsagePage() {
                                 : "bg-[#0f2e21] border border-[#1d4a36] text-[var(--color-accent)]"
                             }`}
                           >
-                            <span className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]" aria-hidden="true" />
+                            <span
+                              className="project-status-dot bg-current w-[6px] h-[6px] rounded-[50%]"
+                              aria-hidden="true"
+                            />
                             <span>{database.overQuota ? "Over quota" : database.status}</span>
                           </span>
                         </td>

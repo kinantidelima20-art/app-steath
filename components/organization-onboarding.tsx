@@ -53,11 +53,17 @@ export function OrganizationOnboarding() {
           <p>You are not a Member of any Organization yet. Create one to continue.</p>
         </div>
       </div>
-      <section className="dashboard-section mt-[26px]" aria-labelledby="create-organization-heading">
+      <section
+        className="dashboard-section mt-[26px]"
+        aria-labelledby="create-organization-heading"
+      >
         <div className="dashboard-section-heading flex min-h-[42px] items-center justify-between border-b border-b-[#322f37]">
           <h2 id="create-organization-heading">Organization details</h2>
         </div>
-        <form className="organization-settings-form [@media(max-width:760px)]:flex-col flex gap-[12px] py-[18px] px-0" onSubmit={create}>
+        <form
+          className="organization-settings-form [@media(max-width:760px)]:flex-col flex gap-[12px] py-[18px] px-0"
+          onSubmit={create}
+        >
           <label>
             Organization name
             <input
@@ -72,7 +78,10 @@ export function OrganizationOnboarding() {
           </button>
         </form>
         {error ? (
-          <p className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+          <p
+            className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+            role="alert"
+          >
             {error}
           </p>
         ) : null}

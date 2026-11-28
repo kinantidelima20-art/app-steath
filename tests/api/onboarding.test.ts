@@ -165,7 +165,9 @@ describe("Organization-first onboarding", () => {
     expect(listed.status).toBe(200);
 
     const organizations = (await listed.json()) as Array<{ id: string }>;
-    expect(organizations.map((organization) => organization.id)).toEqual([organizationB.organizationId]);
+    expect(organizations.map((organization) => organization.id)).toEqual([
+      organizationB.organizationId,
+    ]);
   });
 
   it("provides only a verified active Organization context to resource handlers", async () => {

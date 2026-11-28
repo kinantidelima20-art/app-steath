@@ -113,7 +113,10 @@ export function FindingsPanel() {
       </AdminHeader>
 
       {list.error ? (
-        <p className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error" role="alert">
+        <p
+          className="dashboard-alert py-[12px] px-[14px] border border-[#48434d] rounded-card text-ink-console text-[13px] is-error"
+          role="alert"
+        >
           {list.error}
         </p>
       ) : null}

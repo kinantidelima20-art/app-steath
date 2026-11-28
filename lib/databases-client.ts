@@ -114,7 +114,8 @@ export function startPhpMyAdminSession(
   );
 }
 
-export function listOrganizationDatabases(): Promise<OrganizationDatabaseSummary[]> {  return request<OrganizationDatabaseSummary[]>("/api/databases");
+export function listOrganizationDatabases(): Promise<OrganizationDatabaseSummary[]> {
+  return request<OrganizationDatabaseSummary[]>("/api/databases");
 }
 
 export function getProjectDatabaseProxy(projectId: string): Promise<DatabaseProxySummary> {

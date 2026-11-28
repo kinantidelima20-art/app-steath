@@ -612,14 +612,8 @@ describe("Environment Variables", () => {
   });
 
   it("answers 404 for a Service in another Organization", async () => {
-    const first = await signUp(
-      uniqueName("envorga") + "@example.test",
-      uniqueName("envorga"),
-    );
-    const second = await signUp(
-      uniqueName("envorgb") + "@example.test",
-      uniqueName("envorgb"),
-    );
+    const first = await signUp(uniqueName("envorga") + "@example.test", uniqueName("envorga"));
+    const second = await signUp(uniqueName("envorgb") + "@example.test", uniqueName("envorgb"));
     const project = await createProject(first.cookie, "Organization A");
     const service = await createService(first.cookie, project.id, "Organization App");
 

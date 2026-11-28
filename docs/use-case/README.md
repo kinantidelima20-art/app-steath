@@ -26,16 +26,16 @@ platform menyediakan **managed Database**, **Volume** penyimpanan persisten,
 
 ### A.2 Fungsi utama
 
-| Kelompok fungsi | Implementasi |
-|---|---|
-| Autentikasi & sesi | Better Auth + sesi basis data (`lib/auth.ts`, `lib/auth-config.ts`) |
-| Multi-tenancy | Organisasi sebagai tenant, peran `owner`/`admin`/`member` (`GLOSSARY.md`, `lib/platform/organization-management.ts`) |
-| Resource delivery | Project → Service → Deployment (`lib/platform/projects.ts`, `services.ts`, `deployments.ts`) |
-| Managed data | Database PostgreSQL 16 / MySQL 8 dengan schema+role di server bersama (`lib/platform/databases.ts`, ADR-0012) |
-| Addressing | Platform Subdomain otomatis dan Custom Domain dengan verifikasi TXT+DNS (`lib/platform/custom-domains.ts`) |
-| Perlindungan data | Backup harian 02.00 UTC, retensi 7 hari, Restore antrean (`lib/platform/backups.ts`, `restores.ts`) |
-| Pengawasan platform | Admin Console lintas Organisasi (`app/admin/**`, `features/admin/**`) |
-| Pengawasan node | Heartbeat, metrik host, operasi runtime lewat Node Agent (`agent/**`, `contracts/agent.openapi.yaml`) |
+| Kelompok fungsi     | Implementasi                                                                                                         |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Autentikasi & sesi  | Better Auth + sesi basis data (`lib/auth.ts`, `lib/auth-config.ts`)                                                  |
+| Multi-tenancy       | Organisasi sebagai tenant, peran `owner`/`admin`/`member` (`GLOSSARY.md`, `lib/platform/organization-management.ts`) |
+| Resource delivery   | Project → Service → Deployment (`lib/platform/projects.ts`, `services.ts`, `deployments.ts`)                         |
+| Managed data        | Database PostgreSQL 16 / MySQL 8 dengan schema+role di server bersama (`lib/platform/databases.ts`, ADR-0012)        |
+| Addressing          | Platform Subdomain otomatis dan Custom Domain dengan verifikasi TXT+DNS (`lib/platform/custom-domains.ts`)           |
+| Perlindungan data   | Backup harian 02.00 UTC, retensi 7 hari, Restore antrean (`lib/platform/backups.ts`, `restores.ts`)                  |
+| Pengawasan platform | Admin Console lintas Organisasi (`app/admin/**`, `features/admin/**`)                                                |
+| Pengawasan node     | Heartbeat, metrik host, operasi runtime lewat Node Agent (`agent/**`, `contracts/agent.openapi.yaml`)                |
 
 ### A.3 Ruang lingkup dan batas sistem
 
@@ -60,7 +60,7 @@ TLS/routing · Docker Compose untuk deployment satu VPS.
 Tidak ada modul bernama `InstanceServer` di repositori ini. Istilah “Instance
 Server” dipetakan ke **Node Agent** karena memenuhi semua kriteria aktor
 eksternal (lihat B.2). Satu-satunya kemunculan kata “Instance” di UI adalah
-judul grup navigasi Admin Console yang berisi *Scan Findings* dan *Abuse Reports*
+judul grup navigasi Admin Console yang berisi _Scan Findings_ dan _Abuse Reports_
 (`features/admin/components/admin-nav.ts`) — itu label menu, bukan komponen
 sistem, sehingga tidak dijadikan aktor.
 
@@ -71,12 +71,12 @@ Asumsi lain yang dinyatakan terbuka:
    “node pertama” (`getPrimaryNode`).
 2. **Kredensial OAuth belum tentu ada.** Use case autentikasi sosial tidak
    dijadikan use case tersendiri karena hanya muncul sebagai tombol
-   *Coming soon* sampai admin menyimpan kredensial.
+   _Coming soon_ sampai admin menyimpan kredensial.
 3. **Worker dianggap bagian internal Control Plane**, sehingga tidak digambar
    sebagai aktor walaupun prosesnya terpisah, karena ia tidak memiliki antarmuka
    yang dapat dipanggil dari luar dan tidak pernah berinteraksi dengan pengguna.
 4. **Peran bukan aktor.** `owner`, `admin`, dan `member` adalah peran di dalam
-   aktor Customer, sehingga digambarkan sebagai *precondition* pada setiap use
+   aktor Customer, sehingga digambarkan sebagai _precondition_ pada setiap use
    case, bukan sebagai tiga stick figure.
 5. **Integrasi eksternal yang belum aktif** (Resend, OTLP collector, billing)
    tidak dibuatkan use case karena belum ada implementasinya di kode.
@@ -88,7 +88,7 @@ Asumsi lain yang dinyatakan terbuka:
 ### B.1 Customer (Member Organisasi)
 
 - **Definisi:** User terautentikasi yang menjadi Member pada sebuah Organisasi
-  (`GLOSSARY.md` — *User*, *Member*).
+  (`GLOSSARY.md` — _User_, _Member_).
 - **Peran:** bekerja di dalam satu Organisasi aktif dan mengelola resource milik
   Organisasi tersebut.
 - **Tanggung jawab:** membuat Project/Service, menjalankan Deployment, mengatur
@@ -107,7 +107,7 @@ Asumsi lain yang dinyatakan terbuka:
 - **Catatan penamaan:** istilah “Customer” dipakai sebagai nama aktor karena
   itu istilah yang diminta, tetapi dokumentasi ini menuliskannya sebagai
   “Customer (Member Organisasi)” agar sesuai istilah domain proyek
-  (`GLOSSARY.md` meminta menghindari kata *customer* untuk User).
+  (`GLOSSARY.md` meminta menghindari kata _customer_ untuk User).
 
 ### B.2 Instance Server (Node Agent) — aktor sistem eksternal
 
@@ -139,7 +139,7 @@ Asumsi lain yang dinyatakan terbuka:
 
 Aktor tanpa autentikasi untuk `POST /api/abuse-reports`. Berbeda dari Customer
 karena tidak memiliki sesi, Organisasi, maupun wewenang apa pun di console.
-Dibatasi *rate limit* per IP dan tantangan aritmetika `3 + 4`
+Dibatasi _rate limit_ per IP dan tantangan aritmetika `3 + 4`
 (`lib/platform/abuse.ts`, `app/abuse-report/page.tsx`).
 
 ### B.4 Platform Admin
@@ -151,13 +151,13 @@ Tidak memakai dashboard user dan tidak membutuhkan keanggotaan Organisasi.
 
 ### B.5 Aktor yang **tidak** ditambahkan (dan alasannya)
 
-| Kandidat | Alasan tidak dijadikan aktor |
-|---|---|
-| Worker / scheduler | Komponen internal Control Plane (`worker/index.mts`); tidak punya antarmuka eksternal |
-| Caddy | Infrastruktur pasif; diprogram Agent lewat admin API |
-| PostgreSQL, Redis | Penyimpanan internal; Redis bahkan opsional (ADR-0009) |
-| GitHub/Google OAuth | Provider eksternal opsional; muncul sebagai tombol “Coming soon” bila belum dikonfigurasi, bukan aktor sistem |
-| Email provider (Resend) | Belum terpasang; tautan reset hanya ditulis ke log server (`lib/auth-config.ts`) |
+| Kandidat                | Alasan tidak dijadikan aktor                                                                                  |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Worker / scheduler      | Komponen internal Control Plane (`worker/index.mts`); tidak punya antarmuka eksternal                         |
+| Caddy                   | Infrastruktur pasif; diprogram Agent lewat admin API                                                          |
+| PostgreSQL, Redis       | Penyimpanan internal; Redis bahkan opsional (ADR-0009)                                                        |
+| GitHub/Google OAuth     | Provider eksternal opsional; muncul sebagai tombol “Coming soon” bila belum dikonfigurasi, bukan aktor sistem |
+| Email provider (Resend) | Belum terpasang; tautan reset hanya ditulis ke log server (`lib/auth-config.ts`)                              |
 
 ---
 
@@ -166,65 +166,65 @@ Tidak memakai dashboard user dan tidak membutuhkan keanggotaan Organisasi.
 Legenda status: **✅ berjalan** = ada UI + API + efek nyata; **🟡 sebagian** =
 jalur ada tetapi dibatasi/bergantung konfigurasi; **🚧 rencana** = belum ada.
 
-| No | Nama Use Case | Aktor | Deskripsi aktivitas | Hasil yang diharapkan | Status |
-|---|---|---|---|---|---|
-| UC-01 | Mendaftar Akun | Customer | Mengisi username, email, password di `/signup` | User dibuat, Organisasi personal + Member `owner` otomatis, sesi aktif | ✅ |
-| UC-02 | Masuk ke Aplikasi | Customer | Login email/password, opsi *remember* | Sesi basis data dibuat, diarahkan ke `/dashboard` | ✅ |
-| UC-03 | Keluar dari Aplikasi | Customer | Menekan *Log out* | Sesi dihapus, kembali ke halaman login | ✅ |
-| UC-04 | Mereset Password | Customer | `/forgot-password` → tautan `/reset-password` | Password baru tersimpan; tautan dicatat pada log server | 🟡 (belum ada email) |
-| UC-05 | Membuat Organisasi | Customer | Form “Create a new organization” | Organisasi baru dengan pemohon sebagai `owner` | ✅ |
-| UC-06 | Memilih Organisasi Aktif | Customer | Memilih kartu Organisasi di `/dashboard/organizations` | `session.activeOrganizationId` berganti | ✅ |
-| UC-07 | Menerima Undangan Organisasi | Customer | Membuka `/invite/[id]` lalu *Accept* | Member baru masuk Organisasi dengan peran undangan | ✅ |
-| UC-08 | Memperbarui Identitas Organisasi | Customer (owner) | Ubah nama/slug di `/dashboard/settings` | Nama dan slug Organisasi diperbarui + audit | ✅ |
-| UC-09 | Mengundang Anggota | Customer (owner/admin) | Modal *Invite* → peran `admin`/`member` | Invitation 7 hari + URL undangan | ✅ |
-| UC-10 | Mengubah Peran Anggota | Customer (owner/admin) | Pilih peran baru pada tabel anggota | Peran Member berubah (owner terakhir dilindungi) | ✅ |
-| UC-11 | Menghapus Anggota | Customer (owner) | Konfirmasi hapus anggota | Member dikeluarkan dari Organisasi | ✅ |
-| UC-12 | Membatalkan Undangan | Customer (owner/admin) | *Cancel* pada daftar undangan | Invitation menjadi tidak berlaku | ✅ |
-| UC-13 | Keluar dari Organisasi | Customer | *Leave organization* | Keanggotaan dihapus; Organisasi aktif dialihkan | ✅ |
-| UC-14 | Menghapus Organisasi | Customer (owner) | Ketik nama Organisasi lalu hapus | Organisasi, undangan, dan keanggotaan dihapus | ✅ |
-| UC-15 | Memantau Penggunaan & Kuota | Customer | Buka `/dashboard/usage`, tombol *Refresh* | Snapshot CPU/RAM/Volume/DB dan status kuota terbaru | ✅ |
-| UC-16 | Membuat Project | Customer (owner/admin) | Modal “New project” (nama + slug) | Project dibuat (kuota 3/Organisasi) | ✅ |
-| UC-17 | Melihat Daftar Project | Customer | Halaman `/dashboard/projects` | Ringkasan Project, jumlah Service & Database | ✅ |
-| UC-18 | Memperbarui Project | Customer (owner/admin) | Tab *Settings* Project → *Save Changes* | Nama/slug Project diperbarui | ✅ |
-| UC-19 | Menghapus Project | Customer (owner/admin) | Ketik nama Project → *Delete Permanently* | Project beserta turunannya dihapus | ✅ |
-| UC-20 | Membuat Service | Customer (owner/admin) | Modal “New Service” (repo, branch, Dockerfile, port, health path) | Service + Platform Subdomain dibuat | ✅ |
-| UC-21 | Melihat Detail Service | Customer | Tab Deployments/Environment/Domains/Runtime/Settings | Status, konfigurasi, dan kebutuhan redeploy | ✅ |
-| UC-22 | Menghapus Service | Customer (owner/admin) | Ketik nama Service → hapus | Service dan runtime-nya dibersihkan (best effort) | ✅ |
-| UC-23 | Men-deploy Service | Customer (semua peran) | Tombol *Deploy* di tab Deployments | Deployment `queued`→`building`→`deploying`→`running` | ✅ |
-| UC-24 | Men-deploy Ulang (Redeploy) | Customer (owner/admin) | *Redeploy* pada riwayat Deployment | Deployment baru yang membangun commit yang sama | ✅ |
-| UC-25 | Membatalkan Deployment | Customer (owner/admin) | *Cancel* saat Deployment aktif | Build dihentikan, container/image sisa dibersihkan | ✅ |
-| UC-26 | Melihat Riwayat & Log Build | Customer | Buka riwayat lalu lihat log | Riwayat Deployment dan log Build (retensi 7 hari) | ✅ |
-| UC-27 | Menghentikan Service | Customer (owner/admin) | *Stop* di tab Runtime | Container berhenti, hostname berhenti menjawab | ✅ |
-| UC-28 | Menjalankan Service | Customer (owner/admin) | *Start* | Container yang sama hidup kembali (data layer tetap) | ✅ |
-| UC-29 | Me-restart Service | Customer (owner/admin) | *Restart* | Container dijalankan ulang tanpa mengubah konfigurasi | ✅ |
-| UC-30 | Melihat Log Runtime | Customer | Buka panel log | Log container mengalir (tail 200, buffer 500 baris) | ✅ |
-| UC-31 | Mengelola Environment Variable | Customer (owner/admin) | Tambah/Ubah/Hapus, *Reveal* nilai | Variabel tersimpan terenkripsi; Service ditandai perlu redeploy | ✅ |
-| UC-32 | Mengelola Volume | Customer (owner/admin) | Tambah Volume (mount path, ukuran) / hapus | Volume Docker disiapkan pada Deployment berikutnya; hapus meminta Agent | ✅ |
-| UC-33 | Menyediakan Database | Customer (owner/admin) | Pilih engine (PostgreSQL/MySQL) → *Provision* | Schema + role di server bersama dibuat Agent; kredensial disegel | ✅ |
-| UC-34 | Melihat Detail Database | Customer | Tab Database pada Project | Engine, versi, pemakaian storage, status phpMyAdmin | ✅ |
-| UC-35 | Menampilkan Password Database | Customer (owner/admin) | Tombol *Reveal* / salin | Password dikembalikan sesuai permintaan + audit (bukan di HTML) | ✅ |
-| UC-36 | Merotasi Kredensial Database | Customer (owner/admin) | *Rotate Password* | Password role diganti Agent; Service perlu redeploy | ✅ |
-| UC-37 | Menghapus Database | Customer (owner/admin) | Ketik nama Project → hapus | Schema+role dihapus Agent, lalu baris Database | ✅ |
-| UC-38 | Membuka phpMyAdmin | Customer (owner/admin, MySQL) | *Open phpMyAdmin* | Token SSO 60 detik sekali pakai → sesi phpMyAdmin | ✅ (MySQL) |
-| UC-39 | Menambahkan Custom Domain | Customer (owner/admin) | Tambah hostname ke Service | Domain `pending` + instruksi TXT/CNAME | ✅ |
-| UC-40 | Memverifikasi Custom Domain | Customer (owner/admin) | *Verify* | DNS/TXT cocok → route dipasang, sertifikat `issued` | ✅ |
-| UC-41 | Menghapus Custom Domain | Customer (owner/admin) | Hapus pada daftar Domain | Route dan status sertifikat dibersihkan | ✅ |
-| UC-42 | Melihat Daftar Backup | Customer | `/dashboard/backups` | Daftar Backup Database/Volume/platform + status | ✅ |
-| UC-43 | Memulihkan Backup | Customer (owner/admin) | Ketik nama target → *Restore* | Restore diantrekan; Service terkait dihentikan lalu dinyalakan | ✅ |
-| UC-44 | Melihat Status Restore | Customer | Panel restore | Status `pending`/`running`/`completed`/`failed` | ✅ |
-| UC-45 | Melaporkan Konten Abuse | Pengunjung Publik | Form `/abuse-report` | Laporan tersimpan dengan status `new` | ✅ |
-| UC-46 | Melihat Overview Platform | Platform Admin | Halaman `/admin` | Kesehatan komponen, jumlah operasi, Deployment terbaru | ✅ |
-| UC-47 | Memantau Infrastruktur | Platform Admin | `/admin/infrastructure` | Daftar node, worker, dan grafik resource | ✅ |
-| UC-48 | Menelusuri Log, Trace & Error | Platform Admin | `/admin/logs`, `/admin/traces`, `/admin/errors` | Tail log Build, daftar error group; trace masih kosong | 🟡 (trace kosong) |
-| UC-49 | Melihat Antrean & Agent Run | Platform Admin | `/admin/workers`, `/admin/runs`, `/admin/usage` | Daftar job/operasi durable dan ringkasan beban kerja control-plane | ✅ |
-| UC-50 | Mengelola Insiden | Platform Admin | `/admin/incidents` | Buat insiden, ubah status, tambah event | ✅ |
-| UC-51 | Melihat Daftar Akun | Platform Admin | `/admin/users` | Daftar akun, status verifikasi, provider, sign-in terakhir | ✅ |
-| UC-52 | Meninjau Scan Findings | Platform Admin | `/admin/findings` | Temuan Trivy/ClamAV per Deployment | ✅ |
-| UC-53 | Menangani Abuse Report | Platform Admin | `/admin/abuse-reports` | Status laporan `new`→`triaged`→`resolved`/`dismissed` | ✅ |
-| UC-54 | Menangguhkan Service/Organisasi | Platform Admin | Aksi suspend/unsuspend | Service dihentikan dan menjawab 503 administratif | ✅ |
-| UC-55 | Mengatur Provider Sign-in & Status Page | Platform Admin | `/admin/settings`, `/admin/providers`, `/admin/status` | Kredensial OAuth tersimpan (berlaku setelah restart); status page | 🟡 (sebagian form lokal) |
-| UC-56 | Mengirim Heartbeat Node | Instance Server | Kirim berkala tiap 30 detik | `node.lastSeenAt`/`capacity` diperbarui; Deployment diblokir bila tidak sehat | ✅ |
-| UC-57 | Meminta Otorisasi Sertifikat TLS | Instance Server | Caddy memanggil `GET /api/internal/caddy/ask` | Jawaban `allowed` hanya untuk hostname sah | ✅ |
+| No    | Nama Use Case                           | Aktor                         | Deskripsi aktivitas                                               | Hasil yang diharapkan                                                         | Status                   |
+| ----- | --------------------------------------- | ----------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------ |
+| UC-01 | Mendaftar Akun                          | Customer                      | Mengisi username, email, password di `/signup`                    | User dibuat, Organisasi personal + Member `owner` otomatis, sesi aktif        | ✅                       |
+| UC-02 | Masuk ke Aplikasi                       | Customer                      | Login email/password, opsi _remember_                             | Sesi basis data dibuat, diarahkan ke `/dashboard`                             | ✅                       |
+| UC-03 | Keluar dari Aplikasi                    | Customer                      | Menekan _Log out_                                                 | Sesi dihapus, kembali ke halaman login                                        | ✅                       |
+| UC-04 | Mereset Password                        | Customer                      | `/forgot-password` → tautan `/reset-password`                     | Password baru tersimpan; tautan dicatat pada log server                       | 🟡 (belum ada email)     |
+| UC-05 | Membuat Organisasi                      | Customer                      | Form “Create a new organization”                                  | Organisasi baru dengan pemohon sebagai `owner`                                | ✅                       |
+| UC-06 | Memilih Organisasi Aktif                | Customer                      | Memilih kartu Organisasi di `/dashboard/organizations`            | `session.activeOrganizationId` berganti                                       | ✅                       |
+| UC-07 | Menerima Undangan Organisasi            | Customer                      | Membuka `/invite/[id]` lalu _Accept_                              | Member baru masuk Organisasi dengan peran undangan                            | ✅                       |
+| UC-08 | Memperbarui Identitas Organisasi        | Customer (owner)              | Ubah nama/slug di `/dashboard/settings`                           | Nama dan slug Organisasi diperbarui + audit                                   | ✅                       |
+| UC-09 | Mengundang Anggota                      | Customer (owner/admin)        | Modal _Invite_ → peran `admin`/`member`                           | Invitation 7 hari + URL undangan                                              | ✅                       |
+| UC-10 | Mengubah Peran Anggota                  | Customer (owner/admin)        | Pilih peran baru pada tabel anggota                               | Peran Member berubah (owner terakhir dilindungi)                              | ✅                       |
+| UC-11 | Menghapus Anggota                       | Customer (owner)              | Konfirmasi hapus anggota                                          | Member dikeluarkan dari Organisasi                                            | ✅                       |
+| UC-12 | Membatalkan Undangan                    | Customer (owner/admin)        | _Cancel_ pada daftar undangan                                     | Invitation menjadi tidak berlaku                                              | ✅                       |
+| UC-13 | Keluar dari Organisasi                  | Customer                      | _Leave organization_                                              | Keanggotaan dihapus; Organisasi aktif dialihkan                               | ✅                       |
+| UC-14 | Menghapus Organisasi                    | Customer (owner)              | Ketik nama Organisasi lalu hapus                                  | Organisasi, undangan, dan keanggotaan dihapus                                 | ✅                       |
+| UC-15 | Memantau Penggunaan & Kuota             | Customer                      | Buka `/dashboard/usage`, tombol _Refresh_                         | Snapshot CPU/RAM/Volume/DB dan status kuota terbaru                           | ✅                       |
+| UC-16 | Membuat Project                         | Customer (owner/admin)        | Modal “New project” (nama + slug)                                 | Project dibuat (kuota 3/Organisasi)                                           | ✅                       |
+| UC-17 | Melihat Daftar Project                  | Customer                      | Halaman `/dashboard/projects`                                     | Ringkasan Project, jumlah Service & Database                                  | ✅                       |
+| UC-18 | Memperbarui Project                     | Customer (owner/admin)        | Tab _Settings_ Project → _Save Changes_                           | Nama/slug Project diperbarui                                                  | ✅                       |
+| UC-19 | Menghapus Project                       | Customer (owner/admin)        | Ketik nama Project → _Delete Permanently_                         | Project beserta turunannya dihapus                                            | ✅                       |
+| UC-20 | Membuat Service                         | Customer (owner/admin)        | Modal “New Service” (repo, branch, Dockerfile, port, health path) | Service + Platform Subdomain dibuat                                           | ✅                       |
+| UC-21 | Melihat Detail Service                  | Customer                      | Tab Deployments/Environment/Domains/Runtime/Settings              | Status, konfigurasi, dan kebutuhan redeploy                                   | ✅                       |
+| UC-22 | Menghapus Service                       | Customer (owner/admin)        | Ketik nama Service → hapus                                        | Service dan runtime-nya dibersihkan (best effort)                             | ✅                       |
+| UC-23 | Men-deploy Service                      | Customer (semua peran)        | Tombol _Deploy_ di tab Deployments                                | Deployment `queued`→`building`→`deploying`→`running`                          | ✅                       |
+| UC-24 | Men-deploy Ulang (Redeploy)             | Customer (owner/admin)        | _Redeploy_ pada riwayat Deployment                                | Deployment baru yang membangun commit yang sama                               | ✅                       |
+| UC-25 | Membatalkan Deployment                  | Customer (owner/admin)        | _Cancel_ saat Deployment aktif                                    | Build dihentikan, container/image sisa dibersihkan                            | ✅                       |
+| UC-26 | Melihat Riwayat & Log Build             | Customer                      | Buka riwayat lalu lihat log                                       | Riwayat Deployment dan log Build (retensi 7 hari)                             | ✅                       |
+| UC-27 | Menghentikan Service                    | Customer (owner/admin)        | _Stop_ di tab Runtime                                             | Container berhenti, hostname berhenti menjawab                                | ✅                       |
+| UC-28 | Menjalankan Service                     | Customer (owner/admin)        | _Start_                                                           | Container yang sama hidup kembali (data layer tetap)                          | ✅                       |
+| UC-29 | Me-restart Service                      | Customer (owner/admin)        | _Restart_                                                         | Container dijalankan ulang tanpa mengubah konfigurasi                         | ✅                       |
+| UC-30 | Melihat Log Runtime                     | Customer                      | Buka panel log                                                    | Log container mengalir (tail 200, buffer 500 baris)                           | ✅                       |
+| UC-31 | Mengelola Environment Variable          | Customer (owner/admin)        | Tambah/Ubah/Hapus, _Reveal_ nilai                                 | Variabel tersimpan terenkripsi; Service ditandai perlu redeploy               | ✅                       |
+| UC-32 | Mengelola Volume                        | Customer (owner/admin)        | Tambah Volume (mount path, ukuran) / hapus                        | Volume Docker disiapkan pada Deployment berikutnya; hapus meminta Agent       | ✅                       |
+| UC-33 | Menyediakan Database                    | Customer (owner/admin)        | Pilih engine (PostgreSQL/MySQL) → _Provision_                     | Schema + role di server bersama dibuat Agent; kredensial disegel              | ✅                       |
+| UC-34 | Melihat Detail Database                 | Customer                      | Tab Database pada Project                                         | Engine, versi, pemakaian storage, status phpMyAdmin                           | ✅                       |
+| UC-35 | Menampilkan Password Database           | Customer (owner/admin)        | Tombol _Reveal_ / salin                                           | Password dikembalikan sesuai permintaan + audit (bukan di HTML)               | ✅                       |
+| UC-36 | Merotasi Kredensial Database            | Customer (owner/admin)        | _Rotate Password_                                                 | Password role diganti Agent; Service perlu redeploy                           | ✅                       |
+| UC-37 | Menghapus Database                      | Customer (owner/admin)        | Ketik nama Project → hapus                                        | Schema+role dihapus Agent, lalu baris Database                                | ✅                       |
+| UC-38 | Membuka phpMyAdmin                      | Customer (owner/admin, MySQL) | _Open phpMyAdmin_                                                 | Token SSO 60 detik sekali pakai → sesi phpMyAdmin                             | ✅ (MySQL)               |
+| UC-39 | Menambahkan Custom Domain               | Customer (owner/admin)        | Tambah hostname ke Service                                        | Domain `pending` + instruksi TXT/CNAME                                        | ✅                       |
+| UC-40 | Memverifikasi Custom Domain             | Customer (owner/admin)        | _Verify_                                                          | DNS/TXT cocok → route dipasang, sertifikat `issued`                           | ✅                       |
+| UC-41 | Menghapus Custom Domain                 | Customer (owner/admin)        | Hapus pada daftar Domain                                          | Route dan status sertifikat dibersihkan                                       | ✅                       |
+| UC-42 | Melihat Daftar Backup                   | Customer                      | `/dashboard/backups`                                              | Daftar Backup Database/Volume/platform + status                               | ✅                       |
+| UC-43 | Memulihkan Backup                       | Customer (owner/admin)        | Ketik nama target → _Restore_                                     | Restore diantrekan; Service terkait dihentikan lalu dinyalakan                | ✅                       |
+| UC-44 | Melihat Status Restore                  | Customer                      | Panel restore                                                     | Status `pending`/`running`/`completed`/`failed`                               | ✅                       |
+| UC-45 | Melaporkan Konten Abuse                 | Pengunjung Publik             | Form `/abuse-report`                                              | Laporan tersimpan dengan status `new`                                         | ✅                       |
+| UC-46 | Melihat Overview Platform               | Platform Admin                | Halaman `/admin`                                                  | Kesehatan komponen, jumlah operasi, Deployment terbaru                        | ✅                       |
+| UC-47 | Memantau Infrastruktur                  | Platform Admin                | `/admin/infrastructure`                                           | Daftar node, worker, dan grafik resource                                      | ✅                       |
+| UC-48 | Menelusuri Log, Trace & Error           | Platform Admin                | `/admin/logs`, `/admin/traces`, `/admin/errors`                   | Tail log Build, daftar error group; trace masih kosong                        | 🟡 (trace kosong)        |
+| UC-49 | Melihat Antrean & Agent Run             | Platform Admin                | `/admin/workers`, `/admin/runs`, `/admin/usage`                   | Daftar job/operasi durable dan ringkasan beban kerja control-plane            | ✅                       |
+| UC-50 | Mengelola Insiden                       | Platform Admin                | `/admin/incidents`                                                | Buat insiden, ubah status, tambah event                                       | ✅                       |
+| UC-51 | Melihat Daftar Akun                     | Platform Admin                | `/admin/users`                                                    | Daftar akun, status verifikasi, provider, sign-in terakhir                    | ✅                       |
+| UC-52 | Meninjau Scan Findings                  | Platform Admin                | `/admin/findings`                                                 | Temuan Trivy/ClamAV per Deployment                                            | ✅                       |
+| UC-53 | Menangani Abuse Report                  | Platform Admin                | `/admin/abuse-reports`                                            | Status laporan `new`→`triaged`→`resolved`/`dismissed`                         | ✅                       |
+| UC-54 | Menangguhkan Service/Organisasi         | Platform Admin                | Aksi suspend/unsuspend                                            | Service dihentikan dan menjawab 503 administratif                             | ✅                       |
+| UC-55 | Mengatur Provider Sign-in & Status Page | Platform Admin                | `/admin/settings`, `/admin/providers`, `/admin/status`            | Kredensial OAuth tersimpan (berlaku setelah restart); status page             | 🟡 (sebagian form lokal) |
+| UC-56 | Mengirim Heartbeat Node                 | Instance Server               | Kirim berkala tiap 30 detik                                       | `node.lastSeenAt`/`capacity` diperbarui; Deployment diblokir bila tidak sehat | ✅                       |
+| UC-57 | Meminta Otorisasi Sertifikat TLS        | Instance Server               | Caddy memanggil `GET /api/internal/caddy/ask`                     | Jawaban `allowed` hanya untuk hostname sah                                    | ✅                       |
 
 ### C.1 Ringkasan status fitur
 
@@ -237,18 +237,18 @@ otorisasi TLS.
 
 **Sudah dibuat tetapi belum selesai / bergantung konfigurasi:**
 
-| Fitur | Kondisi sebenarnya | Dasar |
-|---|---|---|
-| Reset password | Tautan hanya ditulis ke log server; belum ada pengiriman email | `lib/auth-config.ts` (`sendResetPassword`) |
-| Verifikasi email | `requireEmailVerification: false` | `lib/auth-config.ts` |
-| OAuth Google/GitHub | Tombol *Coming soon* sampai kredensial disimpan admin | `components/auth-form.tsx`, `lib/platform/oauth-providers.ts` |
-| phpMyAdmin | Hanya Database MySQL; PostgreSQL tidak punya jalur ini | `lib/platform/databases.ts`, `app/api/phpmyadmin/sso/route.ts` |
-| Public Database Proxy | **Sengaja dinonaktifkan**; selalu `409 database_proxy_unsupported` | `lib/platform/databases.ts`, ADR-0012 |
-| Traces | Endpoint menjawab daftar kosong (belum ada kolektor OTLP) | `app/api/admin/telemetry/traces/route.ts` |
-| Status error group | Perubahan status divalidasi lalu diakui, belum dipersist | `app/api/admin/telemetry/errors/[fingerprint]/status/route.ts` |
-| Plan langganan | Selalu `free`; perubahan plan diakui tanpa kolom plan | `app/api/admin/accounts/[accountID]/plan/route.ts` |
-| Form Settings admin | Sebagian switch/field hanya state lokal | `features/admin/settings/settings-page.tsx` |
-| Agent catalog / eksekusi agent | Katalog kosong, `ready:false` | `app/api/admin/agent-catalog/route.ts` |
+| Fitur                          | Kondisi sebenarnya                                                 | Dasar                                                          |
+| ------------------------------ | ------------------------------------------------------------------ | -------------------------------------------------------------- |
+| Reset password                 | Tautan hanya ditulis ke log server; belum ada pengiriman email     | `lib/auth-config.ts` (`sendResetPassword`)                     |
+| Verifikasi email               | `requireEmailVerification: false`                                  | `lib/auth-config.ts`                                           |
+| OAuth Google/GitHub            | Tombol _Coming soon_ sampai kredensial disimpan admin              | `components/auth-form.tsx`, `lib/platform/oauth-providers.ts`  |
+| phpMyAdmin                     | Hanya Database MySQL; PostgreSQL tidak punya jalur ini             | `lib/platform/databases.ts`, `app/api/phpmyadmin/sso/route.ts` |
+| Public Database Proxy          | **Sengaja dinonaktifkan**; selalu `409 database_proxy_unsupported` | `lib/platform/databases.ts`, ADR-0012                          |
+| Traces                         | Endpoint menjawab daftar kosong (belum ada kolektor OTLP)          | `app/api/admin/telemetry/traces/route.ts`                      |
+| Status error group             | Perubahan status divalidasi lalu diakui, belum dipersist           | `app/api/admin/telemetry/errors/[fingerprint]/status/route.ts` |
+| Plan langganan                 | Selalu `free`; perubahan plan diakui tanpa kolom plan              | `app/api/admin/accounts/[accountID]/plan/route.ts`             |
+| Form Settings admin            | Sebagian switch/field hanya state lokal                            | `features/admin/settings/settings-page.tsx`                    |
+| Agent catalog / eksekusi agent | Katalog kosong, `ready:false`                                      | `app/api/admin/agent-catalog/route.ts`                         |
 
 **Masih berupa rencana:** email transaksional (Resend), OAuth aktif tanpa
 konfigurasi, billing/plan berbayar, kolektor telemetri (log/trace OTLP),
@@ -344,6 +344,7 @@ tetapi tetap dijelaskan satu per satu.
 ### E.1 Modul Autentikasi dan Onboarding
 
 #### UC-01 Mendaftar Akun
+
 - **Aktor:** Customer (belum terautentikasi)
 - **Tujuan:** membuat akun dan ruang kerja pertama.
 - **Prasyarat:** belum ada sesi; username, email, password valid.
@@ -354,21 +355,24 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** User, Organisasi personal, dan Member `owner` ada; sesi aktif.
 
 #### UC-02 Masuk ke Aplikasi
+
 - **Aktor:** Customer
 - **Tujuan:** memperoleh sesi.
 - **Prasyarat:** akun terdaftar.
 - **Alur utama:** `/login` → email+password → Better Auth memverifikasi → sesi
   basis data dibuat (30 hari, refresh harian) → `/dashboard`.
 - **Alur alternatif:** kredensial salah → error tanpa sesi; provider OAuth belum
-  dikonfigurasi → tombol *Coming soon*.
+  dikonfigurasi → tombol _Coming soon_.
 - **Kondisi akhir:** sesi aktif dengan `activeOrganizationId` bila ada.
 
 #### UC-03 Keluar dari Aplikasi
+
 - **Aktor:** Customer · **Prasyarat:** sesi aktif.
-- **Alur utama:** menu pengguna → *Log out* → `signOut` → sesi dihapus → `/`.
+- **Alur utama:** menu pengguna → _Log out_ → `signOut` → sesi dihapus → `/`.
 - **Kondisi akhir:** tidak ada sesi.
 
 #### UC-04 Mereset Password
+
 - **Aktor:** Customer · **Prasyarat:** akun dengan email.
 - **Alur utama:** `/forgot-password` → Better Auth membuat token & URL →
   `sendResetPassword` menulis tautan ke log server + audit → pengguna membuka
@@ -378,13 +382,15 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** password baru berlaku; tautan kedaluwarsa 1 jam.
 
 #### UC-05 Membuat Organisasi
+
 - **Aktor:** Customer · **Prasyarat:** sesi aktif.
-- **Alur utama:** `/dashboard/organizations` → *Create organization* → isi nama →
+- **Alur utama:** `/dashboard/organizations` → _Create organization_ → isi nama →
   `organization.create` dengan slug unik → Organisasi muncul.
 - **Alur alternatif:** nama menghasilkan slug kosong → validasi menolak.
 - **Kondisi akhir:** Organisasi baru dengan pemohon sebagai `owner`.
 
 #### UC-06 Memilih Organisasi Aktif
+
 - **Aktor:** Customer · **Prasyarat:** menjadi Member minimal satu Organisasi.
 - **Alur utama:** pilih kartu Organisasi → `setActive` → `activeOrganizationId`
   berubah → `router.refresh`.
@@ -392,9 +398,10 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** seluruh data dashboard mengikuti Organisasi aktif.
 
 #### UC-07 Menerima Undangan Organisasi
+
 - **Aktor:** Customer · **Prasyarat:** sesi aktif dan invitation `pending`.
 - **Alur utama:** buka `/invite/[id]` → `getInvitation` menampilkan nama
-  Organisasi dan peran → *Accept* → Member dibuat → audit `member.joined`.
+  Organisasi dan peran → _Accept_ → Member dibuat → audit `member.joined`.
 - **Alur alternatif:** belum login → diarahkan ke login dengan `returnTo`;
   invitation kedaluwarsa → pesan “invalid or expired”.
 - **Kondisi akhir:** keanggotaan baru aktif.
@@ -402,20 +409,23 @@ tetapi tetap dijelaskan satu per satu.
 ### E.2 Modul Organisasi, Tim, dan Kuota
 
 #### UC-08 Memperbarui Identitas Organisasi
+
 - **Aktor:** Customer (`owner`) · **Prasyarat:** Organisasi aktif, peran owner.
-- **Alur utama:** `/dashboard/settings` → ubah nama → *Save* →
+- **Alur utama:** `/dashboard/settings` → ubah nama → _Save_ →
   `organization.update` → audit `organization.updated`.
 - **Alur alternatif:** slug bentrok/format salah → pesan error.
 - **Kondisi akhir:** nama/slug baru tersimpan.
 
 #### UC-09 Mengundang Anggota
+
 - **Aktor:** Customer (`owner`/`admin`) · **Prasyarat:** peran memadai.
-- **Alur utama:** tab Team → *Invite* → email + peran → `inviteMember` →
+- **Alur utama:** tab Team → _Invite_ → email + peran → `inviteMember` →
   tautan `/invite/<id>` berlaku 7 hari.
 - **Alur alternatif:** email sudah menjadi Member Organisasi → ditolak.
 - **Kondisi akhir:** Invitation `pending` dan dapat dibagikan.
 
 #### UC-10 Mengubah Peran Anggota
+
 - **Aktor:** Customer (`owner`/`admin`) · **Prasyarat:** target adalah Member.
 - **Alur utama:** ubah pilihan peran → `PATCH /api/organizations/members/[id]` →
   hanya `admin`/`member` diterima.
@@ -424,32 +434,37 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** peran tersimpan + audit.
 
 #### UC-11 Menghapus Anggota
+
 - **Aktor:** Customer (`owner`) · **Prasyarat:** peran owner.
-- **Alur utama:** *Remove* → konfirmasi → `DELETE /api/organizations/members/[id]`.
+- **Alur utama:** _Remove_ → konfirmasi → `DELETE /api/organizations/members/[id]`.
 - **Alur alternatif:** owner terakhir → `beforeRemoveMember` menolak.
 - **Kondisi akhir:** Member keluar dari Organisasi.
 
 #### UC-12 Membatalkan Undangan
+
 - **Aktor:** Customer (`owner`/`admin`) · **Prasyarat:** ada undangan `pending`.
-- **Alur utama:** *Cancel* → `cancelInvitation` → audit `invitation.cancelled`.
+- **Alur utama:** _Cancel_ → `cancelInvitation` → audit `invitation.cancelled`.
 - **Kondisi akhir:** tautan undangan tidak berlaku.
 
 #### UC-13 Keluar dari Organisasi
+
 - **Aktor:** Customer · **Prasyarat:** Member (bukan owner tunggal).
-- **Alur utama:** *Leave* → `POST /api/organizations/leave` →
+- **Alur utama:** _Leave_ → `POST /api/organizations/leave` →
   `leaveOrganization` → audit `member.left` → Organisasi aktif dialihkan.
 - **Alur alternatif:** owner terakhir → ditolak.
 - **Kondisi akhir:** keanggotaan hilang.
 
 #### UC-14 Menghapus Organisasi
+
 - **Aktor:** Customer (`owner`) · **Prasyarat:** owner, nama Organisasi diketahui.
-- **Alur utama:** *Danger zone* → ketik nama → konfirmasi →
+- **Alur utama:** _Danger zone_ → ketik nama → konfirmasi →
   `deleteOrganizationWithConfirmation` → sesi/undangan/anggota/organisasi dihapus
   dalam satu transaksi.
 - **Alur alternatif:** teks konfirmasi tidak sama → transaksi dibatalkan.
 - **Kondisi akhir:** Organisasi hilang; pengguna masuk alur onboarding.
 
 #### UC-15 Memantau Penggunaan & Kuota
+
 - **Aktor:** Customer · **Prasyarat:** Organisasi aktif.
 - **Alur utama:** buka `/dashboard/usage` → `GET /api/usage` memaksa
   `refreshOrganizationUsage` (membaca `GET /v1/usage` dari Agent sekali untuk
@@ -465,55 +480,62 @@ tetapi tetap dijelaskan satu per satu.
 ### E.3 Modul Project dan Service
 
 #### UC-16 Membuat Project
+
 - **Aktor:** Customer (`owner`/`admin`) · **Prasyarat:** sesi, kuota Project < 3.
-- **Alur utama:** `/dashboard/projects` → *New project* → nama (+slug) →
+- **Alur utama:** `/dashboard/projects` → _New project_ → nama (+slug) →
   `createProject` → audit `project.created`.
 - **Alur alternatif:** kuota penuh → `409 quota_exceeded`; slug tidak valid →
   `400`.
 - **Kondisi akhir:** Project `empty` muncul di daftar.
 
 #### UC-17 Melihat Daftar Project
+
 - **Aktor:** Customer · **Prasyarat:** Organisasi aktif.
 - **Alur utama:** halaman memuat `listProjects` → kartu Project dengan jumlah
   Service/Database dan engine.
 - **Kondisi akhir:** data terbaca; tidak ada perubahan.
 
 #### UC-18 Memperbarui Project
+
 - **Aktor:** Customer (`owner`/`admin`) · **Prasyarat:** Project ada.
-- **Alur utama:** tab *Settings* → ubah nama/slug → *Save Changes* →
+- **Alur utama:** tab _Settings_ → ubah nama/slug → _Save Changes_ →
   `PATCH /api/projects/[id]` → audit `project.updated`.
 - **Alur alternatif:** slug bentrok/format salah → error, data lama tetap.
 - **Kondisi akhir:** Project diperbarui.
 
 #### UC-19 Menghapus Project
+
 - **Aktor:** Customer (`owner`/`admin`) · **Prasyarat:** nama Project diketahui.
-- **Alur utama:** ketik nama → *Delete Permanently* → `deleteProject` → audit
+- **Alur utama:** ketik nama → _Delete Permanently_ → `deleteProject` → audit
   `project.deleted`.
 - **Alur alternatif:** teks tidak sama → `confirmation_mismatch`.
 - **Catatan runtime:** baris Service/Database/Volume/Domain ikut terhapus lewat
   `ON DELETE CASCADE`, tetapi container dan route-nya **tidak** dihapus pada
-  request ini. Instance Server membersihkannya saat *Cleanup*/`reconcile`
+  request ini. Instance Server membersihkannya saat _Cleanup_/`reconcile`
   (container kandidat sisa, image lama, Volume yatim, route yang upstream-nya
   sudah hilang), sehingga node kembali rapi tanpa menunggu Control Plane.
 - **Kondisi akhir:** Project dan turunannya dihapus; sisa runtime dibersihkan
   Agent pada siklus berikutnya.
 
 #### UC-20 Membuat Service
+
 - **Aktor:** Customer (`owner`/`admin`) · **Prasyarat:** Project ada, kuota Service
   (2/Project, 5/Organisasi) tersedia.
-- **Alur utama:** *New Service* → URL repo HTTPS, branch, Dockerfile, port,
+- **Alur utama:** _New Service_ → URL repo HTTPS, branch, Dockerfile, port,
   health path → `createService` → Platform Subdomain unik dibuat → audit.
 - **Alur alternatif:** repo bukan HTTPS/berisi kredensial → ditolak; bentrok
   hostname → dicoba ulang dengan id pendek baru.
 - **Kondisi akhir:** Service `not_deployed` siap di-deploy.
 
 #### UC-21 Melihat Detail Service
+
 - **Aktor:** Customer · **Prasyarat:** Service milik Organisasi.
 - **Alur utama:** buka `/dashboard/services/[id]` → tab Deployments, Environment,
   Domains, Runtime, Settings; penanda `needsRedeploy` bila konfigurasi berubah.
 - **Kondisi akhir:** informasi terbaca.
 
 #### UC-22 Menghapus Service
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
 - **Prasyarat:** nama Service diketahui.
 - **Alur utama:** ketik nama → hapus → baris Service dihapus → Control Plane
@@ -525,10 +547,11 @@ tetapi tetap dijelaskan satu per satu.
 ### E.4 Modul Deployment dan Runtime
 
 #### UC-23 Men-deploy Service
+
 - **Aktor:** Customer (semua peran), Instance Server
 - **Prasyarat:** node sehat (heartbeat segar), tidak ada Deployment aktif, Service
   tidak `suspended`.
-- **Alur utama:** *Deploy* → `triggerDeployment` membuat Deployment `queued` +
+- **Alur utama:** _Deploy_ → `triggerDeployment` membuat Deployment `queued` +
   Build Job → worker mengklaim job → memanggil Agent `/v1/builds` → log Build
   dialirkan → Agent `/v1/deployments` menjalankan container kandidat, health
   check, lalu memindahkan route → Deployment `running`; scan image diantrekan.
@@ -539,37 +562,41 @@ tetapi tetap dijelaskan satu per satu.
   jalan dengan catatan kegagalan.
 
 #### UC-24 Men-deploy Ulang (Redeploy)
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
 - **Prasyarat:** ada Deployment lampau.
-- **Alur utama:** pilih Deployment → *Redeploy* → `redeployDeployment` membuat
+- **Alur utama:** pilih Deployment → _Redeploy_ → `redeployDeployment` membuat
   Deployment baru untuk commit yang sama → bila Build Job diantrekan, alur
   UC-23 berjalan.
 - **Alur alternatif:** commit tidak lagi dapat diambil → Build `failed`.
 - **Kondisi akhir:** Deployment baru dengan commit terpin.
 
 #### UC-25 Membatalkan Deployment
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
 - **Prasyarat:** Deployment `queued`/`building`.
-- **Alur utama:** *Cancel* → `cancelDeployment` → Agent
+- **Alur utama:** _Cancel_ → `cancelDeployment` → Agent
   `/v1/deployments/{id}/cancel` menghentikan build dan membersihkan container
   serta image sisa; route Service yang sudah melayani tidak disentuh.
 - **Alur alternatif:** (a) status sudah `deploying`/`running`/`failed`/
   `cancelled` → `409 deployment_not_cancellable`; (b) Agent tidak terjangkau →
   Deployment tetap ditandai `cancelled` (agar worker tidak membangunnya), sisa
-  container dibersihkan pada *startup Cleanup* Agent.
+  container dibersihkan pada _startup Cleanup_ Agent.
 - **Kondisi akhir:** Deployment `cancelled`; Service kembali `running` bila ada
   Deployment lama yang masih melayani, atau `not_deployed` bila ini percobaan
   pertama.
 
 #### UC-26 Melihat Riwayat & Log Build
+
 - **Aktor:** Customer · **Prasyarat:** ada riwayat Deployment.
 - **Alur utama:** panel Deployments memuat riwayat dan log Build (NDJSON) yang
   disimpan hingga 7 hari.
 - **Kondisi akhir:** riwayat dan log terbaca.
 
 #### UC-27 Menghentikan Service
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
-- **Alur utama:** *Stop* → Control Plane memanggil Agent
+- **Alur utama:** _Stop_ → Control Plane memanggil Agent
   `/v1/services/{id}/stop` → status Service disalin dari Agent (`stopped`) dan
   route berhenti menjawab; container tidak dihapus.
 - **Alur alternatif:** (a) belum ada container → `409 service_not_running`;
@@ -578,24 +605,27 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** container berhenti tanpa dihapus.
 
 #### UC-28 Menjalankan Service
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
-- **Alur utama:** *Start* → Agent `/start` → container yang sama hidup lagi →
+- **Alur utama:** _Start_ → Agent `/start` → container yang sama hidup lagi →
   status Service disalin (`running`).
 - **Alur alternatif:** belum ada container → `409 service_not_running`.
 - **Kondisi akhir:** status `running`.
 
 #### UC-29 Me-restart Service
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
-- **Alur utama:** *Restart* → Agent `/restart` → konfigurasi tidak berubah.
+- **Alur utama:** _Restart_ → Agent `/restart` → konfigurasi tidak berubah.
 - **Alur alternatif:** belum ada container → `409 service_not_running`.
 - **Kondisi akhir:** container dijalankan ulang.
 
 #### UC-30 Melihat Log Runtime
+
 - **Aktor:** Customer, Instance Server
 - **Alur utama:** buka panel log → Control Plane meneruskan `GET` ke Agent
   `/v1/services/{id}/logs?tail=200` (dibatasi maksimum `1000`) → Agent
   mengalirkan baris container sebagai NDJSON (`Content-Type:
-  application/x-ndjson`, `Cache-Control: no-store`) dengan timestamp asli
+application/x-ndjson`, `Cache-Control: no-store`) dengan timestamp asli
   container → panel menyimpan hingga 500 baris; stream ditutup saat panel
   ditutup.
 - **Alur alternatif:** Service belum punya container → `409 service_not_running`
@@ -603,19 +633,21 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** tidak ada perubahan state.
 
 #### UC-31 Mengelola Environment Variable
+
 - **Aktor:** Customer (`owner`/`admin`)
 - **Prasyarat:** Service ada; `ENV_ENCRYPTION_KEY` terpasang untuk penyimpanan.
 - **Catatan aktor:** Instance Server hanya menerima nilai variabel sebagai bagian
   dari Deployment berikutnya (UC-23), sehingga tidak berasosiasi langsung dengan
   use case ini.
 - **Alur utama:** tambah/ubah variabel → nilai disegel (AES) → audit mencatat
-  *key* tanpa nilai → revisi Service naik (`needsRedeploy`). *Reveal* memakai
+  _key_ tanpa nilai → revisi Service naik (`needsRedeploy`). _Reveal_ memakai
   `POST .../reveal` (owner/admin) dan selalu `no-store`.
 - **Alur alternatif:** kunci enkripsi tidak diset → `503 encryption_not_configured`;
   peran `member` → 403.
 - **Kondisi akhir:** variabel tersimpan; nilai baru berlaku setelah Deployment.
 
 #### UC-32 Mengelola Volume
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
 - **Prasyarat:** Service belum punya Volume (maksimal satu).
 - **Alur utama:** tambah Volume (mount path absolut, `sizeMb` 1–1024) → revisi
@@ -632,9 +664,10 @@ tetapi tetap dijelaskan satu per satu.
 ### E.5 Modul Database, Domain, dan Backup
 
 #### UC-33 Menyediakan Database
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
 - **Prasyarat:** Project belum punya Database; kuota 1 Database/Project.
-- **Alur utama:** pilih engine (PostgreSQL 16 default / MySQL 8) → *Provision* →
+- **Alur utama:** pilih engine (PostgreSQL 16 default / MySQL 8) → _Provision_ →
   Control Plane menyegel password → Agent membuat schema+role di server bersama →
   baris Database tersimpan → audit.
 - **Alur alternatif:** Agent gagal → `502 database_provisioning_failed`, baris
@@ -643,6 +676,7 @@ tetapi tetap dijelaskan satu per satu.
   `DATABASE_URL`.
 
 #### UC-34 Melihat Detail Database
+
 - **Aktor:** Customer · **Prasyarat:** Database ada.
 - **Alur utama:** tab Database menampilkan engine, versi, storage terpakai/limit,
   hostname privat, status phpMyAdmin (MySQL). Anggota `member` tidak menerima
@@ -650,20 +684,23 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** informasi terbaca.
 
 #### UC-35 Menampilkan Password Database
+
 - **Aktor:** Customer (`owner`/`admin`) · **Prasyarat:** Database ada.
-- **Alur utama:** *Reveal* → `GET .../database/password` → password didekripsi →
+- **Alur utama:** _Reveal_ → `GET .../database/password` → password didekripsi →
   audit `database.password_revealed` (nilai tidak dicatat).
 - **Alur alternatif:** peran member → 403.
 - **Kondisi akhir:** password tampil sementara di klien.
 
 #### UC-36 Merotasi Kredensial Database
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
-- **Alur utama:** *Rotate Password* → buat password acak → Agent
+- **Alur utama:** _Rotate Password_ → buat password acak → Agent
   `/v1/databases/{id}/rotate` → nilai tersegel diganti → audit.
 - **Alur alternatif:** Database tidak berjalan → `409 database_not_running`.
 - **Kondisi akhir:** password lama tidak berlaku; Service perlu redeploy.
 
 #### UC-37 Menghapus Database
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
 - **Prasyarat:** nama Project diketahui.
 - **Alur utama:** ketik nama Project → hapus → Agent menghapus schema+role →
@@ -673,9 +710,10 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** Database hilang; `DATABASE_URL` dihapus pada deploy berikutnya.
 
 #### UC-38 Membuka phpMyAdmin
+
 - **Aktor:** Customer (`owner`/`admin`, MySQL)
 - **Prasyarat:** engine MySQL, `phpMyAdmin.enabled` benar untuk Database tersebut.
-- **Alur utama:** *Open phpMyAdmin* → `POST .../database/phpmyadmin` menerbitkan
+- **Alur utama:** _Open phpMyAdmin_ → `POST .../database/phpmyadmin` menerbitkan
   token bertanda tangan 60 detik sekali pakai dan mengembalikan
   `https://<pma-host>/_sso?token=…` → Control Plane memverifikasi token, membaca
   kredensial tenant, login ke phpMyAdmin di sisi server → cookie `__Secure-*`
@@ -686,6 +724,7 @@ tetapi tetap dijelaskan satu per satu.
   browser; password tidak pernah dikirim ke klien.
 
 #### UC-39 Menambahkan Custom Domain
+
 - **Aktor:** Customer (`owner`/`admin`) · **Prasyarat:** Service ada.
 - **Alur utama:** tambah hostname → baris `pending` + token verifikasi + instruksi
   TXT/CNAME.
@@ -694,9 +733,10 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** domain `pending`.
 
 #### UC-40 Memverifikasi Custom Domain
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
 - **Prasyarat:** record TXT sudah dipublikasikan, Service berjalan.
-- **Alur utama:** *Verify* → cek TXT `_stealth-verify.<host>` dan resolusi DNS →
+- **Alur utama:** _Verify_ → cek TXT `_stealth-verify.<host>` dan resolusi DNS →
   Agent `PUT /v1/services/{id}/hostnames/{host}` → status `active`, sertifikat
   `issued`.
 - **Alur alternatif:** TXT/DNS salah → status `failed` + alasan (HTTP 200, bukan
@@ -704,6 +744,7 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** domain melayani trafik dengan TLS.
 
 #### UC-41 Menghapus Custom Domain
+
 - **Aktor:** Customer (`owner`/`admin`)
 - **Alur utama:** hapus → Control Plane meminta Agent menghapus route lebih dulu
   → baris hilang → audit.
@@ -712,22 +753,25 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** domain tidak lagi diarahkan.
 
 #### UC-42 Melihat Daftar Backup
+
 - **Aktor:** Customer · **Prasyarat:** Organisasi aktif.
 - **Alur utama:** buka `/dashboard/backups` → daftar Backup Database, Volume, dan
   platform + status + masa berlaku (7 hari) + jenis storage.
 - **Kondisi akhir:** informasi terbaca.
 
 #### UC-43 Memulihkan Backup
+
 - **Aktor:** Customer (`owner`/`admin`), Instance Server
 - **Prasyarat:** Backup `completed`, artifact tersedia, target bukan `platform`.
-- **Alur utama:** *Restore* → ketik nama target → `createRestore` membuat Restore
-  + Job → worker: hentikan Service terkait → Agent `/v1/restores/{id}` →
-  nyalakan kembali.
+- **Alur utama:** _Restore_ → ketik nama target → `createRestore` membuat Restore
+  - Job → worker: hentikan Service terkait → Agent `/v1/restores/{id}` →
+    nyalakan kembali.
 - **Alur alternatif:** nama salah → `confirmation_mismatch`; backup platform →
   `backup_not_restorable`; backup belum selesai → `409`.
 - **Kondisi akhir:** data dipulihkan; Service kembali berjalan.
 
 #### UC-44 Melihat Status Restore
+
 - **Aktor:** Customer · **Prasyarat:** ada Restore.
 - **Alur utama:** panel menampilkan `pending`/`running`/`completed`/`failed` dan
   pesan kegagalan.
@@ -736,6 +780,7 @@ tetapi tetap dijelaskan satu per satu.
 ### E.6 Layanan Publik
 
 #### UC-45 Melaporkan Konten Abuse
+
 - **Aktor:** Pengunjung Publik · **Prasyarat:** tidak perlu sesi.
 - **Alur utama:** `/abuse-report` → URL target (maks. 2048 karakter), kategori
   (`malware`/`phishing`/`spam`/`copyright`/`other`), deskripsi (maks. 5000
@@ -750,18 +795,21 @@ tetapi tetap dijelaskan satu per satu.
 ### E.7 Admin Console (Platform Admin)
 
 #### UC-46 Melihat Overview Platform
+
 - **Aktor:** Platform Admin · **Prasyarat:** email terdaftar admin.
 - **Alur utama:** `/admin` → kesehatan api/postgres/redis/agent, jumlah operasi,
   Deployment terbaru lintas Project.
 - **Kondisi akhir:** ringkasan terbaca.
 
 #### UC-47 Memantau Infrastruktur
+
 - **Aktor:** Platform Admin
 - **Alur utama:** `/admin/infrastructure` menampilkan node, worker, dan grafik
   resource dari sampel metrik host.
 - **Kondisi akhir:** informasi terbaca.
 
 #### UC-48 Menelusuri Log, Trace & Error
+
 - **Aktor:** Platform Admin
 - **Alur utama:** `/admin/logs` membaca tail `build_log` lewat
   `GET /api/admin/telemetry/logs` (filter `from`/`to`/`service`/`query`/level,
@@ -774,6 +822,7 @@ tetapi tetap dijelaskan satu per satu.
   tetapi belum tersimpan.
 
 #### UC-49 Melihat Antrean & Agent Run
+
 - **Aktor:** Platform Admin · **Alur utama:** `/admin/workers` (Execution Queue) dan
   `/admin/runs` (Agent Runs) menampilkan job/operasi durable lintas Organisasi
   dengan filter waktu; `/admin/usage` merangkum beban kerja control-plane
@@ -781,6 +830,7 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** informasi terbaca.
 
 #### UC-50 Mengelola Insiden
+
 - **Aktor:** Platform Admin
 - **Alur utama:** buat insiden (judul, severity `info`/`warning`/`critical`,
   status, Service terkait, pesan) → ubah status (`investigating`→`identified`→
@@ -789,23 +839,27 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** insiden tercatat dan tampil di Status Page.
 
 #### UC-51 Melihat Daftar Akun
+
 - **Aktor:** Platform Admin · **Alur utama:** `/admin/users` menampilkan akun,
   status verifikasi, provider, sign-in terakhir, plan (`free`).
 - **Kondisi akhir:** informasi terbaca. Perubahan plan hanya diakui (belum ada
   kolom plan).
 
 #### UC-52 Meninjau Scan Findings
+
 - **Aktor:** Platform Admin · **Alur utama:** `/admin/findings` menampilkan temuan
   Trivy/ClamAV per Deployment, filter urgensi/severity.
-- **Kondisi akhir:** informasi terbaca; pemindaian bersifat *advisory* (tidak
+- **Kondisi akhir:** informasi terbaca; pemindaian bersifat _advisory_ (tidak
   menangguhkan Service).
 
 #### UC-53 Menangani Abuse Report
+
 - **Aktor:** Platform Admin · **Alur utama:** `/admin/abuse-reports` → ubah status
   `new`/`triaged`/`resolved`/`dismissed` → audit platform.
 - **Kondisi akhir:** laporan tertangani.
 
 #### UC-54 Menangguhkan Service/Organisasi
+
 - **Aktor:** Platform Admin
 - **Prasyarat:** Platform Admin.
 - **Alur utama:** suspend Service → Agent `/v1/services/{id}/suspend` memasang
@@ -813,13 +867,14 @@ tetapi tetap dijelaskan satu per satu.
   semua Service-nya disuspensi. Unsuspend mengembalikan status sebelumnya dan
   menyalakan container hanya bila status sebelumnya `running`.
 - **Alur alternatif:** (a) Agent gagal → `502 agent_unavailable` dan transaksi
-  di-*rollback* sehingga status tidak berubah; (b) Service belum punya container
+  di-_rollback_ sehingga status tidak berubah; (b) Service belum punya container
   (Agent menjawab 404) → tetap dianggap berhasil karena tidak ada route untuk
   disuspensi; (c) unsuspend Service saat Organisasi masih tersuspensi →
   `409 organization_suspended`.
 - **Kondisi akhir:** resource tidak melayani publik (503 administratif).
 
 #### UC-55 Mengatur Provider Sign-in & Status Page
+
 - **Aktor:** Platform Admin
 - **Alur utama:** `/admin/settings` menyimpan client ID/secret GitHub/Google
   (secret terenkripsi, write-only); `/admin/providers` menampilkan katalog (kosong);
@@ -830,6 +885,7 @@ tetapi tetap dijelaskan satu per satu.
 ### E.8 Runtime Node
 
 #### UC-56 Mengirim Heartbeat Node
+
 - **Aktor:** Instance Server · **Prasyarat:** `AGENT_TOKEN` sama di kedua sisi.
 - **Alur utama:** Agent setiap 30 detik → `POST /api/nodes/heartbeat` dengan
   bearer token → Control Plane memverifikasi hash token → memperbarui `node`.
@@ -839,8 +895,9 @@ tetapi tetap dijelaskan satu per satu.
 - **Kondisi akhir:** status dan kapasitas node terkini.
 
 #### UC-57 Meminta Otorisasi Sertifikat TLS
+
 - **Aktor:** Instance Server · **Prasyarat:** `AGENT_TOKEN` pada query string.
-- **Alur utama:** Caddy *on-demand TLS* pada node memanggil
+- **Alur utama:** Caddy _on-demand TLS_ pada node memanggil
   `GET /api/internal/caddy/ask?token=…&domain=…` → Control Plane memeriksa token
   lalu `isCertificateHostnameAllowed` → `200 {allowed:true}` hanya untuk Platform
   Subdomain, Custom Domain berstatus `active`, hostname phpMyAdmin MySQL, atau
@@ -857,19 +914,19 @@ tetapi tetap dijelaskan satu per satu.
 
 Asosiasi dipakai untuk setiap interaksi langsung. Perhatikan bahwa **Customer
 berasosiasi dengan use case yang memiliki syarat peran berbeda**; syarat peran
-tidak digambarkan sebagai aktor tambahan, melainkan sebagai *precondition* pada
+tidak digambarkan sebagai aktor tambahan, melainkan sebagai _precondition_ pada
 Bagian E. Alasannya: `owner`, `admin`, dan `member` adalah peran di dalam satu
 aktor (Customer), bukan pengguna berbeda di luar sistem.
 
 Asosiasi Instance Server sengaja dibatasi pada use case yang mengubah keadaan di
 node:
 
-| Kelompok | Use case |
-|---|---|
-| Dipicu Node Agent sendiri | UC-56, UC-57 |
+| Kelompok                       | Use case                                               |
+| ------------------------------ | ------------------------------------------------------ |
+| Dipicu Node Agent sendiri      | UC-56, UC-57                                           |
 | Container, route, dan suspensi | UC-22, UC-23, UC-24, UC-25, UC-27, UC-28, UC-29, UC-54 |
-| Log dan penyimpanan | UC-30 (stream log container), UC-32 (Volume) |
-| Database, domain, dan Backup | UC-33, UC-36, UC-37, UC-40, UC-41, UC-43 |
+| Log dan penyimpanan            | UC-30 (stream log container), UC-32 (Volume)           |
+| Database, domain, dan Backup   | UC-33, UC-36, UC-37, UC-40, UC-41, UC-43               |
 
 Use case baca-saja — UC-26 (log Build dari PostgreSQL), UC-34, UC-42, UC-44 —
 tidak diasosiasikan dengan Node Agent. UC-31 (Environment Variable) juga tidak,
@@ -879,8 +936,8 @@ karena nilainya baru dikirim Agent saat UC-23 berjalan.
 
 Dipakai hanya bila suatu use case **selalu** menjalankan use case lain:
 
-| Sumber | Tujuan | Alasan |
-|---|---|---|
+| Sumber                  | Tujuan                  | Alasan                                             |
+| ----------------------- | ----------------------- | -------------------------------------------------- |
 | UC-07 Menerima Undangan | UC-02 Masuk ke Aplikasi | Penerimaan undangan selalu memerlukan sesi tertaut |
 
 ### F.3 `<<extend>>`
@@ -888,16 +945,16 @@ Dipakai hanya bila suatu use case **selalu** menjalankan use case lain:
 Dipakai hanya untuk perilaku **opsional/bersyarat** yang memperluas use case
 dasar pada titik yang jelas:
 
-| Sumber | Tujuan | Kondisi perluasan |
-|---|---|---|
-| UC-35 Menampilkan Password Database | UC-34 Melihat Detail Database | Password hanya diminta bila pengguna menekan *Reveal* |
-| UC-40 Memverifikasi Custom Domain | UC-39 Menambahkan Custom Domain | Verifikasi hanya dijalankan setelah record DNS siap |
-| UC-25 Membatalkan Deployment | UC-23 Men-deploy Service | Pembatalan hanya tersedia selama Deployment aktif |
+| Sumber                              | Tujuan                          | Kondisi perluasan                                     |
+| ----------------------------------- | ------------------------------- | ----------------------------------------------------- |
+| UC-35 Menampilkan Password Database | UC-34 Melihat Detail Database   | Password hanya diminta bila pengguna menekan _Reveal_ |
+| UC-40 Memverifikasi Custom Domain   | UC-39 Menambahkan Custom Domain | Verifikasi hanya dijalankan setelah record DNS siap   |
+| UC-25 Membatalkan Deployment        | UC-23 Men-deploy Service        | Pembatalan hanya tersedia selama Deployment aktif     |
 
 Relasi yang **sengaja tidak** dipakai: `UC-24 Redeploy → UC-23` sebagai
 `include` (redeploy membuat Deployment baru tetapi bukan bagian wajib alur deploy
 biasa), dan asosiasi Service→Project sebagai `include` (Project adalah
-*precondition*, bukan langkah yang selalu dieksekusi).
+_precondition_, bukan langkah yang selalu dieksekusi).
 
 ### F.4 Generalisasi
 
@@ -922,7 +979,7 @@ case lain di implementasi; memaksakannya akan menyimpang dari kode.
    sebagai stick figure di dalam system boundary, melainkan di luarnya — sesuai
    aturan UML untuk aktor sistem eksternal.
 3. **Alur ujung-ke-ujung** untuk fitur inti berjalan seperti ini:
-   Customer membuat Project → Service → menekan *Deploy* → Control Plane menulis
+   Customer membuat Project → Service → menekan _Deploy_ → Control Plane menulis
    Deployment + Build Job → **worker** (internal, bukan aktor) mengklaim job →
    memanggil **Instance Server** untuk Build → Instance Server membangun image dan
    menjalankan container → Control Plane memindahkan route di Caddy dan mencatat
@@ -941,18 +998,18 @@ case lain di implementasi; memaksakannya akan menyimpang dari kode.
 
 ## Lampiran — Peta Use Case ke Berkas Implementasi
 
-| Use Case | Berkas kunci |
-|---|---|
-| UC-01…UC-07 | `components/auth-form.tsx`, `lib/auth-config.ts`, `database/migrations/0003_personal_organization.sql`, `app/invite/**` |
-| UC-08…UC-14 | `app/dashboard/settings/page.tsx`, `app/dashboard/members/page.tsx`, `app/api/organizations/**`, `lib/platform/organization-management.ts` |
-| UC-15 | `app/dashboard/usage/page.tsx`, `app/api/usage/route.ts`, `lib/platform/usage.ts`, `quota.ts` |
-| UC-16…UC-22 | `app/dashboard/projects/**`, `app/dashboard/services/**`, `app/api/projects/**`, `app/api/services/**`, `lib/platform/projects.ts`, `services.ts` |
-| UC-23…UC-26 | `lib/platform/deployments.ts`, `worker/index.mts`, `lib/agent-client.ts`, `contracts/agent.openapi.yaml` |
-| UC-27…UC-30 | `app/api/services/[serviceId]/{start,stop,restart,runtime,logs}/route.ts`, `lib/platform/runtime.ts` |
-| UC-31, UC-32 | `lib/platform/environment-variables.ts`, `volumes.ts`, `secrets.ts`, `revisions.ts` |
-| UC-33…UC-38 | `lib/platform/databases.ts`, `phpmyadmin-sso.ts`, `app/api/projects/[projectId]/database/**` |
-| UC-39…UC-41 | `lib/platform/custom-domains.ts`, `app/dashboard/domains/page.tsx`, `app/api/services/[serviceId]/custom-domain/**` |
-| UC-42…UC-44 | `lib/platform/backups.ts`, `restores.ts`, `app/dashboard/backups/page.tsx` |
-| UC-45 | `app/abuse-report/page.tsx`, `app/api/abuse-reports/route.ts`, `lib/platform/abuse.ts` |
-| UC-46…UC-55 | `app/admin/**`, `features/admin/**`, `app/api/admin/**`, `lib/platform/admin-*.ts`, `suspensions.ts`, `scans.ts` |
-| UC-56, UC-57 | `agent/internal/heartbeat/sender.go`, `app/api/nodes/heartbeat/route.ts`, `app/api/internal/caddy/ask/route.ts`, `lib/platform/nodes.ts` |
+| Use Case     | Berkas kunci                                                                                                                                      |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| UC-01…UC-07  | `components/auth-form.tsx`, `lib/auth-config.ts`, `database/migrations/0003_personal_organization.sql`, `app/invite/**`                           |
+| UC-08…UC-14  | `app/dashboard/settings/page.tsx`, `app/dashboard/members/page.tsx`, `app/api/organizations/**`, `lib/platform/organization-management.ts`        |
+| UC-15        | `app/dashboard/usage/page.tsx`, `app/api/usage/route.ts`, `lib/platform/usage.ts`, `quota.ts`                                                     |
+| UC-16…UC-22  | `app/dashboard/projects/**`, `app/dashboard/services/**`, `app/api/projects/**`, `app/api/services/**`, `lib/platform/projects.ts`, `services.ts` |
+| UC-23…UC-26  | `lib/platform/deployments.ts`, `worker/index.mts`, `lib/agent-client.ts`, `contracts/agent.openapi.yaml`                                          |
+| UC-27…UC-30  | `app/api/services/[serviceId]/{start,stop,restart,runtime,logs}/route.ts`, `lib/platform/runtime.ts`                                              |
+| UC-31, UC-32 | `lib/platform/environment-variables.ts`, `volumes.ts`, `secrets.ts`, `revisions.ts`                                                               |
+| UC-33…UC-38  | `lib/platform/databases.ts`, `phpmyadmin-sso.ts`, `app/api/projects/[projectId]/database/**`                                                      |
+| UC-39…UC-41  | `lib/platform/custom-domains.ts`, `app/dashboard/domains/page.tsx`, `app/api/services/[serviceId]/custom-domain/**`                               |
+| UC-42…UC-44  | `lib/platform/backups.ts`, `restores.ts`, `app/dashboard/backups/page.tsx`                                                                        |
+| UC-45        | `app/abuse-report/page.tsx`, `app/api/abuse-reports/route.ts`, `lib/platform/abuse.ts`                                                            |
+| UC-46…UC-55  | `app/admin/**`, `features/admin/**`, `app/api/admin/**`, `lib/platform/admin-*.ts`, `suspensions.ts`, `scans.ts`                                  |
+| UC-56, UC-57 | `agent/internal/heartbeat/sender.go`, `app/api/nodes/heartbeat/route.ts`, `app/api/internal/caddy/ask/route.ts`, `lib/platform/nodes.ts`          |

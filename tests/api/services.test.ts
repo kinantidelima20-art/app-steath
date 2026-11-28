@@ -489,14 +489,8 @@ describe("Service configuration", () => {
   });
 
   it("isolates Services between Organizations", async () => {
-    const first = await signUp(
-      uniqueName("svcorga") + "@example.test",
-      uniqueName("svcorga"),
-    );
-    const second = await signUp(
-      uniqueName("svcorgb") + "@example.test",
-      uniqueName("svcorgb"),
-    );
+    const first = await signUp(uniqueName("svcorga") + "@example.test", uniqueName("svcorga"));
+    const second = await signUp(uniqueName("svcorgb") + "@example.test", uniqueName("svcorgb"));
     const project = await createProject(first.cookie, "Organization A");
     const service = await createService(first.cookie, project.id);
 

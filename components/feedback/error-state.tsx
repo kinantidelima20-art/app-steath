@@ -21,16 +21,11 @@ export function errorMessage(error: unknown) {
   if (error instanceof Error) {
     if (error.message.startsWith("401"))
       return "Your session has expired. Sign in again to continue.";
-    if (error.message.startsWith("403"))
-      return "You do not have permission to view this resource.";
-    if (error.message.startsWith("404"))
-      return "This resource could not be found.";
+    if (error.message.startsWith("403")) return "You do not have permission to view this resource.";
+    if (error.message.startsWith("404")) return "This resource could not be found.";
     if (error.message.startsWith("409"))
       return `This change conflicts with the current resource state. ${error.message}`;
-    if (
-      error.message.startsWith("400") ||
-      error.message.startsWith("422")
-    )
+    if (error.message.startsWith("400") || error.message.startsWith("422"))
       return `The API rejected this request. ${error.message}`;
     if (error.message.startsWith("429"))
       return "The API is rate limiting requests. Try again shortly.";
@@ -65,9 +60,7 @@ export function ErrorState({
         <AlertTriangle className="size-4" aria-hidden="true" /> {title}
       </div>
       <div className="flex flex-wrap items-center gap-3 pt-2">
-        <p className="m-0 text-[13px] text-[var(--projects-muted)]">
-          {errorMessage(error)}
-        </p>
+        <p className="m-0 text-[13px] text-[var(--projects-muted)]">{errorMessage(error)}</p>
         {retry ? (
           <button
             type="button"
